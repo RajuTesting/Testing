@@ -77,7 +77,7 @@ public class MDMEcomCustCronjob extends AbstractJobPerformable<MDMEcomCustCronJo
 	private final CommonHelper commonHelper = CommonHelper.getInstance();
 
 	/**Common Date format for publishing data to Queue**/
-	private static final String COMMON_PUBLISH_DATE_FORMAT = "MM/dd/YYYY";
+	private static final String COMMON_PUBLISH_DATE_FORMAT = "MM/dd/YYYYy";
 
 	private static final String YES = "YES";
 

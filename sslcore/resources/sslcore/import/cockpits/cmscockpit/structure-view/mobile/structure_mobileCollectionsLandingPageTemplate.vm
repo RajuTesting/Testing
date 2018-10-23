@@ -1,0 +1,62 @@
+<div>
+	<table width="100%" cellspacing="0" style="margin:0;padding:0;table-layout:auto;border:1px solid #1E4EBF;">
+		<tbody>
+			<tr>
+				<td colspan="6" class="structureViewSection">
+					<cockpit code="MobileCollectionsHeaderCarousel"/>
+				</td>
+			</tr>
+
+			<tr>
+				<td colspan="6" class="structureViewSection">
+					<cockpit code="MobileCollectionsSection1BannerSlot"/>
+				</td>
+			</tr>
+
+			<tr>
+				<td colspan="6" class="structureViewSection">
+					<cockpit code="MobileCollectionsSection1ItemsComponentSlot"/>
+				</td>
+			</tr>
+
+			<tr>
+				<td colspan="6" class="structureViewSection">
+					<cockpit code="MobileCollectionsSection2BannerSlot"/>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="6" class="structureViewSection">
+					<cockpit code="MobileCollectionsSection2ItemsComponentSlot"/>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="6" class="structureViewSection">
+					<cockpit code="MobileCollectionsSection3BannerSlot"/>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="6" class="structureViewSection">
+					<cockpit code="MobileCollectionsSection3ItemsComponentSlot"/>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="6" class="structureViewSection">
+					<cockpit code="MobileCollectionsSection4BannerSlot"/>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="6" class="structureViewSection">
+					<cockpit code="MobileCollectionsSection4ItemsComponentSlot"/>
+				</td>
+			</tr>
+			<tr>
+                <td colspan="6" class="structureViewSection">
+                    <cockpit code="MobileCollectionsVideosSlot"/>
+                </td>
+            </tr>
+		</tbody>
+	</table>
+	<div style="width:100%; border-top: 2px solid #bbb" class="cmsContentEditor">
+		<cockpit code="editor" />
+	</div>
+</div>

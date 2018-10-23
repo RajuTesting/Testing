@@ -1,0 +1,74 @@
+## messageSource=classpath:/sslcore/messages/email-submitFeedback_$lang.properties
+#macro(genHtmlLinkStartTag $url)
+<a href="$url"><font color="#666666">
+#end
+#macro(genHtmlLinkEndTag)
+</font></a>
+#end
+#macro(genHtmlLink $url $textColor $bodyContent)
+<a href="$url"><font color="$textColor">$bodyContent</font></a>
+#end
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta  name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0," />
+        <title>*|MC:SUBJECT|*</title>
+        <style type="text/css">
+			
+            @media only screen and (max-width: 568px){
+				
+				*{margin:0; padding:0;}
+				
+				.fullWidth { width: 100% !important; max-width: 640px !important;}
+				.pad-10{ padding: 0 10px !important;}
+				.imgWidth{ width: 50%;}
+				.display_none{ display: none !important;}
+				.column{width: 100%;max-width: 100% !important; display: inline-block;vertical-align: top;}
+				.prod_det .column{width: 100%;max-width: 100% !important; display: inline-block;vertical-align: top;}
+			}
+		</style>
+    </head>
+	
+    <body>
+		<table>
+			<tr>
+				<td>
+					<p>&lt;${ctx.messages.firstNameTag}&gt;${ctx.firstName}&lt;/${ctx.messages.firstNameTag}&gt;</p>															
+				</td>											
+			</tr>
+			<tr>
+				<td>
+					<p>&lt;${ctx.messages.lastNameTag}&gt;${ctx.lastName}&lt;/${ctx.messages.lastNameTag}&gt;</p>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<p>&lt;${ctx.messages.mobileTag}&gt;${ctx.mobile}&lt;/${ctx.messages.mobileTag}&gt;</p>															
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<p>&lt;${ctx.messages.mailTag}&gt;${ctx.mailID}&lt;/${ctx.messages.mailTag}&gt;</p>															
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<p>&lt;${ctx.messages.orderTag}&gt;${ctx.orderNumber}&lt;/${ctx.messages.orderTag}&gt;</p>															
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<p>&lt;${ctx.messages.categoryTag}&gt;${ctx.issueCategory}&lt;/${ctx.messages.categoryTag}&gt;</p>															
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<p>&lt;${ctx.messages.commentTag}&gt;${ctx.comment}&lt;/${ctx.messages.commentTag}&gt;</p>															
+				</td>
+			</tr>
+		</table>
+    </body>
+</html>

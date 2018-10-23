@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process xmlns="http://www.hybris.de/xsd/processdefinition" start="generateAbandonedBusinessEmail" name="sendAbandonedBusinessEmailProcess"
+		processClass="de.hybris.platform.commerceservices.model.process.StoreFrontCustomerProcessModel" onError="error">
+	
+	<!-- SSLM-3389 Starts : Added new Send Email Action as Abandoned Business Email Action -->
+	<action id="generateAbandonedBusinessEmail" bean="generateAbandonedBusinessEmail">
+		<transition name="OK" to="sendAbandonedBusinessEmail"/>
+		<transition name="NOK" to="error"/>
+	</action>
+
+	<action id="sendAbandonedBusinessEmail" bean="sendAbandonedBusinessEmail">
+		<transition name="OK" to="removeSentEmail"/>
+		<transition name="NOK" to="failed"/>
+	</action>
+	<!-- <action id="sendEmail" bean="sendEmail">
+		<transition name="OK" to="removeSentEmail"/>
+		<transition name="NOK" to="failed"/>
+	</action> -->
+	
+	<!-- SSLM-3389 Ends -->
+
+	<action id="removeSentEmail" bean="removeSentEmail">
+		<transition name="OK" to="success"/>
+		<transition name="NOK" to="error"/>
+	</action>
+	
+	<end id="error" state="ERROR">Something went wrong.</end>
+	<end id="failed" state="FAILED">Could not send forgotten password email.</end>
+	<end id="success" state="SUCCEEDED">Sent forgotten password email.</end>
+
+</process>

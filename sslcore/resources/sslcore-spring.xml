@@ -1,0 +1,3246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- [y] hybris Platform Copyright (c) 2000-2015 hybris AG All rights reserved. 
+	This software is the confidential and proprietary information of hybris ("Confidential 
+	Information"). You shall not disclose such Confidential Information and shall 
+	use it only in accordance with the terms of the license agreement you entered 
+	into with hybris. -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+
+	<context:annotation-config />
+	<context:component-scan
+		base-package="de.hybris.platform.cuppytrail,com.borngroup.ssl.core.crm, com.ssl.core.mms" />
+
+
+    <!-- Spring Integration -->
+    <import
+		resource="classpath:/sslcore/integration/hot-folder-store-ssl-spring.xml" />
+	<import resource="classpath:/sslcore/integration/hot-folder-common-spring.xml" />
+
+    <!-- SystemSetup for the SslCore -->
+    <bean id="acceleratorCoreSystemSetup" class="com.borngroup.ssl.core.setup.CoreSystemSetup"
+		parent="abstractCoreSystemSetup" />
+
+    <!-- Solr field value providers -->
+
+    <bean id="sslCategorySource" parent="abstractCategorySource">
+		<property name="rootCategory" value="categories" />
+        <!-- 'categories' is the root apparel category -->
+    </bean>
+    <bean id="sslBrandCategorySource" parent="abstractCategorySource">
+		<property name="rootCategory" value="brands" />
+        <!-- 'brands' is the root of the brands hierarchy -->
+    </bean>
+    <bean id="sslCollectionCategorySource" parent="abstractCategorySource">
+		<property name="rootCategory" value="collections" /> <!-- 'collections' is the root of the collections hierarchy -->
+    </bean>
+
+    <bean id="abstractCategoryCodeValueProvider" abstract="true"
+          class="de.hybris.platform.commerceservices.search.solrfacetsearch.provider.impl.CategoryCodeValueProvider"
+          parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+		<property name="commonI18NService" ref="commonI18NService" />
+    </bean>
+    <bean id="abstractCategoryNameValueProvider" abstract="true"
+          class="de.hybris.platform.commerceservices.search.solrfacetsearch.provider.impl.CategoryNameValueProvider"
+          parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+		<property name="commonI18NService" ref="commonI18NService" />
+    </bean>
+
+	<alias name="sslProductModelUrlResolver" alias="productModelUrlResolver" />
+    <bean id="sslProductModelUrlResolver"
+          class="com.borngroup.ssl.core.services.url.impl.SSLProductModelUrlResolver">
+		<property name="defaultPattern" value="/{product-name}/p-{product-code}" />
+		<property name="threadContextService" ref="threadContextService" />
+		<property name="commerceCategoryService" ref="commerceCategoryService" />
+		<property name="baseSiteService" ref="baseSiteService" />
+    </bean>
+
+	<alias name="sslCategoryModelUrlResolver" alias="categoryModelUrlResolver" />
+    <bean id="sslCategoryModelUrlResolver"
+          class="com.borngroup.ssl.core.services.url.impl.SSLCategoryModelUrlResolver">
+		<property name="threadContextService" ref="threadContextService" />
+		<property name="commerceCategoryService" ref="commerceCategoryService" />
+		<property name="baseSiteService" ref="baseSiteService" />
+		<property name="pattern" value="/{category-path}/c-{category-code}" />
+    </bean>
+
+	<alias name="sslInStockValueProvider" alias="productInStockFlagValueProvider" />
+    <bean id="sslInStockValueProvider"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.provider.impl.SSLInStockValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+		<property name="commerceStockService" ref="commerceStockService" />
+    </bean>
+
+	<alias name="sslGenericProductBooleanFieldsValueProvider" alias="productBooleanFlagsValueProvider" />
+    <bean id="sslGenericProductBooleanFieldsValueProvider"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.provider.impl.SSLGenericProductBooleanFieldsFacetValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+		<property name="promotionsService" ref="promotionsService" />
+    </bean>
+    <bean id="sslCategoryCodeValueProvider"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.provider.impl.SSLCategoryCodeValueProvider"
+          parent="abstractCategoryCodeValueProvider">
+		<property name="categorySource" ref="sslCategorySource" />
+    </bean>
+    <bean id="sslCommerceClassificationPropertyValueProvider"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.provider.impl.SslCommerceClassificationPropertyValueProvider"
+          parent="commerceClassificationPropertyValueProvider">
+
+    </bean>
+    <bean id="sslBrandCategoryCodeValueProvider" parent="abstractCategoryCodeValueProvider">
+		<property name="categorySource" ref="sslBrandCategorySource" />
+    </bean>
+    <bean id="sslCollectionCategoryCodeValueProvider" parent="abstractCategoryCodeValueProvider">
+		<property name="categorySource" ref="sslCollectionCategorySource" />
+    </bean>
+    <bean id="sslCategoryNameValueProvider"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.provider.impl.SSLCategoryNameValueProvider"
+          parent="abstractCategoryNameValueProvider">
+		<property name="categorySource" ref="sslCategorySource" />
+    </bean>
+    <bean id="sslBrandCategoryNameValueProvider" parent="abstractCategoryNameValueProvider">
+		<property name="categorySource" ref="sslBrandCategorySource" />
+    </bean>
+    <bean id="sslCollectionCategoryNameValueProvider" parent="abstractCategoryNameValueProvider">
+		<property name="categorySource" ref="sslCollectionCategorySource" />
+    </bean>
+
+    <bean id="sslImageValueProvider" abstract="true"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.provider.impl.SslImageValueProvider">
+		<property name="mediaService" ref="mediaService" />
+		<property name="mediaContainerService" ref="mediaContainerService" />
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+    </bean>
+
+    <!-- SSL specific image formats for PLP page -->
+    <bean id="image30ValueProvider" parent="sslImageValueProvider">
+		<property name="mediaFormat" value="30Wx30H" />
+    </bean>
+    <bean id="image136ValueProvider" parent="sslImageValueProvider">
+		<property name="mediaFormat" value="136Wx204H" />
+    </bean>
+    <bean id="image276ValueProvider" parent="sslImageValueProvider">
+		<property name="mediaFormat" value="276Wx400H" />
+    </bean>
+    <bean id="image230ValueProvider" parent="sslImageValueProvider">
+		<property name="mediaFormat" value="230Wx334H" />
+    </bean>
+
+    <bean id="sslBrandCodeValueProvider" parent="abstractPropertyFieldValueProvider"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.provider.impl.SSLBrandCodeValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+    </bean>
+
+    <bean id="europe1.manager"
+          class="com.borngroup.ssl.core.order.price.ExtendedEurope1PriceFactory"
+          init-method="init" destroy-method="destroy">
+		<property name="retrieveChannelStrategy" ref="retrieveChannelStrategy" />
+		<property name="modelService" ref="modelService" />
+    </bean>
+
+    <bean id="productUrlValueProvider"
+          class="de.hybris.platform.commerceservices.search.solrfacetsearch.provider.impl.ProductUrlValueProvider"
+          parent="abstractPropertyFieldValueProvider">
+		<property name="urlResolver" ref="productModelUrlResolver" />
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+		<property name="i18nService" ref="i18nService" />
+		<property name="commonI18NService" ref="commonI18NService" />
+    </bean>
+
+    <!-- SSLM-251 Starts -->
+    <bean id="promotionCodeValueProvider"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.provider.impl.PromotionCodeValueProvider"
+          parent="abstractPropertyFieldValueProvider">
+		<property name="promotionsService" ref="promotionsService" />
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+		<property name="voucherService" ref="voucherService" />
+    </bean>
+    <!-- SSLM-251 Ends -->
+
+    <!-- 	ECD-1190 Starts -->
+    <bean id="promotionsNameValueProvider"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.provider.impl.PromotionsNameValueProvider"
+          parent="abstractPropertyFieldValueProvider">
+		<property name="promotionsService" ref="promotionsService" />
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+    </bean>
+    <!-- ECD-1190 Ends -->
+
+    <bean id="promotionImageValueProvider"
+          class="de.hybris.platform.commerceservices.search.solrfacetsearch.provider.impl.PrimaryPromotionImageValueProvider"
+          parent="abstractPropertyFieldValueProvider">
+		<property name="promotionsService" ref="promotionsService" />
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+    </bean>
+
+    <bean id="styleSizeListValueProvider"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.provider.impl.StyleSizeListValueProvider"
+          parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+		<property name="commerceStockService" ref="commerceStockService" />
+		<property name="baseStoreService" ref="baseStoreService" />
+    </bean>
+
+    <bean id="colorFacetValueProvider"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.provider.impl.ColorFacetValueProvider"
+          parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+    </bean>
+    <bean id="colorFacetDisplayNameProvider"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.provider.impl.ColorFacetDisplayNameProvider">
+		<property name="enumerationService" ref="enumerationService" />
+		<property name="i18nService" ref="i18nService" />
+		<property name="commonI18NService" ref="commonI18NService" />
+    </bean>
+
+    <bean id="sslPointOfServiceFacetDisplayNameProvider"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.provider.impl.PointOfServiceFacetDisplayNameProvider">
+		<property name="pointOfServiceService" ref="pointOfServiceService" />
+    </bean>
+
+    <bean id="electronicsPointOfServiceFacetDisplayNameProvider"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.provider.impl.PointOfServiceFacetDisplayNameProvider">
+		<property name="pointOfServiceService" ref="pointOfServiceService" />
+    </bean>
+
+    <bean id="genderValueProvider"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.provider.impl.GenderValueProvider"
+          parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+    </bean>
+
+    <bean id="genderFacetDisplayNameProvider"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.provider.impl.GenderFacetDisplayNameProvider">
+		<property name="enumerationService" ref="enumerationService" />
+		<property name="i18nService" ref="i18nService" />
+		<property name="commonI18NService" ref="commonI18NService" />
+    </bean>
+    <bean id="isGiftProductFacetValueProvider"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.provider.impl.IsGiftProductFacetValueProvider"
+          parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+    </bean>
+    <bean id="productGiftAgeGroupFacetValueProvider"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.provider.impl.GiftAgeGroupFacetValueProvider"
+          parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+    </bean>
+    <bean id="heroProductValueProvider"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.provider.impl.SSLHeroProductValueProvider"
+          parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+    </bean>
+
+    <!-- Event listeners are singletons, therefore the dependency for a bean
+        in tenant-scope must be configured with a lookup method. -->
+    <bean id="orderCancelledEventListener"
+          class="com.borngroup.ssl.core.event.OrderCancelledEventListener"
+          parent="abstractSiteEventListener">
+		<property name="modelService" ref="modelService" />
+		<property name="businessProcessService" ref="businessProcessService" />
+		<property name="sslCustomerTouchPointService" ref="sslCustomerTouchPointService" />
+    </bean>
+    <bean id="rejectFraudOrderEventListener"
+          class="com.borngroup.ssl.core.event.RejectFraudOrderEventListener"
+          parent="abstractSiteEventListener">
+		<property name="modelService" ref="modelService" />
+		<property name="businessProcessService" ref="businessProcessService" />
+    </bean>
+    <bean id="consignmentInvoiceEventListener"
+          class="com.borngroup.ssl.core.event.ConsignmentInvoiceEventListener"
+          parent="abstractSiteEventListener">
+		<property name="modelService" ref="modelService" />
+		<property name="businessProcessService" ref="businessProcessService" />
+    </bean>
+    <bean id="orderRefundEventListener" class="com.borngroup.ssl.core.event.OrderRefundEventListener"
+          parent="abstractSiteEventListener">
+		<property name="modelService" ref="modelService" />
+		<property name="businessProcessService" ref="businessProcessService" />
+    </bean>
+    <bean id="customerRegistrationEventListener" class="com.borngroup.ssl.core.event.RegistrationEventListener"
+          parent="abstractSiteEventListener">
+		<property name="modelService" ref="modelService" />
+		<property name="businessProcessService" ref="businessProcessService" />
+    </bean>
+    <bean id="forgottenPasswordEventListener"
+          class="com.borngroup.ssl.core.event.ForgottenPasswordEventListener"
+          parent="abstractSiteEventListener">
+		<property name="modelService" ref="modelService" />
+		<property name="businessProcessService" ref="businessProcessService" />
+    </bean>
+    <bean id="submitOrderEventListener" class="com.borngroup.ssl.core.event.SubmitOrderEventListener"
+          parent="abstractSiteEventListener">
+		<property name="businessProcessService" ref="businessProcessService" />
+		<property name="modelService" ref="modelService" />
+		<property name="baseStoreService" ref="baseStoreService" />
+    </bean>
+    <bean id="orderConfirmationEventListener"
+          class="com.borngroup.ssl.core.event.OrderConfirmationEventListener"
+          parent="abstractSiteEventListener">
+		<property name="modelService" ref="modelService" />
+		<property name="businessProcessService" ref="businessProcessService" />
+		<property name="sslCustomerTouchPointService" ref="sslCustomerTouchPointService" />
+    </bean>
+    <bean id="orderFailedEventListener" class="com.borngroup.ssl.core.event.OrderFailedEventListener"
+          parent="abstractSiteEventListener">
+		<property name="modelService" ref="modelService" />
+		<property name="businessProcessService" ref="businessProcessService" />
+    </bean>
+    <bean id="orderReceivedEventListener" class="com.borngroup.ssl.core.event.OrderReceivedEventListener"
+          parent="abstractSiteEventListener">
+		<property name="modelService" ref="modelService" />
+		<property name="businessProcessService" ref="businessProcessService" />
+    </bean>
+    <bean id="sendReadyForPickupMessageEventListener"
+          class="com.borngroup.ssl.core.event.SendReadyForPickupMessageEventListener"
+          parent="abstractEventListener">
+		<property name="modelService" ref="modelService" />
+		<property name="businessProcessService" ref="businessProcessService" />
+    </bean>
+    <bean id="sendOrderPartiallyCanceledMessageEventListener"
+          class="com.borngroup.ssl.core.event.SendOrderPartiallyCanceledMessageEventListener"
+          parent="abstractEventListener">
+		<property name="modelService" ref="modelService" />
+		<property name="businessProcessService" ref="businessProcessService" />
+    </bean>
+    <bean id="sendOrderPartiallyRefundedMessageEventListener"
+          class="com.borngroup.ssl.core.event.SendOrderPartiallyRefundedMessageEventListener"
+          parent="abstractEventListener">
+		<property name="modelService" ref="modelService" />
+		<property name="businessProcessService" ref="businessProcessService" />
+    </bean>
+    <bean id="sendNotPickedUpConsignmentCanceledMessageEventListener"
+          class="com.borngroup.ssl.core.event.SendNotPickedUpConsignmentCanceledMessageEventListener"
+          parent="abstractEventListener">
+		<property name="modelService" ref="modelService" />
+		<property name="businessProcessService" ref="businessProcessService" />
+    </bean>
+    <bean id="orderCompletedEventListener"
+          class="com.borngroup.ssl.core.event.OrderCompletedEventListener"
+          parent="abstractSiteEventListener">
+		<property name="modelService" ref="modelService" />
+		<property name="businessProcessService" ref="businessProcessService" />
+    </bean>
+
+    <bean id="workflowActionDelayEventListener"
+          class="com.borngroup.ssl.core.event.WorkflowActionDelayEventListener"
+          parent="abstractSiteEventListener">
+		<property name="modelService" ref="modelService" />
+    </bean>
+
+    <bean id="dataHubConsumptionFailedEventListener"
+          class="com.borngroup.ssl.core.event.DataHubConsumptionFailedEventListener"
+          parent="abstractSiteEventListener">
+    </bean>
+
+    <bean id="productCreateEventListener" class="com.borngroup.ssl.core.event.ProductCreateEventListener"
+          parent="abstractSiteEventListener">
+		<property name="modelService" ref="modelService" />
+    </bean>
+
+    <bean id="sslWalletRefundEmailEventListener"
+          class="com.borngroup.ssl.core.event.SslWalletRefundEmailEventListener"
+          parent="abstractSiteEventListener">
+		<property name="modelService" ref="modelService" />
+		<property name="businessProcessService" ref="businessProcessService" />
+    </bean>
+
+    <bean id="sslCreateWalletEmailEventListener"
+          class="com.borngroup.ssl.core.event.SSLCreateWalletEventListener"
+          parent="abstractSiteEventListener">
+        <property name="modelService" ref="modelService"/>
+        <property name="businessProcessService" ref="businessProcessService"/>
+    </bean>
+
+    <bean id="sslProfilePictureUpdateEventListener"
+          class="com.borngroup.ssl.core.event.ProfilePictureUpdateEventListener"
+          parent="abstractEventListener">
+    </bean>
+    <bean id="orderFlagsUpdateAsyncEventListener"
+          class="com.borngroup.ssl.core.event.OrderFlagsUpdateAsyncEventListener"
+          parent="abstractEventListener">
+    </bean>
+    <bean id="preOrderQuantityUpdateEventListener"
+          class="com.borngroup.ssl.core.event.PreOrderQuantityUpdateEventListener"
+          parent="abstractEventListener">
+    </bean>
+    <!-- Process resources definition -->
+    <bean id="customerRegistrationEmailProcessDefinitionResource"
+          class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+        <property name="resource"
+                  value="classpath:/sslcore/processes/customerRegistrationEmailProcess.xml"/>
+    </bean>
+    <bean id="forgottenPasswordEmailProcessDefinitionResource"
+          class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+        <property name="resource"
+                  value="classpath:/sslcore/processes/forgottenPasswordEmailProcess.xml"/>
+    </bean>
+    <bean id="orderConfirmationEmailProcessDefinitionResource"
+          class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+        <property name="resource"
+                  value="classpath:/sslcore/processes/orderConfirmationEmailProcess.xml"/>
+    </bean>
+    <bean id="sterlingOrderConfirmationEmailProcessDefinitionResource"
+          class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+        <property name="resource"
+                  value="classpath:/sslcore/processes/sterling/sterlingOrderConfirmationEmailProcess.xml"/>
+    </bean>
+    <bean id="sterlingOrderReceivedEmailProcessDefinitionResource"
+          class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+        <property name="resource"
+                  value="classpath:/sslcore/processes/sterling/sterlingOrderReceivedEmailProcess.xml"/>
+    </bean>
+    <bean id="sterlingSendOrderCancelledEmailProcessDefinitionResource"
+          class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+        <property name="resource"
+                  value="classpath:/sslcore/processes/sterling/sterlingSendOrderCancelledEmailProcess.xml"/>
+    </bean>
+    <bean id="sterlingSendReadyForPickupEmailProcessDefinitionResource"
+          class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+        <property name="resource"
+                  value="classpath:/sslcore/processes/sterling/sterlingSendReadyForPickupEmailProcess.xml"/>
+    </bean>
+    <bean id="sterlingReturnOrderEmailProcessDefinitionResource"
+          class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+        <property name="resource"
+                  value="classpath:/sslcore/processes/sterling/sterlingSendReturnOrderEmailProcess.xml"/>
+    </bean>
+    <bean id="sterlingSendShipmentPickedEmailProcessDefinitionResource"
+          class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+        <property name="resource"
+                  value="classpath:/sslcore/processes/sterling/sterlingSendShipmentPickedEmailProcess.xml"/>
+    </bean>
+
+    <bean id="orderReceivedEmailProcessDefinitionResource"
+          class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+        <property name="resource"
+                  value="classpath:/sslcore/processes/orderReceivedEmailProcess.xml"/>
+    </bean>
+    <bean id="orderFailedEmailProcessDefinitionResource"
+          class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+        <property name="resource"
+                  value="classpath:/sslcore/processes/orderFailedEmailProcess.xml"/>
+    </bean>
+    <bean id="sendDeliveryEmailProcessDefinitionResource"
+          class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+        <property name="resource"
+                  value="classpath:/sslcore/processes/sendDeliveryEmailProcess.xml"/>
+    </bean>
+    <bean id="sendDeliveredEmailProcessDefinitionResource"
+          class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+        <property name="resource"
+                  value="classpath:/sslcore/processes/sendDeliveredEmailProcess.xml"/>
+    </bean>
+    <bean id="sendReadyForPickupEmailProcessDefinitionResource"
+          class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+        <property name="resource"
+                  value="classpath:/sslcore/processes/sendReadyForPickupEmailProcess.xml"/>
+    </bean>
+    <bean id="sendOrderCancelledEmailProcessDefinitionResource"
+          class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+        <property name="resource"
+                  value="classpath:/sslcore/processes/sendOrderCancelledEmailProcess.xml"/>
+    </bean>
+    <bean id="sendRejectFraudOrderEmailProcessDefinitionResource"
+          class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+        <property name="resource"
+                  value="classpath:/sslcore/processes/sendRejectFraudOrderEmailProcess.xml"/>
+    </bean>
+    <bean id="sendConsignmentInvoiceEmailProcessDefinitionResource"
+          class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+        <property name="resource"
+                  value="classpath:/sslcore/processes/sendConsignmentInvoiceEmailProcess.xml"/>
+    </bean>
+    <bean id="sendOrderRefundEmailProcessDefinitionResource"
+          class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+        <property name="resource"
+                  value="classpath:/sslcore/processes/sendOrderRefundEmailProcess.xml"/>
+    </bean>
+    <bean id="sendOrderPartiallyCanceledEmailProcessDefinitionResource"
+          class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+        <property name="resource"
+                  value="classpath:/sslcore/processes/sendOrderPartiallyCanceledEmailProcess.xml"/>
+    </bean>
+    <bean id="sendOrderPartiallyRefundedEmailProcessDefinitionResource"
+          class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+        <property name="resource"
+                  value="classpath:/sslcore/processes/sendOrderPartiallyRefundedEmailProcess.xml"/>
+    </bean>
+    <bean
+            id="sendNotPickedUpConsignmentCanceledEmailProcessDefinitionResource"
+            class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+        <property name="resource"
+                  value="classpath:/sslcore/processes/sendNotPickedUpConsignmentCanceledEmailProcess.xml"/>
+    </bean>
+
+    <bean id="submitComplaintEmailProcessDefinitionResource"
+          class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+        <property name="resource"
+			value="classpath:/sslcore/processes/submitComplaintEmailProcess.xml" />
+    </bean>
+
+    <bean id="productUploadAutomationCronjobEmailProcessDefinitionResource"
+          class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+        <property name="resource"
+			value="classpath:/sslcore/processes/productUploadAutomationCronjobEmailProcess.xml" />
+    </bean>
+
+    <bean id="orderCompletionFeedbackEmailProcessDefinitionResource"
+          class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+        <property name="resource"
+			value="classpath:/sslcore/processes/orderCompletionFeedbackStoreFrontProcess.xml" />
+    </bean>
+
+    <bean id="sslWalletRefundEmailProcessDefinitionResource"
+          class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+        <property name="resource"
+			value="classpath:/sslcore/processes/sslWalletRefundEmailProcess.xml" />
+    </bean>
+
+    <bean id="sslCreateWalletEmailProcessDefinitionResource"
+          class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+        <property name="resource"
+			value="classpath:/sslcore/processes/sslCreateWalletEmailProcess.xml" />
+    </bean>
+
+    <!-- Actions -->
+    <bean id="generateReturnRequestEmailWithAttachment" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="ReturnRequestOrderEmailTemplate" />
+    </bean>
+
+    <bean id="sendEmailWithAttachment"
+          class="com.borngroup.ssl.core.process.email.actions.SendEmailWithAttachmentAction"
+          parent="abstractAction">
+		<property name="emailService" ref="emailService" />
+		<property name="sslSendEmailWithAttachmentService" ref="sslSendEmailWithAttachmentService" />
+    </bean>
+
+    <bean id="removeSentEmailWithAttachment"
+          class="com.borngroup.ssl.core.process.email.actions.RemoveSentEmailWithAttachmentAction"
+          parent="abstractAction">
+		<property name="modelService" ref="modelService" />
+    </bean>
+
+    <bean id="abstractAction" class="de.hybris.platform.processengine.action.AbstractAction"
+          abstract="true">
+		<property name="modelService" ref="modelService" />
+		<property name="processParameterHelper" ref="processParameterHelper" />
+    </bean>
+
+    <bean id="sendEmail"
+          class="com.borngroup.ssl.core.process.email.actions.SendEmailAction">
+		<property name="frontendTemplateNameMapping" ref="sslEmailFrontendTemplateNameMapping" />
+		<property name="emailService" ref="emailService" />
+		<property name="modelService" ref="modelService" />
+		<property name="cmsEmailPageService" ref="cmsEmailPageService" />
+		<property name="contextResolutionStrategy" ref="processContextResolutionStrategy" />
+		<property name="emailGenerationService" ref="emailGenerationService" />
+    </bean>
+    <bean id="sendEmailAttachment"
+          class="com.borngroup.ssl.core.email.actions.SendEmailAttachmentAction"
+          parent="abstractAction">
+		<property name="emailService" ref="emailService" />
+    </bean>
+
+    <bean id="abstractGenerateEmailAction"
+          class="de.hybris.platform.acceleratorservices.process.email.actions.GenerateEmailAction"
+          parent="abstractAction" abstract="true">
+		<property name="modelService" ref="modelService" />
+		<property name="cmsEmailPageService" ref="cmsEmailPageService" />
+		<property name="contextResolutionStrategy" ref="processContextResolutionStrategy" />
+		<property name="emailGenerationService" ref="emailGenerationService" />
+    </bean>
+
+    <bean id="generateCustomerRegistrationEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="CustomerRegistrationEmailTemplate" />
+    </bean>
+
+    <bean id="generateForgottenPasswordEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="ForgottenPasswordEmailTemplate" />
+    </bean>
+
+    <bean id="generateFccOTPEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="FccOTPEmailTemplate" />
+    </bean>
+
+    <bean id="generateOrderConfirmationEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="OrderConfirmationEmailTemplate" />
+    </bean>
+
+    <bean id="generateOrderFailedEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="OrderFailedEmailTemplate" />
+    </bean>
+
+    <bean id="generateOrderReceivedEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="OrderReceivedEmailTemplate" />
+    </bean>
+
+    <bean id="generateDeliverySentEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="DeliverySentEmailTemplate" />
+    </bean>
+
+    <bean id="generateReadyForPickupEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="ReadyForPickupEmailTemplate" />
+    </bean>
+
+    <bean id="generateOrderCancelledEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="OrderCancelledEmailTemplate" />
+    </bean>
+
+    <bean id="generateRejectFraudOrderEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="RejectFraudOrderEmailTemplate" />
+    </bean>
+
+    <bean id="generateConsignmentInvoiceEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="ConsignmentInvoiceEmailTemplate" />
+    </bean>
+
+    <bean id="generateOrderRefundEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="OrderRefundEmailTemplate" />
+    </bean>
+
+    <bean id="generateOrderPartiallyCanceledEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="OrderPartiallyCanceledEmailTemplate" />
+    </bean>
+    <bean id="generateOrderPartiallyRefundedEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="OrderPartiallyRefundedEmailTemplate" />
+    </bean>
+    <bean id="generateNotPickedUpConsignmentCanceledEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="NotPickedUpConsignmentCanceledEmailTemplate" />
+    </bean>
+
+    <bean id="generateSubmitComplaintEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="SubmitComplaintEmailTemplate" />
+    </bean>
+
+    <bean id="generateUploadCronjobEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="ProductUploadCronjobEmailTemplate" />
+    </bean>
+
+    <bean id="generateOrderCompletionjobEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="OrderCompletionFeedbackMailTemplate" />
+    </bean>
+
+    <bean id="generateSslWalletRefundEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="SslWalletRefundEmailTemplate" />
+    </bean>
+
+    <bean id="generateSslCreateWalletEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="SslCreateWalletEmailTemplate" />
+    </bean>
+
+    <bean id="generateBankDetailsOtpEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="BankDetailsOTPEmailTemplate" />
+    </bean>
+
+    <bean id="generateBankDetailsReceivedEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="BankDetailsConfirmationEmailTemplate" />
+    </bean>
+    
+    <bean id="generateFCCLinkConfirmationEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="FccNotificationProcessEmailTemplate" />
+    </bean>
+    
+    <bean id="generateFCCEnrollmentSuccessEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="FccEnrollmentSuccessTemplate" />
+    </bean>
+    
+
+    <bean id="removeSentEmail"
+          class="de.hybris.platform.acceleratorservices.process.email.actions.RemoveSentEmailAction"
+          parent="abstractAction">
+		<property name="modelService" ref="modelService" />
+    </bean>
+    <!-- ECD-2593 -->
+    <bean id="fccLinkListener" class="com.borngroup.ssl.core.event.FccLinkEventListener"
+		parent="abstractSiteEventListener">
+		<property name="modelService" ref="modelService" />
+		<property name="businessProcessService" ref="businessProcessService" />
+	</bean>    
+	<!-- Start: Email Trigger after enrollment successfull -->
+    <bean id="fccEnrollmentListener" class="com.borngroup.ssl.core.event.FccEnrollmentEventListener"
+		parent="abstractSiteEventListener">
+		<property name="modelService" ref="modelService" />
+		<property name="businessProcessService" ref="businessProcessService" />
+		<property name="baseSiteService" ref="baseSiteService"/>
+		<property name="baseStoreService" ref="baseStoreService"/>
+	</bean>
+	<!-- End : Email Trigger after enrollment successfull -->
+
+    <bean id="sendAbondenedEmailProcessDefinitionResource"
+          class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+        <property name="resource"
+			value="classpath:/sslcore/processes/sendAbondenedEmailProcess.xml" />
+    </bean>
+    <bean id="sendAbandonedBusinessEmailProcessDefinitionResource"
+          class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+        <property name="resource"
+			value="classpath:/sslcore/processes/sendAbandonedBusinessEmailProcess.xml" />
+    </bean>
+
+    <!-- Simple Suggestion Service -->
+	<alias alias="simpleSuggestionService" name="defaultSimpleSuggestionService" />
+    <bean id="defaultSimpleSuggestionService"
+          class="com.borngroup.ssl.core.suggestion.impl.DefaultSimpleSuggestionService">
+		<property name="simpleSuggestionDao" ref="simpleSuggestionDao" />
+    </bean>
+	<alias alias="simpleSuggestionDao" name="defaultSimpleSuggestionDao" />
+    <bean id="defaultSimpleSuggestionDao"
+          class="com.borngroup.ssl.core.suggestion.dao.impl.DefaultSimpleSuggestionDao"
+          parent="abstractItemDao">
+		<property name="flexibleSearchService" ref="flexibleSearchService" />
+    </bean>
+
+    <bean id="mccSiteUrlHelper" class="com.borngroup.ssl.core.util.MccSiteUrlHelper">
+		<property name="siteBaseUrlResolutionService" ref="siteBaseUrlResolutionService" />
+		<property name="cmsSiteService" ref="cmsSiteService" />
+    </bean>
+
+
+    <!-- checkout flow configuration -->
+
+    <bean id="pickUpInStoreCheckoutFlowStrategy"
+          class="com.borngroup.ssl.core.checkout.flow.impl.PickUpInStoreCheckoutFlowStrategy">
+		<property name="pickupStrategy" ref="pickupStrategy" />
+		<property name="defaultStrategy" ref="siteCheckoutFlowStrategy" />
+		<property name="multiStepCheckoutFlowStrategy" ref="multiStepCheckoutFlowStrategy" />
+    </bean>
+
+    <bean id="siteCheckoutFlowStrategy"
+          class="com.borngroup.ssl.core.checkout.flow.impl.SiteCheckoutFlowStrategy">
+        <!-- This strategy looks up a strategy based on the current site UID -->
+		<property name="cmsSiteService" ref="cmsSiteService" />
+        <property name="siteMappings">
+            <map>
+				<entry key="ssl" value-ref="multiStepCheckoutFlowStrategy" />
+            </map>
+        </property>
+        <!-- Default to SINGLE step checkout -->
+		<property name="defaultStrategy" ref="multiStepCheckoutFlowStrategy" />
+    </bean>
+
+    <bean id="newCustomerCheckoutFlowStrategy"
+          class="com.borngroup.ssl.core.checkout.flow.impl.NewCustomerCheckoutFlowStrategy">
+        <!-- This strategy works out if the user has created any data -->
+		<property name="userService" ref="userService" />
+		<property name="customerAccountService" ref="customerAccountService" />
+		<property name="defaultStrategy" ref="multiStepCheckoutFlowStrategy" />
+		<property name="newCustomerStrategy" ref="multiStepCheckoutFlowStrategy" />
+    </bean>
+
+    <!-- Product Reference Lookup Strategies -->
+    <alias name="apparelCrossSellingProductReferenceTargetStrategy"
+		alias="crossSellingProductReferenceTargetStrategy" />
+    <bean id="apparelCrossSellingProductReferenceTargetStrategy"
+          parent="defaultCrossSellingProductReferenceTargetStrategy">
+        <property name="productReferenceTargetStrategies">
+            <list merge="true">
+				<ref bean="apparelSizeProductReferenceTargetStrategy" />
+            </list>
+        </property>
+    </bean>
+
+    <bean id="apparelSizeProductReferenceTargetStrategy"
+          class="com.borngroup.ssl.core.strategies.impl.ApparelSizeProductReferenceTargetStrategy">
+		<property name="commerceCategoryService" ref="commerceCategoryService" />
+		<property name="rootCategoryCode" value="categories" />
+    </bean>
+    <bean id="defaultConfirmationActionJob"
+          class="com.borngroup.ssl.core.workflow.DefaultConfirmationActionJob">
+		<property name="modelService" ref="modelService" />
+    </bean>
+    <bean id="imagingConfirmationActionJob"
+          class="com.borngroup.ssl.core.workflow.ImagingConfirmationActionJob">
+		<property name="modelService" ref="modelService" />
+    </bean>
+    <bean id="attributionConfirmationActionJob"
+          class="com.borngroup.ssl.core.workflow.AttributionConfirmationActionJob">
+		<property name="modelService" ref="modelService" />
+    </bean>
+    <bean id="descriptionConfirmationActionJob"
+          class="com.borngroup.ssl.core.workflow.DescriptionConfirmationActionJob">
+		<property name="modelService" ref="modelService" />
+    </bean>
+
+    <bean id="sslProductInterceptor"
+          class="com.borngroup.ssl.core.interceptors.SSLProductValidateInterceptor"
+		scope="tenant" />
+
+    <bean id="sslProductInterceptorMapping"
+          class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping"
+          scope="tenant">
+		<property name="interceptor" ref="sslProductInterceptor" />
+		<property name="typeCode" value="Product" />
+    </bean>
+
+    <bean id="sslShopBySizePrepareInterceptor"
+          class="com.borngroup.ssl.core.interceptors.SSLShopBySizePrepareInterceptor"
+		scope="tenant" />
+
+    <bean id="sslShopbySizePrepareInterceptorMapping"
+          class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping"
+          scope="tenant">
+		<property name="interceptor" ref="sslShopBySizePrepareInterceptor" />
+		<property name="typeCode" value="SslShopBySizeMapping" />
+    </bean>
+
+    <bean id="sslShopBySizeValidateInterceptor"
+          class="com.borngroup.ssl.core.interceptors.SSLShopBySizeValidateInterceptor"
+		scope="tenant" />
+
+    <bean id="sslShopBySizeValidateInterceptorMapping"
+          class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping"
+          scope="tenant">
+		<property name="interceptor" ref="sslShopBySizeValidateInterceptor" />
+		<property name="typeCode" value="SslShopBySizeMapping" />
+    </bean>
+
+    <bean id="sslShopBySizeRemoveInterceptor"
+          class="com.borngroup.ssl.core.interceptors.SSLShopBySizeRemoveInterceptor"
+		scope="tenant" />
+
+    <bean id="sslShopBySizeRemoveInterceptorMapping"
+          class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping"
+          scope="tenant">
+		<property name="interceptor" ref="sslShopBySizeRemoveInterceptor" />
+		<property name="typeCode" value="SslShopBySizeMapping" />
+    </bean>
+
+    <bean id="sslApparelProductInterceptor"
+          class="com.borngroup.ssl.core.interceptors.SSLApparelProductPrepareInterceptor"
+		scope="tenant" />
+
+    <bean id="sslApparelProductInterceptorMapping"
+          class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping"
+          scope="tenant">
+		<property name="interceptor" ref="sslApparelProductInterceptor" />
+		<property name="typeCode" value="ApparelProduct" />
+	</bean>
+
+	<bean id="DealCollectionComponentInterceptor"
+          class="com.borngroup.ssl.core.interceptors.DealCollectionComponentPrepareInterceptor"
+		scope="tenant">
+		<property name="cacheRegionProvider" ref="CacheRegionProvider"></property>
+	</bean>
+
+    <bean id="DealCollectionComponentInterceptorMapping"
+          class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping"
+          scope="tenant">
+		<property name="interceptor" ref="DealCollectionComponentInterceptor" />
+		<property name="typeCode" value="DealCollectionComponent" />
+	</bean>
+
+	<bean id="DealComponentInterceptor"
+          class="com.borngroup.ssl.core.interceptors.DealComponentPrepareInterceptor"
+		scope="tenant">
+		<property name="cacheRegionProvider" ref="CacheRegionProvider"></property>
+	</bean>
+
+    <bean id="DealComponentInterceptorMapping"
+          class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping"
+          scope="tenant">
+		<property name="interceptor" ref="DealComponentInterceptor" />
+		<property name="typeCode" value="DealComponent" />
+	</bean>
+
+    <bean id="sslApparelProductLoadInterceptor"
+          class="com.borngroup.ssl.core.interceptors.SSLApparelProductLoadInterceptor"
+          scope="tenant"/>
+
+	<bean id="sslApparelProductLoadInterceptorMapping"
+          class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping"
+          scope="tenant">
+        <property name="interceptor" ref="sslApparelProductLoadInterceptor"/>
+        <property name="typeCode" value="ApparelProduct"/>
+    </bean>
+
+    <bean id="sslApparelStyleProductInterceptor"
+          class="com.borngroup.ssl.core.interceptors.SSLApparelStyleVariantProductPrepareInterceptor"
+		scope="tenant" />
+
+    <bean id="sslApparelStyleProductInterceptorMapping"
+          class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping"
+          scope="tenant">
+		<property name="interceptor" ref="sslApparelStyleProductInterceptor" />
+		<property name="typeCode" value="ApparelStyleVariantProduct" />
+    </bean>
+
+    <bean id="sslApparelSizeProductInterceptor"
+          class="com.borngroup.ssl.core.interceptors.SSLApparelSizeVariantProductPrepareInterceptor"
+		scope="tenant" />
+
+    <bean id="sslApparelSizeProductInterceptorMapping"
+          class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping"
+          scope="tenant">
+		<property name="interceptor" ref="sslApparelSizeProductInterceptor" />
+		<property name="typeCode" value="ApparelSizeVariantProduct" />
+    </bean>
+
+    <bean id="sslBundleProductInterceptor"
+          class="com.borngroup.ssl.core.interceptors.SSLBundleProductValidateInterceptor"
+		scope="tenant" />
+    <bean id="sslBundleProductInterceptorMapping"
+          class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping"
+          scope="tenant">
+		<property name="interceptor" ref="sslBundleProductInterceptor" />
+		<property name="typeCode" value="SslBundleProduct" />
+    </bean>
+
+    <bean id="sslProductBundlePromotionValidateInterceptor"
+          class="com.borngroup.ssl.core.interceptors.SSLProductBundlePromotionValidateInterceptor"
+		scope="tenant" />
+    <bean id="sslProductBundlePromotionValidateInterceptorMapping"
+          class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping"
+          scope="tenant">
+		<property name="interceptor" ref="sslProductBundlePromotionValidateInterceptor" />
+		<property name="typeCode" value="ProductBundlePromotion" />
+    </bean>
+
+    <bean id="sslPriceRowValidateInterceptor"
+          class="com.borngroup.ssl.core.interceptors.SSLPriceRowValidateInterceptor"
+		scope="tenant" />
+    <bean id="sslPriceRowValidateInterceptorMapping"
+          class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping"
+          scope="tenant">
+		<property name="interceptor" ref="sslPriceRowValidateInterceptor" />
+		<property name="typeCode" value="PriceRow" />
+    </bean>
+
+    <bean id="sslBundleProductLoadInterceptor"
+          class="com.borngroup.ssl.core.interceptors.SSLBundleProductLoadInterceptor"
+		scope="tenant" />
+    <bean id="sslBundleProductLoadInterceptorMapping"
+          class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+		<property name="interceptor" ref="sslBundleProductLoadInterceptor" />
+		<property name="typeCode" value="SslBundleProduct" />
+    </bean>
+
+	<alias name="sslLookupService" alias="sslLookupService" />
+    <bean id="sslLookupService"
+          class="com.borngroup.ssl.core.services.impl.SSLLookupServiceImpl"
+		scope="tenant" />
+
+	<alias name="sslShopBySizeLookupDao" alias="sslShopBySizeLookupDao" />
+    <bean id="sslShopBySizeLookupDao"
+          class="com.borngroup.ssl.core.dao.impl.SSLShopBySizeLookupDaoImpl"
+		scope="tenant" />
+
+	<alias name="sslBrandLookupDao" alias="sslBrandLookupDao" />
+    <bean id="sslBrandLookupDao" class="com.borngroup.ssl.core.dao.impl.SSLBrandLookupDaoImpl"
+		scope="tenant" />
+
+	<alias name="sslColourLookupDao" alias="sslColourLookupDao" />
+    <bean id="sslColourLookupDao" class="com.borngroup.ssl.core.dao.impl.SSLColourLookupDaoImpl"
+		scope="tenant" />
+
+	<alias name="sslSizeLookupDao" alias="sslSizeLookupDao" />
+    <bean id="sslSizeLookupDao" class="com.borngroup.ssl.core.dao.impl.SSLSizeLookupDaoImpl"
+		scope="tenant" />
+
+	<alias name="sslBundleLookupService" alias="sslBundleLookupService" />
+    <bean id="sslBundleLookupService"
+          class="com.borngroup.ssl.core.services.impl.SSLBundleLookupServiceImpl"
+		scope="tenant" />
+
+	<alias name="sslBundleLookupDao" alias="sslBundleLookupDao" />
+    <bean id="sslBundleLookupDao"
+          class="com.borngroup.ssl.core.dao.impl.SSLBundleProductLookupDaoImpl"
+		scope="tenant" />
+
+	<alias name="sslMediaContainerDao" alias="sslMediaContainerDao" />
+    <bean id="sslMediaContainerDao"
+          class="com.borngroup.ssl.core.dao.impl.SslMediaContainerDaoImpl"
+          scope="tenant">
+		<property name="modelService" ref="modelService" />
+		<property name="flexibleSearchService" ref="flexibleSearchService" />
+    </bean>
+
+	<alias name="sslStoreFinderDaoImpl" alias="sslStoreFinderDaoImpl" />
+    <bean id="sslStoreFinderDaoImpl"
+		class="com.borngroup.ssl.core.storefinder.dao.impl.SSLStoreFinderDaoImpl" />
+
+	<alias name="sslDefaultEmailAttachmentDao" alias="sslEmailAttachmentDao" />
+    <bean id="sslDefaultEmailAttachmentDao"
+          class="com.borngroup.ssl.core.dao.impl.SSLDefaultEmailAttachmentDao"
+          scope="tenant">
+		<property name="flexibleSearchService" ref="flexibleSearchService" />
+    </bean>
+
+	<alias name="sslOrderCompletionFeedbackJobService" alias="defaultSSLOrderCompletionFeedbackJobService" />
+    <bean id="sslOrderCompletionFeedbackJobService"
+          class="com.borngroup.ssl.core.services.impl.SSLOrderCompletionFeedbackJobServiceImpl"
+		scope="tenant" />
+
+	<alias name="sslLatestCompletedOrderLookupDao" alias="sslLatestCompletedOrderLookupDao" />
+    <bean id="sslLatestCompletedOrderLookupDao"
+          class="com.borngroup.ssl.core.dao.impl.SSLLatestCompletedOrderLookupDaoImpl"
+		scope="tenant" />
+
+    <bean id="orderCompletionFeedbackMailCronjob"
+          class="com.borngroup.ssl.core.cron.OrderCompletionFeedbackMailCronjob"
+		parent="abstractJobPerformable" autowire="byName" />
+
+    <bean id="orderCompletionFeedbackDataRemovalCronjob"
+          class="com.borngroup.ssl.core.cron.OrderCompletionFeedbackDataRemovalCronjob"
+		parent="abstractJobPerformable" autowire="byName" />
+
+	<alias name="sslProductUploadAutomationService" alias="DefaultProductUploadAutomationService" />
+    <bean id="sslProductUploadAutomationService"
+          class="com.borngroup.ssl.core.services.impl.DefaultSslProductUploadAutomationService"
+		scope="tenant" />
+
+	<alias name="productUploadAutomationDao" alias="productUploadAutomationDao" />
+    <bean id="productUploadAutomationDao"
+          class="com.borngroup.ssl.core.dao.impl.SslProductUploadAutomationDao"
+		scope="tenant" />
+
+    <bean id="baseProductEnrichmentCronjob"
+          class="com.borngroup.ssl.core.cron.BaseProductEnrichmentCronjob"
+		parent="abstractJobPerformable" autowire="byName" />
+
+    <bean id="variantProductAutoApprovalCronjob"
+          class="com.borngroup.ssl.core.cron.VariantProductAutoApprovalCronjob"
+		parent="abstractJobPerformable" autowire="byName" />
+
+    <bean id="productEnrichmentWorkflowMonitorJob"
+          class="com.borngroup.ssl.core.jobs.ProductEnrichmentWorkflowMonitorJob"
+		autowire="byName" />
+
+    <bean id="sslMediaUploadCronJob" class="com.borngroup.ssl.core.jobs.SslMediaUploadCronJob"
+		autowire="byName" />
+
+	<alias alias="userService" name="sslUserService" />
+    <bean id="sslUserService" class="com.borngroup.ssl.core.services.impl.SSLUserServiceImpl"
+          parent="abstractBusinessService">
+		<property name="userDao" ref="userDao" />
+		<property name="sslServiceDao" ref="sslServiceDaoImpl" />
+		<property name="userGroupDao" ref="userGroupDao" />
+		<property name="titleDao" ref="titleDao" />
+		<property name="searchRestrictionService" ref="searchRestrictionService" />
+		<property name="eventService" ref="eventService" />
+		<property name="passwordEncoderService" ref="passwordEncoderService" />
+    </bean>
+
+	<alias alias="cmsRestrictionService" name="sslRankingCMSRestrictionService" />
+    <bean id="sslRankingCMSRestrictionService" parent="rankingCMSRestrictionService"
+		class="com.borngroup.ssl.core.cms.impl.SSLRankingCMSRestrictionService" />
+
+	<alias alias="cmsPageService" name="sslCMSPageService" />
+    <bean id="sslCMSPageService" class="com.borngroup.ssl.core.cms.impl.SSLCMSPageService"
+		parent="defaultCMSPageService" />
+
+	<alias name="defaultSSLCategoryService" alias="commerceCategoryService" />
+    <bean id="defaultSSLCategoryService" parent="defaultCommerceCategoryService"
+          class="com.borngroup.ssl.core.services.impl.DefaultSSLCategoryService">
+		<property name="sessionService" ref="sessionService" />
+		<property name="flexibleSearchService" ref="flexibleSearchService" />
+		<property name="categoryModelUrlResolver" ref="categoryModelUrlResolver" />
+    </bean>
+
+	<alias name="sslCommerceSearchFiltersPopulator" alias="commerceSearchFiltersPopulator" />
+    <bean id="sslCommerceSearchFiltersPopulator"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.populators.SSLSearchFiltersPopulator"
+		parent="defaultCommerceSearchFiltersPopulator" />
+
+	<alias name="sslCommerceProductSearchService" alias="commerceProductSearchService" />
+	<alias name="sslCommerceSolrProductSearchService" alias="sslCommerceProductSearchService" />
+    <bean id="sslCommerceSolrProductSearchService" parent="defaultCommerceProductSearchService">
+		<property name="searchQueryPageableConverter" ref="commerceSearchQueryPageableConverter" />
+    </bean>
+
+	<alias name="sslCommerceSearchQueryPageableConverter" alias="commerceSearchQueryPageableConverter" />
+    <bean id="sslCommerceSearchQueryPageableConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass"
+			value="de.hybris.platform.commerceservices.search.solrfacetsearch.data.SolrSearchRequest" />
+        <property name="populators">
+            <list>
+				<ref bean="commerceSearchSolrQueryPopulator" />
+				<ref bean="commerceSearchPagePopulator" />
+				<ref bean="commerceSearchSortPopulator" />
+				<ref bean="commerceSearchTextPopulator" />
+				<ref bean="commerceSearchFiltersPopulator" />
+            </list>
+        </property>
+    </bean>
+
+	<alias name="sslFacetSearchService" alias="facetSearchService" />
+	<alias name="sslFacetSearchService" alias="solrFacetSearchService" />
+    <bean id="sslFacetSearchService"
+          class="de.hybris.platform.solrfacetsearch.search.impl.DefaultFacetSearchService"
+          parent="defaultFacetSearchService">
+    </bean>
+
+	<alias name="sslSolrQueryConverter" alias="solrSearchQueryConverter" />
+	<alias name="sslSolrQueryConverter" alias="solrQueryConverter" />
+    <bean id="sslSolrQueryConverter"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.impl.SolrQueryConverter"
+          parent="defaultSolrQueryConverter">
+    </bean>
+
+
+    <!-- facetSearchQueryConverter & populators -->
+    <bean id="facetSearchQueryConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="org.apache.solr.client.solrj.SolrQuery" />
+        <property name="populators">
+            <list>
+				<ref bean="facetSearchQueryBasicPopulator" />
+				<ref bean="facetSearchQueryFilterQueriesPopulator" />
+				<ref bean="facetSearchQueryGroupingPopulator" />
+				<ref bean="facetSearchQuerySortsPopulator" />
+				<ref bean="facetSearchQueryPagingPopulator" />
+				<ref bean="sslFacetSearchQueryFacetsPopulator" />
+				<ref bean="facetSearchQueryFieldsPopulator" />
+				<ref bean="facetSearchQuerySpellcheckPopulator" />
+				<ref bean="facetSearchQueryParamsPopulator" />
+				<ref bean="facetSearchQueryCatalogVersionsPopulator" />
+            </list>
+        </property>
+    </bean>
+
+    <bean id="sslFacetSearchQueryFacetsPopulator"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.impl.SslFacetSearchQueryFacetsPopulator"
+          parent="facetSearchQueryFacetsPopulator">
+    </bean>
+
+	<alias name="sslStoreFinderService" alias="storeFinderService" />
+    <bean id="sslStoreFinderService" parent="defaultStoreFinderService"
+          class="com.borngroup.ssl.core.storefinder.impl.SSLStoreFinderService">
+		<property name="baseStoreService" ref="baseStoreService" />
+    </bean>
+
+	<alias alias="commerceCartService" name="defaultSSLCommerceCartService" />
+    <bean id="defaultSSLCommerceCartService"
+          class="com.borngroup.ssl.core.services.service.impl.DefaultSSLCommerceCartServiceImpl"
+		parent="defaultCommerceCartService" />
+
+    <!-- SSL Stock Level check Strategy customization -->
+
+	<alias alias="commerceStockLevelCalculationStrategy" name="sslCommerceStockLevelCalculationStrategy" />
+    <bean id="sslCommerceStockLevelCalculationStrategy"
+          class="com.borngroup.ssl.core.stock.strategies.impl.SSLCommerceAvailabilityCalculationStrategy"
+		parent="defaultCommerceStockLevelCalculationStrategy" />
+
+    <bean id="sslCommerceAllocationStockLevelCalculationStrategy"
+          class="com.borngroup.ssl.core.stock.strategies.impl.SSLCommerceAllocationCalculationStrategy"
+		parent="defaultCommerceStockLevelCalculationStrategy" />
+
+	<alias alias="commerceStockService" name="sslCommerceStockService" />
+    <bean id="sslCommerceStockService" parent="defaultCommerceStockService">
+		<property name="commerceStockLevelCalculationStrategy" ref="commerceStockLevelCalculationStrategy" />
+    </bean>
+
+	<alias alias="stockLevelStatusStrategy" name="sslCommerceStockLevelStatusStrategy" />
+    <bean id="sslCommerceStockLevelStatusStrategy" parent="commerceStockLevelStatusStrategy">
+		<property name="commerceStockLevelCalculationStrategy" ref="commerceStockLevelCalculationStrategy" />
+    </bean>
+
+    <bean id="productVariantsValueProvider"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.provider.impl.ProductVariantsValueProvider"
+          parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+    </bean>
+
+	<alias alias="mediaContainerService" name="sslMediaContainerService" />
+    <bean id="sslMediaContainerService"
+          class="com.borngroup.ssl.core.services.impl.SslMediaContainerServiceImpl"
+		parent="defaultMediaContainerService" />
+
+	<alias alias="stockLevelDao" name="defaultSSLStockLevelDao" />
+    <bean id="defaultSSLStockLevelDao" class="com.borngroup.ssl.core.dao.impl.DefaultSSLStockLevelDao"
+		parent="defaultStockLevelDao" />
+
+    <bean id="stockLevelResetCronJob" class="com.borngroup.ssl.core.cron.StockResetCronJob"
+		parent="abstractJobPerformable" />
+
+    <bean id="startOrderProcessCronJob" class="com.borngroup.ssl.core.cron.StartOrderProcessCronJob"
+		parent="abstractJobPerformable" />
+
+	<alias name="sslCustomerReviewService" alias="customerReviewService" />
+    <bean id="sslCustomerReviewService"
+          class="com.borngroup.ssl.core.review.service.impl.SslCustomerReviewServiceImpl"
+		parent="defaultCustomerReviewService" scope="tenant" />
+
+	<alias name="sslCustomerReviewDao" alias="customerReviewDao" />
+    <bean id="sslCustomerReviewDao"
+          class="com.borngroup.ssl.core.review.dao.impl.SslCustomerReviewDaoImpl"
+		parent="defaultCustomerReviewDao" scope="tenant" />
+
+    <!-- <bean id="sslProductService" class="com.borngroup.ssl.core.product.service.impl.SslDefaultProductService"
+        scope="tenant" /> -->
+
+    <bean id="sslProductService"
+          class="com.borngroup.ssl.core.product.service.impl.SslDefaultProductService"
+		parent="productService" scope="tenant" />
+
+    <bean id="sslProductDao"
+          class="com.borngroup.ssl.core.product.dao.impl.SslDefaultProductDao"
+		scope="tenant" />
+
+    <bean id="sslQualityDynamicAttributeHandler"
+		class="com.borngroup.ssl.core.dynamic.attribute.handlers.SslQualityDynamicAttributeHandler" />
+
+	<alias name="sslServiceDaoImpl" alias="sslServiceDao" />
+    <bean id="sslServiceDaoImpl"
+          class="com.borngroup.ssl.core.services.dao.impl.SslServiceDaoImpl"
+		scope="tenant" />
+
+	<alias name="sslPriceService" alias="customPriceService" />
+    <bean id="sslPriceService"
+          class="com.borngroup.ssl.core.services.impl.SSLPriceServiceImpl"
+		scope="tenant" />
+
+	<alias name="sslServicesServiceImpl" alias="sslServicesService" />
+    <bean id="sslServicesServiceImpl"
+          class="com.borngroup.ssl.core.services.service.impl.SslServicesServiceImpl"
+          scope="tenant">
+		<property name="userService" ref="userService" />
+		<property name="orderConverter" ref="orderConverter" />
+		<property name="customerAccountService" ref="customerAccountService" />
+		<property name="baseStoreService" ref="baseStoreService" />
+		<property name="checkoutCustomerStrategy" ref="checkoutCustomerStrategy" />
+		<property name="sslServiceDao" ref="sslServiceDao" />
+		<property name="modelService" ref="modelService" />
+		<property name="typeService" ref="typeService" />
+		<property name="mobileAppBuildConverter" ref="mobileAppBuildConverter" />
+    </bean>
+
+	<alias name="defaultCustomerSocialAccountService" alias="customerSocialAccountService" />
+    <bean id="defaultCustomerSocialAccountService"
+          class="com.borngroup.ssl.core.sslsocialconnectaddon.impl.CustomerSocialAccountServiceImpl">
+		<property name="customerSocialAccountDAO" ref="customerSocialAccountDAO" />
+    </bean>
+
+	<alias name="defaultCustomerSocialAccountDAO" alias="customerSocialAccountDAO" />
+    <bean id="defaultCustomerSocialAccountDAO"
+          class="com.borngroup.ssl.core.sslsocialconnectaddon.daos.impl.CustomerSocialAccountDAOImpl">
+		<property name="flexibleSearchService" ref="flexibleSearchService" />
+    </bean>
+
+	<alias name="defaultsslPaymentTransactionService" alias="sslPaymentTransactionService" />
+    <bean id="defaultsslPaymentTransactionService"
+          class="com.borngroup.ssl.core.services.impl.SSLPaymentTransactionServiceImpl"
+		scope="tenant" />
+
+	<alias name="defaultSSLCustomerTypeService" alias="sslCustomerTypeService" />
+    <bean id="defaultSSLCustomerTypeService"
+          class="com.borngroup.ssl.core.services.impl.SSLCustomerTypeServiceImpl"
+          scope="tenant">
+		<property name="sslCustomerTypeDao" ref="sslCustomerTypeDao" />
+    </bean>
+
+	<alias name="defaultSSLCustomerTypeDao" alias="sslCustomerTypeDao" />
+    <bean id="defaultSSLCustomerTypeDao" class="com.borngroup.ssl.core.dao.impl.SSLCustomerTypeDaoImpl"
+		scope="tenant" />
+
+	<alias name="defaultSslMemberTypeLookupDao" alias="sslMemberTypeLookupDao" />
+    <bean id="defaultSslMemberTypeLookupDao"
+          class="com.borngroup.ssl.core.dao.impl.SslMemberTypeLookupDaoImpl"
+		scope="tenant" />
+
+	<alias name="defaultSslEducationLookupDaoImpl" alias="sslEducationLookupDao" />
+    <bean id="defaultSslEducationLookupDaoImpl"
+          class="com.borngroup.ssl.core.dao.impl.SslEducationLookupDaoImpl"
+		scope="tenant" />
+
+	<alias name="defaultSslMaritalStatusLookupDaoImpl" alias="sslMaritalStatusLookupDao" />
+    <bean id="defaultSslMaritalStatusLookupDaoImpl"
+          class="com.borngroup.ssl.core.dao.impl.SslMaritalStatusLookupDaoImpl"
+		scope="tenant" />
+
+	<alias name="defaultSslDesignationLookupDaoImpl" alias="sslDesignationLookupDao" />
+    <bean id="defaultSslDesignationLookupDaoImpl"
+          class="com.borngroup.ssl.core.dao.impl.SslDesignationLookupDaoImpl"
+		scope="tenant" />
+
+	<alias name="defaultsslEGiftService" alias="sslEGiftService" />
+    <bean id="defaultsslEGiftService"
+          class="com.borngroup.ssl.core.services.impl.SSLDeliveryEGiftServiceImpl"
+		scope="tenant" />
+
+    <bean id="newProductValueProvider"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.provider.impl.NewProductValueProvider"
+          parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+    </bean>
+
+    <bean id="cloudFrontS3MediaURLStrategy"
+          class="com.borngroup.ssl.core.strategies.impl.CloudFrontS3MediaURLStrategy">
+		<constructor-arg ref="s3StorageServiceFactory" />
+    </bean>
+
+    <bean id="generateeGiftVoucherEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="eGiftVoucherEmailTemplate" />
+    </bean>
+
+	<alias alias="commercePlaceOrderStrategy" name="defaultSSLCommercePlaceOrderStrategy" />
+    <bean id="defaultSSLCommercePlaceOrderStrategy" parent="defaultCommercePlaceOrderStrategy"
+          class="com.borngroup.ssl.core.strategies.impl.DefaultSSLCommercePlaceOrderStrategy">
+		<property name="sslProductService" ref="sslProductService" />
+		<property name="catalogVersionService" ref="catalogVersionService" />
+		<property name="sslStockService" ref="sslStockService" />
+		<property name="searchRestrictionService" ref="searchRestrictionService" />
+    </bean>
+
+	<alias alias="processContextResolutionStrategy" name="defaultSSLProcessContextResolutionStrategy" />
+    <bean id="defaultSSLProcessContextResolutionStrategy" parent="defaultProcessContextResolutionStrategy"
+          class="com.borngroup.ssl.core.strategies.impl.DefaultSSLProcessContextResolutionStrategy">
+    </bean>
+
+	<alias alias="emailGenerationService" name="sslDefaultEmailGenerationService" />
+    <bean id="sslDefaultEmailGenerationService"
+          class="com.borngroup.ssl.core.services.email.impl.SSLDefaultEmailGenerationService"
+          parent="abstractBusinessService">
+		<property name="emailService" ref="emailService" />
+		<property name="rendererService" ref="rendererService" />
+		<property name="emailContextFactory" ref="emailContextFactory" />
+		<property name="sslEmailAttachmentDao" ref="sslEmailAttachmentDao" />
+    </bean>
+
+
+    <bean id="feebBackEventListener" class="com.borngroup.ssl.core.event.FeebBackEventListener"
+          parent="abstractEventListener">
+		<property name="modelService" ref="modelService" />
+		<property name="businessProcessService" ref="businessProcessService" />
+    </bean>
+
+    <bean id="fccOTPEventListener" class="com.borngroup.ssl.core.event.FccOTPEventListener"
+          parent="abstractEventListener">
+		<property name="modelService" ref="modelService" />
+		<property name="businessProcessService" ref="businessProcessService" />
+    </bean>
+
+    <bean id="ComplaintEventListener" class="com.borngroup.ssl.core.event.ComplaintEventListener"
+          parent="abstractEventListener">
+		<property name="modelService" ref="modelService" />
+		<property name="businessProcessService" ref="businessProcessService" />
+    </bean>
+
+    <bean id="newsLettersEventListener" class="com.borngroup.ssl.core.event.NewsLettersEventListener"
+          parent="abstractEventListener">
+		<property name="modelService" ref="modelService" />
+		<property name="businessProcessService" ref="businessProcessService" />
+    </bean>
+
+    <bean id="ProductUploadAutomationEventListener"
+          class="com.borngroup.ssl.core.event.ProductUploadAutomationEventListener"
+          parent="abstractEventListener">
+		<property name="modelService" ref="modelService" />
+		<property name="businessProcessService" ref="businessProcessService" />
+		<property name="mediaService" ref="mediaService" />
+		<property name="flexibleSearchService" ref="flexibleSearchService" />	
+		<property name="catalogVersionService" ref="catalogVersionService" />				
+    </bean>
+
+    <bean id="OrderCompletionFeedMailEventListener"
+          class="com.borngroup.ssl.core.event.OrderCompletionFeedMailEventListener"
+          parent="abstractEventListener">
+		<property name="modelService" ref="modelService" />
+		<property name="businessProcessService" ref="businessProcessService" />
+    </bean>
+
+    <bean id="customerBirthdayEventListener"
+          class="com.borngroup.ssl.core.event.CustomerBirthdayEventListener"
+          parent="abstractSiteEventListener">
+		<property name="modelService" ref="modelService" />
+		<property name="businessProcessService" ref="businessProcessService" />
+    </bean>
+
+	<bean id="BankDetailsOTPEventListener"
+		class="com.borngroup.ssl.core.event.BankDetailsOTPEventListener"
+          parent="abstractEventListener">
+		<property name="modelService" ref="modelService" />
+		<property name="businessProcessService" ref="businessProcessService" />
+		<property name="odcReturnService" ref="odcReturnService" />
+		<property name="sslCustomerTouchPointService" ref="sslCustomerTouchPointService" />
+    </bean>
+
+	<bean id="BankDetailsReceivedEventListener"
+		class="com.borngroup.ssl.core.event.BankDetailsReceivedEventListener"
+          parent="abstractEventListener">
+		<property name="modelService" ref="modelService" />
+		<property name="businessProcessService" ref="businessProcessService" />
+    </bean>
+
+    <bean id="sendBankDetailsOtpEmailProcessDefinitionResource"
+          class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+        <property name="resource"
+			value="classpath:/sslcore/processes/sendBankDetailsOtpEmailProcess.xml" />
+    </bean>
+
+    <bean id="sendBankDetailsReceivedEmailProcessDefinitionResource"
+          class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+        <property name="resource"
+			value="classpath:/sslcore/processes/sendBankDetailsReceivedEmailProcess.xml" />
+    </bean>
+
+    <bean id="customerBirthdayEmailProcessDefinitionResource"
+          class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+        <property name="resource"
+			value="classpath:/sslcore/processes/customerBirthdayEmailProcess.xml" />
+    </bean>
+
+    <bean id="feedBackEmailProcessDefinitionResource"
+          class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+        <property name="resource"
+			value="classpath:/sslcore/processes/feedBackEmailProcess.xml" />
+    </bean>
+
+
+    <bean id="fccOTPEmailProcessDefinitionResource"
+          class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+        <property name="resource"
+			value="classpath:/sslcore/processes/fccOTPEmailProcess.xml" />
+    </bean>
+
+    <bean id="offersEmailProcessDefinitionResource"
+          class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+        <property name="resource"
+			value="classpath:/sslcore/processes/offersEmailProcess.xml" />
+    </bean>
+
+    <bean id="eGiftVoucherEmailProcessDefinitionResource"
+          class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+        <property name="resource"
+			value="classpath:/sslcore/processes/eGiftVoucherEmailProcess.xml" />
+    </bean>
+
+
+    <bean id="newsLettersEmailProcessDefinitionResource"
+          class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+        <property name="resource"
+			value="classpath:/sslcore/processes/newsLettersEmailProcess.xml" />
+    </bean>
+    <!-- ECD-2593 -->
+    <bean id="fccNotificationEmailDefinitionResource"
+	class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+	<property name="resource"
+		value="classpath:/sslcore/processes/fccLinkingEmailProcess.xml" />
+	</bean>
+	<!-- Email after succesfull Enrollment -->
+	<bean id="fccEnrollmentNotificationEmailDefinitionResource"
+		class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+		<property name="resource"
+			value="classpath:/sslcore/processes/fccEnrollmentEmailProcess.xml" />
+	</bean>
+
+    <bean id="generateCustomerBirthdayEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="CustomerBirthdayEmailTemplate" />
+    </bean>
+    <bean id="generateFeedBackEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="FeedBackEmailTemplate" />
+    </bean>
+
+
+    <bean id="generateOffersEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="OffersTemplate" />
+    </bean>
+
+    <bean id="generateDeliveredSentEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="OrderDeliveredEmailTemplate" />
+    </bean>
+
+    <bean id="generateNewsLettersEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="NewsLettersEmailTemplate" />
+    </bean>
+
+
+    <!-- Sterling Customer Communication Emails Start-->
+
+    <bean id="generateSterlingOrderConfirmationEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="SterlingOrderConfirmationEmailTemplate" />
+    </bean>
+
+    <bean id="generateSterlingOrderCancelledEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="SterlingOrderCancelledEmailTemplate" />
+    </bean>
+
+    <bean id="generateSterlingOrderReceivedEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="SterlingOrderReceivedEmailTemplate" />
+    </bean>
+
+    <bean id="generateSterlingOrderCaptureFailedEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="SterlingOrderCaptureFailedEmailTemplate" />
+    </bean>
+
+    <bean id="generateSterlingReadyForPickupEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="SterlingReadyForPickupEmailTemplate" />
+    </bean>
+
+    <bean id="generateSterlingShipmentPickedEmailProcess" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="SterlingShipmentPickedEmailTemplate" />
+    </bean>
+    
+    <bean id="sterlingReturnOrderEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="SterlingCnC_ReturnProcessedEmailTemplate" />
+    </bean>
+
+    <!-- Sterling Customer Communication Emails Ends-->
+
+    <bean id="customerBirthdayEmailCronJob"
+          class="com.borngroup.ssl.core.cron.CustomerBirthdayEmailCronJob"
+		parent="abstractJobPerformable" autowire="byName" />
+
+	<alias name="customerBirthdayDao" alias="customerBirthdayDao" />
+    <bean id="customerBirthdayDao"
+          class="com.borngroup.ssl.core.dao.impl.DefaultCustomerBirthdayDao"
+		scope="tenant" />
+
+	<alias name="sslBrandsDao" alias="sslBrandsDao" />
+    <bean id="sslBrandsDao" class="com.borngroup.ssl.core.dao.impl.SSLBrandsDaoImpl"
+		scope="tenant" />
+
+	<alias name="sslBrandsService" alias="sslBrandsService" />
+    <bean id="sslBrandsService"
+          class="com.borngroup.ssl.core.services.impl.SSLBrandsServiceImpl"
+		scope="tenant" />
+
+	<context:annotation-config />
+    <bean id="sslClassificationAttrTemplateJob"
+          class="com.borngroup.ssl.core.jobs.SSLClassificationAttrTemplateJob"
+		parent="abstractJobPerformable" />
+
+	<alias alias="eventPublishingSubmitOrderStrategy" name="sslEventPublishingSubmitOrderStrategy" />
+    <bean id="sslEventPublishingSubmitOrderStrategy"
+          class="com.borngroup.ssl.core.order.strategies.impl.SSLEventPublishingSubmitOrderStrategy">
+		<property name="eventService" ref="eventService" />
+    </bean>
+
+	<alias name="defaultCommerceSearchTextPopulator" alias="commerceSearchTextPopulator" />
+    <bean id="defaultCommerceSearchTextPopulator"
+          class="de.hybris.platform.commerceservices.search.solrfacetsearch.populators.SearchTextPopulator">
+        <property name="freeTextQueryBuilders">
+            <list>
+                <bean
+                        class="de.hybris.platform.commerceservices.search.solrfacetsearch.querybuilder.impl.NonFuzzyFreeTextQueryBuilder">
+					<property name="propertyName" value="ean" />
+                    <property name="boost"
+						value="#{configurationService.configuration.getProperty('relevance.parameter.EAN.boostValue')}" />
+                </bean>
+                <bean
+                        class="de.hybris.platform.commerceservices.search.solrfacetsearch.querybuilder.impl.NonFuzzyFreeTextQueryBuilder">
+					<property name="propertyName" value="code" />
+                    <property name="boost"
+						value="#{configurationService.configuration.getProperty('relevance.parameter.Code.boostValue')}" />
+                </bean>
+                <bean
+                        class="de.hybris.platform.commerceservices.search.solrfacetsearch.querybuilder.impl.DefaultFreeTextQueryBuilder">
+					<property name="propertyName" value="name" />
+                    <property name="boost"
+						value="#{configurationService.configuration.getProperty('relevance.parameter.Name.boostValue')}" />
+                </bean>
+                <bean
+                        class="de.hybris.platform.commerceservices.search.solrfacetsearch.querybuilder.impl.DefaultFreeTextQueryBuilder">
+					<property name="propertyName" value="manufacturerName" />
+                    <property name="boost"
+						value="#{configurationService.configuration.getProperty('relevance.parameter.ManufacturerName.boostValue')}" />
+                </bean>
+                <bean
+                        class="de.hybris.platform.commerceservices.search.solrfacetsearch.querybuilder.impl.ClassificationFreeTextQueryBuilder">
+                    <property name="boost"
+						value="#{configurationService.configuration.getProperty('relevance.parameter.IndexedClassificationAttributes.boostValue')}" />
+                </bean>
+                <bean
+                        class="de.hybris.platform.commerceservices.search.solrfacetsearch.querybuilder.impl.DefaultFreeTextQueryBuilder">
+					<property name="propertyName" value="keywords" />
+                    <property name="boost"
+						value="#{configurationService.configuration.getProperty('relevance.parameter.Keywords.boostValue')}" />
+                </bean>
+                <bean
+                        class="de.hybris.platform.commerceservices.search.solrfacetsearch.querybuilder.impl.NonFuzzyFreeTextQueryBuilder">
+					<property name="propertyName" value="searchKeywords" />
+                    <property name="boost"
+						value="#{configurationService.configuration.getProperty('relevance.parameter.searchKeywords.boostValue')}" />
+                </bean>
+                <bean
+                        class="de.hybris.platform.commerceservices.search.solrfacetsearch.querybuilder.impl.DefaultFreeTextQueryBuilder">
+					<property name="propertyName" value="categoryName" />
+                    <property name="boost"
+						value="#{configurationService.configuration.getProperty('relevance.parameter.CategoryName.boostValue')}" />
+                </bean>
+                <bean
+                        class="de.hybris.platform.commerceservices.search.solrfacetsearch.querybuilder.impl.NonFuzzyFreeTextQueryBuilder">
+					<property name="propertyName" value="brandSearch" />
+                    <property name="boost"
+						value="#{configurationService.configuration.getProperty('relevance.parameter.brandSearch.boostValue')}" />
+                </bean>
+                <bean
+                        class="de.hybris.platform.commerceservices.search.solrfacetsearch.querybuilder.impl.NonFuzzyFreeTextQueryBuilder">
+					<property name="propertyName" value="description" />
+                    <property name="boost"
+						value="#{configurationService.configuration.getProperty('relevance.parameter.description.boostValue')}" />
+                </bean>
+                <bean
+                        class="de.hybris.platform.commerceservices.search.solrfacetsearch.querybuilder.impl.NonFuzzyFreeTextQueryBuilder">
+					<property name="propertyName" value="variantSkuList" />
+                    <property name="boost"
+						value="#{configurationService.configuration.getProperty('relevance.parameter.variantSkuList.boostValue')}" />
+                </bean>
+                <bean
+                        class="de.hybris.platform.commerceservices.search.solrfacetsearch.querybuilder.impl.NonFuzzyFreeTextQueryBuilder">
+					<property name="propertyName" value="styleCode" />
+                    <property name="boost"
+						value="#{configurationService.configuration.getProperty('relevance.parameter.styleCode.boostValue')}" />
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="sslSizeSKUValueProvider" parent="abstractPropertyFieldValueProvider"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.provider.impl.SSLSizeSKUValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+    </bean>
+
+	<alias name="sslFindPricingStrategy" alias="currentFactoryFindPricingStrategy" />
+    <bean id="sslFindPricingStrategy"
+          class="com.borngroup.ssl.core.order.strategies.impl.FindPricingWithCurrentPriceFactoryStrategy"
+          parent="abstractBusinessService">
+		<property name="priceService" ref="priceService" />
+    </bean>
+
+	<bean name="sslPincodeValueProcessor" class="com.borngroup.ssl.core.util.SslPincodeValueProcessor" />
+
+	<alias name="defaultSSLTicketService" alias="ticketService" />
+    <bean id="defaultSSLTicketService"
+          class="com.borngroup.ssl.core.services.impl.DefaultSSLTicketService"
+          parent="defaultTicketService">
+    </bean>
+
+	<alias name="defaultSslDeliveryConsignmentService" alias="deliveryConsignmentService" />
+    <bean id="defaultSslDeliveryConsignmentService"
+          class="com.borngroup.ssl.core.services.impl.SslDeliveryConsignmentServiceImpl">
+		<property name="searchService" ref="flexibleSearchService" />
+		<property name="businessProcessService" ref="businessProcessService" />
+    </bean>
+
+    <!-- Start Notify email with attachments -->
+    <bean id="sslSendEmailWithAttachmentService"
+          class="com.borngroup.ssl.core.services.email.impl.SSLSendEmailWithAttachmentService">
+		<property name="businessProcessService" ref="businessProcessService" />
+		<property name="mediaService" ref="mediaService" />
+		<property name="modelService" ref="modelService" />
+        <property name="defaultSSLReturnDocumentGeneratorService"
+			ref="defaultSSLReturnDocumentGeneratorService" />
+    </bean>
+
+    <bean id="sendReturnRequestEmailWithAttachmentProcessDefinitionResource"
+          class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+        <property name="resource"
+			value="classpath:/sslcore/processes/sendReturnRequestEmailWithAttachmentProcess.xml" />
+    </bean>
+    <!-- End Notify email with attachment -->
+
+	<alias alias="returnService" name="sslReturnService" />
+    <bean id="sslReturnService"
+          class="com.borngroup.ssl.core.services.returns.impl.SSLReturnServiceImpl"
+          parent="defaultReturnService">
+        <property name="returnableChecks">
+            <list>
+				<ref bean="sslReturnEntryBasedReturnableCheck" />
+				<ref bean="sslConsignmentBasedReturnableCheck" />
+            </list>
+        </property>
+		<property name="modificationHandler" ref="sslOrderReturnRecordsHandler" />
+		<property name="ticketBusinessService" ref="ticketBusinessService" />
+    </bean>
+
+	<alias alias="exchangeService" name="sslExchangeService" />
+    <bean id="sslExchangeService"
+          class="com.borngroup.ssl.core.services.returns.impl.SSLExchangeServiceImpl"
+          parent="returnService">
+    </bean>
+
+	<alias name="sslTicketBusinessService" alias="ticketBusinessService" />
+    <bean id="sslTicketBusinessService"
+          class="com.borngroup.ssl.core.services.ticket.impl.SSLTicketBusinessServiceImpl"
+          parent="defaultTicketBusinessService" scope="tenant">
+		<property name="ticketEventStrategy" ref="ticketEventStrategy" />
+    </bean>
+
+    <bean id="sslConsignmentBasedReturnableCheck"
+          class="com.borngroup.ssl.core.strategy.returns.SSLConsignmentBasedReturnableCheck"
+          parent="defaultConsignmentBasedReturnableCheck">
+    </bean>
+
+    <bean id="sslReturnEntryBasedReturnableCheck"
+          class="com.borngroup.ssl.core.strategy.returns.SSLReturnEntryBasedReturnableCheck"
+          parent="defaultChecksExistingReturnEntry">
+    </bean>
+
+    <bean id="sslReturnProductStrategy"
+          class="com.borngroup.ssl.core.strategy.returns.SSLReturnProductStrategy"></bean>
+
+    <bean id="sslOrderReturnRecordsHandler"
+          class="com.borngroup.ssl.core.services.impl.SSLOrderReturnRecordsHandlerImpl"
+          parent="defaultOrderReturnRecordsHandler">
+    </bean>
+
+
+    <!--Start Notify email when Return Request approval -->
+    <bean id="generateReturnRequestEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="ReturnRequestOrderEmailTemplate" />
+    </bean>
+
+    <bean id="generateBankDetailsUpdateLinkEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="BankDetailsUpdateLinkEmailTemplate" />
+    </bean>
+
+    <bean id="sendReturnRequestEmailProcessDefinitionResource"
+          class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+        <property name="resource"
+			value="classpath:/sslcore/processes/sendReturnRequestEmailProcess.xml" />
+    </bean>
+
+    <bean id="sendBankDetailsUpdateLinkEmailProcessDefinitionResource"
+          class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+        <property name="resource"
+			value="classpath:/sslcore/processes/sendBankDetailsUpdateLinkEmailProcess.xml" />
+    </bean>
+    
+    <!-- Start Notify email when Return to origin is initiated -->
+    <bean id="sendReturnToOriginEmailProcessDefinitionResource"
+          class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+        <property name="resource"
+			value="classpath:/sslcore/processes/sendReturnToOriginEmailProcess.xml" />
+    </bean>
+    
+    <bean id="generateReturnToOriginEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="ReturnToOriginEmailTemplate" />
+    </bean>
+	<!-- End Notify email when Return to origin is initiated -->
+
+    <!--Start Notify email when Return Request moved to inward zone -->
+    <bean id="generateReturnRequestInwardZoneEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="ReturnRequestInwardZoneEmailTemplate" />
+    </bean>
+
+    <bean id="sendReturnRequestInwardZoneEmailProcessDefinitionResource"
+          class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+        <property name="resource"
+			value="classpath:/sslcore/processes/sendReturnRequestInwardZoneEmailProcess.xml" />
+    </bean>
+    <!--End Notify email when Return Request moved to inward zone -->
+
+    <!--Start Notify email when Exchange Request is converted to Return -->
+    <bean id="generateExchangeToReturnEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="ExchangeToReturnEmailTemplate" />
+    </bean>
+
+    <bean id="sendExchangeToReturnEmailProcessDefinitionResource"
+          class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+        <property name="resource"
+			value="classpath:/sslcore/processes/sendExchangeToReturnEmailProcess.xml" />
+    </bean>
+    <!--End Notify email when Exchange Request is converted to Return -->
+
+    <!--Start Notify email when Return Request moved to inward zone -->
+    <bean id="generateReturnRequestRMRefundProcessEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="ReturnRequestRMARefundProcessEmailTemplate" />
+    </bean>
+
+    <bean id="sendReturnRequestRMRefundProcessEmailProcessDefinitionResource"
+          class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+        <property name="resource"
+			value="classpath:/sslcore/processes/sendReturnRequestRMRefundProcessEmailProcess.xml" />
+    </bean>
+    <!--End Notify email when Return Request moved to inward zone -->
+
+    <!--Start Notify email when Return Request Rejected -->
+    <bean id="generateReturnRequestRMRejectEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="ReturnRequestRMARejectedEmailTemplate" />
+    </bean>
+
+    <bean id="sendReturnRequestRejectEmailProcessDefinitionResource"
+          class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+        <property name="resource"
+			value="classpath:/sslcore/processes/sendReturnRequestRejectEmailProcess.xml" />
+    </bean>
+    <!--End Notify email when Return Request Rejected -->
+
+    <!--Start Notify email when Return Request partially accepted -->
+    <bean id="generateReturnRequestRMPartiallyAcceptedEmail" parent="abstractGenerateEmailAction">
+        <property name="frontendTemplateName"
+			value="ReturnRequestRMAPartiallyAcceptedEmailTemplate" />
+    </bean>
+
+    <bean
+            id="sendReturnRequestPartiallyAcceptedEmailProcessDefinitionResource"
+            class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+        <property name="resource"
+			value="classpath:/sslcore/processes/sendReturnRequestPartiallyAcceptedEmailProcess.xml" />
+    </bean>
+    <!--End Notify email when Return Request partially accepted -->
+
+    <bean id="returnRequestEventListener" class="com.borngroup.ssl.core.event.ReturnRequestEventListener"
+          parent="abstractEventListener">
+		<property name="modelService" ref="modelService" />
+		<property name="businessProcessService" ref="businessProcessService" />
+    </bean>
+
+    <bean id="sslOrderInterceptor"
+          class="com.borngroup.ssl.core.interceptors.SSLOrderStatusValidateInterceptor"
+          scope="tenant">
+    </bean>
+
+    <bean id="sslOrderInterceptorMapping"
+          class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping"
+          scope="tenant">
+		<property name="interceptor" ref="sslOrderInterceptor" />
+		<property name="typeCode" value="Order" />
+    </bean>
+
+    <!--Ends Notify email when Return Request approval -->
+
+    <bean id="voucherInvalidationPlaceOrderMethodHook"
+          class="com.borngroup.ssl.core.hooks.VoucherInvalidationPlaceOrderMethodHook">
+    </bean>
+
+    <bean id="commercePlaceOrderMethodHooksListMergeDirective"
+          depends-on="commercePlaceOrderMethodHooks" parent="listMergeDirective">
+		<property name="add" ref="voucherInvalidationPlaceOrderMethodHook" />
+    </bean>
+
+	<alias name="coreCommonHelper" alias="coreCommonHelper" />
+    <bean id="coreCommonHelper" class="com.borngroup.ssl.core.util.CommonHelper"
+          scope="singleton">
+    </bean>
+
+    <bean id="sslSiteMapContext"
+          class="com.borngroup.ssl.core.services.sitemap.renderer.SSLSiteMapContext">
+		<property name="baseSiteService" ref="baseSiteService" />
+		<property name="siteBaseUrlResolutionService" ref="siteBaseUrlResolutionService" />
+		<property name="urlEncoderService" ref="urlEncoderService" />
+    </bean>
+
+	<alias name="sslSiteMapContext" alias="siteMapContext" />
+
+	<alias name="defaultGoogleMapTools" alias="googleMapTools" />
+    <bean id="defaultGoogleMapTools" class="de.hybris.platform.storelocator.impl.GoogleMapTools"
+          scope="prototype">
+		<property name="addressLocationParser" ref="firstPlacemarkWinsGoogleResponseParser" />
+		<property name="routeDataParser" ref="routeDataGoogleResponseParser" />
+		<property name="directionsUrlBuilder" ref="geolocationDirectionsUrlBuilder" />
+		<property name="googleKey" value="${googleApiKey}" />
+    </bean>
+
+    <bean id="sslSizeFacetValueProvider"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.provider.impl.SslSizeFacetValueProvider"
+          parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+    </bean>
+	<alias alias="userReportService" name="defaultUserReportService" />
+    <bean id="defaultUserReportService"
+          class="com.ss.core.report.service.impl.DefaultUserReportService">
+		<property name="userReportDao" ref="userReportDao" />
+    </bean>
+	<alias alias="userReportDao" name="defaultUserReportDao" />
+    <bean id="defaultUserReportDao" class="com.ss.core.report.dao.impl.DefauldUserReportDao"
+          parent="abstractItemDao">
+		<property name="flexibleSearchService" ref="flexibleSearchService" />
+    </bean>
+    <bean id="generateAbondenedEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="AbandonedCartEmailTemplate" />
+    </bean>
+    <bean id="generateAbandonedBusinessEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="AbandonedCartBusinessEmailTemplate" />
+    </bean>
+	<alias name="defaultSslEmailService" alias="sslEmailService" />
+    <bean id="defaultSslEmailService" class="com.ss.job.services.mail.impl.DefaultSslEmailService">
+		<property name="modelService" ref="modelService" />
+		<property name="businessProcessService" ref="businessProcessService" />
+		<property name="baseSiteService" ref="baseSiteService" />
+		<property name="commonI18NService" ref="commonI18NService" />
+    </bean>
+
+    <!-- Rest Template Configuration -->
+	<alias alias="solrRestTemplate" name="defaultSslSolrRestTemplate" />
+    <bean id="defaultSslSolrRestTemplate" parent="defaultSolrRestTemplate"
+		class="com.ss.solr.rest.SslSolrRestTemplate" />
+    <bean id="brandfacetNameSortProviderAscending"
+          class="de.hybris.platform.solrfacetsearch.config.impl.DefaultFacetSortProvider">
+		<property name="comparator" ref="brandfacetNameComparator" />
+		<property name="descending" value="false" />
+    </bean>
+
+    <!-- COMPARATORS -->
+    <bean id="brandfacetNameComparator"
+		class="de.hybris.platform.solrfacetsearch.search.impl.comparators.FacetBrandNameSearchComparator" />
+
+    <bean id="sslGenderRestrictionDynamicDescription"
+          class="com.borngroup.ssl.core.model.SslGenderRestrictionDynamicDescription"
+		scope="tenant" />
+
+    <bean id="cmsSslGenderRestrictionEvaluator"
+          class="com.borngroup.ssl.core.services.evaluator.impl.CMSSslGenderRestrictionEvaluator"
+		scope="tenant" />
+
+    <bean id="cmsSslGenderRestrictionEvaluatorMapping"
+          class="de.hybris.platform.cms2.servicelayer.services.evaluator.CMSRestrictionEvaluatorMapping"
+          scope="tenant">
+		<property name="restrictionTypeCode" value="CMSSslGenderRestriction" />
+		<property name="restrictionEvaluator" ref="cmsSslGenderRestrictionEvaluator" />
+    </bean>
+
+    <bean id="sslProductMultiBuyDiscountPromotionInitDefaultInterceptor"
+          class="com.borngroup.ssl.core.interceptors.SslProductMultiBuyDiscountPromotionInitDefaultInterceptor"
+		scope="tenant" />
+
+
+    <bean
+            id="sslProductMultiBuyDiscountPromotionInitDefaultInterceptorMapping"
+            class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping"
+            scope="tenant">
+        <property name="interceptor"
+			ref="sslProductMultiBuyDiscountPromotionInitDefaultInterceptor" />
+		<property name="typeCode" value="SslProductMultiBuyDiscountPromotion" />
+    </bean>
+
+    <bean id="sslProductPerfectPartnerDiscountPromotionInitDefaultInterceptor"
+          class="com.borngroup.ssl.core.interceptors.SslProductPerfectPartnerDiscountPromotionInitDefaultInterceptor"
+		scope="tenant" />
+
+    <bean
+            id="sslProductPerfectPartnerDiscountPromotionInitDefaultInterceptorMapping"
+            class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping"
+            scope="tenant">
+        <property name="interceptor"
+			ref="sslProductPerfectPartnerDiscountPromotionInitDefaultInterceptor" />
+		<property name="typeCode" value="SslProductPerfectPartnerDiscountPromotion" />
+    </bean>
+
+    <bean
+            id="sslProductSteppedMultiBuyDiscountPromotionInitDefaultInterceptor"
+            class="com.borngroup.ssl.core.interceptors.SslProductSteppedMultiBuyDiscountPromotionInitDefaultInterceptor"
+		scope="tenant" />
+
+    <bean
+            id="sslProductSteppedMultiBuyDiscountPromotionInitDefaultInterceptorMapping"
+            class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping"
+            scope="tenant">
+        <property name="interceptor"
+			ref="sslProductSteppedMultiBuyDiscountPromotionInitDefaultInterceptor" />
+		<property name="typeCode" value="SslProductSteppedMultiBuyDiscountPromotion" />
+    </bean>
+
+    <bean id="sslProductBOGODiscountPromotionInitDefaultInterceptor"
+          class="com.borngroup.ssl.core.interceptors.SslProductBOGODiscountPromotionInitDefaultInterceptor"
+		scope="tenant" />
+
+    <bean id="sslProductBOGODiscountPromotionInitDefaultInterceptorMapping"
+          class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping"
+          scope="tenant">
+        <property name="interceptor"
+			ref="sslProductBOGODiscountPromotionInitDefaultInterceptor" />
+		<property name="typeCode" value="SslProductBOGODiscountPromotion" />
+    </bean>
+
+    <bean id="sslProductBOGOFPromotionInitDefaultInterceptor"
+          class="com.borngroup.ssl.core.interceptors.SslProductBOGOFPromotionInitDefaultInterceptor"
+		scope="tenant" />
+
+    <bean id="sslProductBOGOFPromotionInitDefaultInterceptorMapping"
+          class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping"
+          scope="tenant">
+        <property name="interceptor"
+			ref="sslProductBOGOFPromotionInitDefaultInterceptor" />
+		<property name="typeCode" value="SslProductBOGOFPromotion" />
+    </bean>
+
+    <bean id="coreMessageSource"
+          class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <value>/localization/sslcore-locales</value>
+            </list>
+        </property>
+		<property name="defaultEncoding" value="UTF-8" />
+    </bean>
+
+    <bean id="sslCollectionsModelUrlResolver"
+          class="com.borngroup.ssl.core.services.url.impl.SSLCollectionsModelUrlResolver">
+		<property name="pattern" value="/{collections-name}/cl-{collections-code}" />
+		<property name="threadContextService" ref="threadContextService" />
+		<property name="baseSiteService" ref="baseSiteService" />
+    </bean>
+
+    <!-- Changes for collections -->
+    <bean id="sslCollectionsValidateInterceptor"
+          class="com.borngroup.ssl.core.interceptors.SSLCollectionsValidateInterceptor"
+		scope="tenant" />
+
+    <bean id="sslCollectionsValidateInterceptorMapping"
+          class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping"
+          scope="tenant">
+		<property name="interceptor" ref="sslCollectionsValidateInterceptor" />
+		<property name="typeCode" value="SSLCollections" />
+    </bean>
+
+    <bean id="sslCustomerCCAvenueCardService"
+          class="com.borngroup.ssl.core.services.impl.SslCustomerCCAvenueCardServiceImpl"
+          scope="tenant">
+		<property name="sslCustomerCCAvenueCardDao" ref="sslCustomerCCAvenueCardDao" />
+    </bean>
+
+    <bean id="sslCustomerCCAvenueCardDao"
+          class="com.borngroup.ssl.core.dao.impl.SslCustomerCCAvenueCardDaoImpl"
+		scope="tenant" />
+
+
+    <bean id="sslShopBySizeFacetAttributeComparator"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.search.SSLFacetValueNameComparator"
+          scope="tenant">
+
+    </bean>
+
+    <bean id="sslShopBySizeAttributeSortProvider"
+          class="de.hybris.platform.solrfacetsearch.config.impl.DefaultFacetSortProvider"
+          scope="tenant">
+		<property name="comparator" ref="sslShopBySizeFacetAttributeComparator" />
+    </bean>
+
+    <!-- Added for SSLM 794 -->
+	<alias name="sslDeliveryModeLookupStrategy" alias="deliveryModeLookupStrategy" />
+    <bean id="sslDeliveryModeLookupStrategy"
+          class="com.borngroup.ssl.core.strategies.impl.SSLDeliveryModeLookupStrategy">
+		<property name="countryZoneDeliveryModeDao" ref="countryZoneDeliveryModeDao" />
+		<property name="pickupDeliveryModeDao" ref="pickupDeliveryModeDao" />
+		<property name="commonI18NService" ref="commonI18NService" />
+    </bean>
+
+	<alias alias="countryZoneDeliveryModeDao" name="sslZoneDeliveryModeDao" />
+    <bean id="sslZoneDeliveryModeDao"
+          class="com.borngroup.ssl.core.commerceservices.delivery.dao.impl.SSLCountryZoneDeliveryModeDaoImpl"
+          parent="defaultCountryZoneDeliveryModeDao">
+		<property name="deliveryService" ref="deliveryService" />
+		<property name="commonI18NService" ref="commonI18NService" />
+		<property name="cartService" ref="cartService" />
+		<property name="voucherService" ref="voucherService" />
+    </bean>
+
+    <bean id="de.hybris.platform.deliveryzone.jalo.ZoneDeliveryMode"
+          class="com.borngroup.ssl.core.jalo.SSLZoneDeliveryMode" scope="prototype">
+		<property name="commonI18NService" ref="commonI18NService" />
+		<property name="orderRequiresCalculationStrategy" ref="orderRequiresCalculationStrategy" />
+		<property name="modelService" ref="modelService" />
+		<property name="flexibleSearchService" ref="flexibleSearchService" />
+    </bean>
+
+	<alias name="sslFindDeliveryCostStrategy" alias="findDeliveryCostStrategy" />
+    <bean id="sslFindDeliveryCostStrategy"
+          class="com.borngroup.ssl.core.strategies.impl.SslFindDeliveryCostStrategy"
+		parent="defaultFindDeliveryCostStrategy" />
+
+	<alias name="sslCommerceCartCalculationMethodHook" alias="sslCommerceCartCalculationMethodHook" />
+    <bean id="sslCommerceCartCalculationMethodHook"
+          class="com.borngroup.ssl.core.hooks.SslCommerceCartCalculationMethodHookImpl">
+		<property name="findDeliveryCostStrategy" ref="findDeliveryCostStrategy" />
+		<property name="commonI18NService" ref="commonI18NService" />
+		<property name="modelService" ref="modelService" />
+		<property name="coreGSTTaxCalculationService" ref="coreGSTTaxCalculationService" />
+    </bean>
+
+    <bean id="sslCommerceCartCalculationMethodHookHooks" depends-on="commerceCartCalculationMethodHooks"
+          parent="listMergeDirective">
+		<property name="add" ref="sslCommerceCartCalculationMethodHook" />
+    </bean>
+    <!-- End for SSLM 794 -->
+
+
+	<alias alias="sslCmsDao" name="sslDefaultCmsDao" />
+    <bean id="sslDefaultCmsDao" class="com.borngroup.ssl.core.dao.impl.SslDefaultCMSDaoImpl"
+		parent="cmsPageDao" />
+
+    <bean id="sslL1CategoryProvider"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.provider.impl.SslLevelWiseCategoryValueProvider"
+          parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+		<property name="categoryLevel" value="1" />
+    </bean>
+    <bean id="sslL3CategoryProvider"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.provider.impl.SslLevelWiseCategoryValueProvider"
+          parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+		<property name="categoryLevel" value="3" />
+    </bean>
+
+    <!-- SSLM 793 Starts -->
+    <bean id="sslCustomerEmailFeedbackService"
+          class="com.borngroup.ssl.core.services.impl.SSLCustomerEmailFeedbackServiceImpl"
+          scope="tenant">
+    </bean>
+
+    <bean id="sslCustomerEmailFeedbackDao"
+          class="com.borngroup.ssl.core.dao.impl.SslCustomerEmailFeedbackDaoImpl"
+		scope="tenant" />
+    <!-- SSLM 793 Ends -->
+
+    <bean id="sslWalletCreditsBulkUploadReportService"
+          class="com.borngroup.ssl.core.services.impl.SslWalletCreditsBulkUploadReportServiceImpl"
+		scope="tenant" />
+
+
+    <bean id="walletCreditsBulkUploadStoreFrontProcessDefinitionResource"
+          class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+        <property name="resource"
+			value="classpath:/sslcore/processes/walletCreditsBulkUploadStoreFrontProcess.xml" />
+    </bean>
+    <bean id="generateCreditBulkUploadEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="BulkUploadCreditsEmailTemplate" />
+    </bean>
+
+    <bean id="walletCreditBulkUploadEventListener"
+          class="com.borngroup.ssl.core.event.WalletCreditBulkUploadEventListener"
+          parent="abstractEventListener">
+		<property name="modelService" ref="modelService" />
+		<property name="businessProcessService" ref="businessProcessService" />
+
+    </bean>
+
+	<alias name="sslPromotionFacetDisplayNameProvider" alias="promotionFacetDisplayNameProvider" />
+    <bean id="sslPromotionFacetDisplayNameProvider"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.provider.impl.SSLPromotionFacetDisplayNameProvider">
+		<property name="promotionsDao" ref="promotionsDao" />
+    </bean>
+
+
+	<alias name="sslDefaultFacetSearchService" alias="facetSearchService" />
+	<alias name="sslDefaultFacetSearchService" alias="solrFacetSearchService" />
+    <bean id="sslDefaultFacetSearchService"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.impl.SSLDefaultFacetSearchService">
+		<property name="facetSearchStrategyFactory" ref="facetSearchStrategyFactory" />
+    </bean>
+
+	<alias name="sslCommerceSearchSolrQueryPopulator" alias="commerceSearchSolrQueryPopulator" />
+    <bean id="sslCommerceSearchSolrQueryPopulator"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.populators.SSLCommerceSearchSolrQueryPopulator">
+		<property name="catalogVersionService" ref="catalogVersionService" />
+		<property name="baseSiteService" ref="baseSiteService" />
+		<property name="commonI18NService" ref="commonI18NService" />
+		<property name="baseStoreService" ref="baseStoreService" />
+		<property name="facetSearchService" ref="facetSearchService" />
+		<property name="facetSearchConfigService" ref="facetSearchConfigService" />
+		<property name="solrFacetSearchConfigSelectionStrategy" ref="solrFacetSearchConfigSelectionStrategy" />
+    </bean>
+
+	<alias name="sslDefaultFacetSearchStrategy" alias="defaultFacetSearchStrategy" />
+    <bean id="sslDefaultFacetSearchStrategy"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.impl.SSLDefaultFacetSearchStrategy"
+          parent="abstractFacetSearchStrategy">
+		<property name="solrService" ref="solrService" />
+		<property name="facetSearchQueryConverter" ref="facetSearchQueryConverter" />
+		<property name="facetSearchResultConverter" ref="facetSearchResultConverter" />
+		<property name="facetSearchContextFactory" ref="facetSearchContextFactory" />
+    </bean>
+
+    <bean id="sslMediaConversionCronJob" class="com.borngroup.ssl.core.jobs.SslMediaConversionCronJob"
+		autowire="byName" />
+
+	<alias name="sslCalculationService" alias="calculationService" />
+    <bean id="sslCalculationService"
+          class="com.borngroup.ssl.core.order.calculation.impl.SSLCalculationServiceImpl"
+		parent="defaultCalculationService" />
+
+    <bean id="sslVirtualCategoryEntryValidateInterceptor"
+          class="com.borngroup.ssl.core.interceptors.SSLVirtualCategoryEntryValidateInterceptor"
+		scope="tenant" />
+
+    <bean id="sslVirtualCategoryEntryValidateInterceptorMapping"
+          class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping"
+          scope="tenant">
+		<property name="interceptor" ref="sslVirtualCategoryEntryValidateInterceptor" />
+		<property name="typeCode" value="VirtualCategoryEntry" />
+    </bean>
+
+    <bean id="sslCategoryValidateInterceptor"
+          class="com.borngroup.ssl.core.interceptors.SSLCategoryValidateInterceptor"
+		scope="tenant" />
+
+    <bean id="sslCategoryValidateInterceptorMapping"
+          class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping"
+          scope="tenant">
+		<property name="interceptor" ref="sslCategoryValidateInterceptor" />
+		<property name="typeCode" value="Category" />
+    </bean>
+    <bean id="virtualCategoryAndProductMappingCrobJob"
+          class="com.borngroup.ssl.core.cron.VirtualCategoryAndProductMappingCronJob"
+          parent="abstractJobPerformable">
+		<property name="modelService" ref="modelService" />
+		<property name="flexibleSearchService" ref="flexibleSearchService" />
+		<property name="catalogSyncService" ref="catalogSynchronizationService" />
+		<property name="catalogVersionService" ref="catalogVersionService" />
+    </bean>
+
+	<alias name="htmlMailSender" alias="htmlMailSender" />
+    <bean id="htmlMailSender"
+          class="com.borngroup.ssl.core.email.services.impl.HtmlMailSenderImpl"
+		scope="tenant" />
+
+    <bean id="abandonedCartReportForOutboundCronJob"
+          class="com.borngroup.ssl.core.jobs.AbandonedCartReportForOutboundCronJob"
+          parent="abstractJobPerformable">
+    </bean>
+
+
+    <bean id="sslImprovedSearchL1CategoryProvider"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.provider.impl.SslImprovedSearchLevelWiseCategoryValueProvider"
+          parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+		<property name="categoryLevel" value="1" />
+    </bean>
+    <bean id="sslImprovedSearchL2CategoryProvider"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.provider.impl.SslImprovedSearchLevelWiseCategoryValueProvider"
+          parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+		<property name="categoryLevel" value="2" />
+    </bean>
+    <bean id="sslImprovedSearchL3CategoryProvider"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.provider.impl.SslImprovedSearchLevelWiseCategoryValueProvider"
+          parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+		<property name="categoryLevel" value="3" />
+    </bean>
+    <bean id="sslImprovedSearchStockAtWarehouseValueProvider"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.provider.impl.SSLImprovedSearchStockAtWarehouseValueProvider"
+          parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+    </bean>
+    <bean id="sslNewImprovedSearchL3CategoryValueProvider"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.provider.impl.SslNewImprovedSearchL3CategoryValueProvider"
+          parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+		<property name="categoryLevel" value="3" />
+    </bean>
+    <bean id="sslImprovedSearchSizeFacetValueProvider"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.provider.impl.SslImprovedSearchSizeFacetValueProvider"
+          parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+    </bean>
+
+
+    <!-- FCC CRM -->
+    <bean id="fccCrmTicketEmailProcessDefinitionResource"
+          class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+        <property name="resource"
+			value="classpath:/sslcore/processes/fccCrmTicketEmailProcess.xml" />
+    </bean>
+
+
+    <!-- FCC CRM -->
+    <bean id="generateFccCrmTicketEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="FccCrmTicketEmailTemplate" />
+    </bean>
+
+
+    <bean id="genderAutoSuggestionImprovedSearchValueProvider"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.provider.impl.SslImprovedSearchGenderInCategoriesAutoSuggestionValueProvider"
+          parent="abstractPropertyFieldValueProvider">
+		<property name="categoryLevel" value="3" />
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+    </bean>
+    <bean id="genderInBrandsAutoSuggestionImprovedSearchValueProvider"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.provider.impl.SslImprovedSearchGenderInBrandsAutoSuggestionValueProvider"
+          parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+    </bean>
+    <bean id="sslImprovedSearchColorInAutoSuggestionValueProvider"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.provider.impl.SslImprovedSearchColorInAutoSuggestionValueProvider"
+          parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+		<property name="categoryLevel" value="3" />
+    </bean>
+    <bean id="sslImprovedSearchBrandsInAutoSuggestionValueProvider"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.provider.impl.SSLImprovedSearchBrandCodeValueProvider"
+          parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+    </bean>
+    <bean id="ageGroupFacetImprovedSearchValueProvider"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.provider.impl.SslImprovedSearchAgeGroupFacetValueProvider"
+          parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+    </bean>
+    <bean id="sslImprovedSearchBrandCodeValueProvider" parent="abstractPropertyFieldValueProvider"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.provider.impl.SSLBrandRedirectValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+    </bean>
+	<bean id="sslAlternateEansValueProvider" parent="abstractPropertyFieldValueProvider"
+		class="com.borngroup.ssl.core.search.solrfacetsearch.provider.impl.SSLAlternateEansValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+	</bean>
+
+
+    <!-- Solr autosuggest changes -->
+    <bean id="autocompleteSearchQueryBasicPopulator"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.populators.SslBasicSolrQueryPopulator"
+          parent="abstractFacetSearchQueryPopulator">
+        <property name="freeTextQueryBuilderFactory" ref="freeTextQueryBuilderFactory"></property>
+    </bean>
+    <bean id="autocompleteFacetSearchService"
+          class="de.hybris.platform.solrfacetsearch.search.impl.DefaultFacetSearchService">
+		<property name="facetSearchStrategyFactory" ref="autocompleteFacetSearchStrategyFactory" />
+    </bean>
+
+    <bean id="autocompleteFacetSearchStrategyFactory"
+          class="de.hybris.platform.solrfacetsearch.search.impl.DefaultFacetSearchStrategyFactory">
+		<property name="defaultFacetSearchStrategy" ref="autocompleteFacetSearchStrategy" />
+		<property name="legacyFacetSearchStrategy" ref="legacyFacetSearchStrategy" />
+    </bean>
+
+    <bean id="autocompleteFacetSearchStrategy" parent="defaultFacetSearchStrategy">
+		<property name="solrService" ref="solrService" />
+		<property name="facetSearchQueryConverter" ref="autocompleteFacetSearchQueryConverter" />
+		<property name="facetSearchResultConverter" ref="autocompleteFacetSearchResultConverter" />
+		<property name="facetSearchContextFactory" ref="facetSearchContextFactory" />
+    </bean>
+    <bean id="autocompleteFacetSearchQueryConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="org.apache.solr.client.solrj.SolrQuery" />
+        <property name="populators">
+            <list>
+				<ref bean="autocompleteSearchQueryBasicPopulator" />
+				<ref bean="facetSearchQueryFilterQueriesPopulator" />
+				<ref bean="autocompleteFacetSearchQueryFacetsPopulator" />
+            </list>
+        </property>
+    </bean>
+    <bean id="autocompleteFacetSearchQueryFacetsPopulator"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.impl.SslAutocompleteFacetSearchQueryFacetsPopulator"
+          parent="facetSearchQueryFacetsPopulator">
+    </bean>
+    <bean id="autocompleteFacetSearchResultConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass"
+			value="de.hybris.platform.solrfacetsearch.search.impl.SolrSearchResult" />
+        <property name="populators">
+            <list>
+				<ref bean="autocompleteFacetSearchResultBasicPopulator" />
+				<ref bean="facetSearchResultFacetsPopulator" />
+            </list>
+        </property>
+    </bean>
+    <bean id="autocompleteSearchSolrQueryPopulator"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.populators.SSLCommerceSearchSolrQueryPopulator">
+		<property name="catalogVersionService" ref="catalogVersionService" />
+		<property name="baseSiteService" ref="baseSiteService" />
+		<property name="commonI18NService" ref="commonI18NService" />
+		<property name="baseStoreService" ref="baseStoreService" />
+		<property name="facetSearchService" ref="autocompleteFacetSearchService" />
+		<property name="facetSearchConfigService" ref="facetSearchConfigService" />
+		<property name="solrFacetSearchConfigSelectionStrategy" ref="solrFacetSearchConfigSelectionStrategy" />
+    </bean>
+    <bean id="autocompleteSearchQueryPageableConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass"
+			value="de.hybris.platform.commerceservices.search.solrfacetsearch.data.SolrSearchRequest" />
+        <property name="populators">
+            <list>
+				<ref bean="autocompleteSearchSolrQueryPopulator" />
+				<ref bean="commerceSearchPagePopulator" />
+				<ref bean="commerceSearchSortPopulator" />
+				<ref bean="commerceSearchTextPopulator" />
+				<ref bean="commerceSearchFiltersPopulator" />
+            </list>
+        </property>
+    </bean>
+    <bean id="autocompleteSolrProductSearchService"
+          class="de.hybris.platform.commerceservices.search.solrfacetsearch.impl.DefaultSolrProductSearchService">
+		<property name="searchQueryPageableConverter" ref="autocompleteSearchQueryPageableConverter" />
+		<property name="searchRequestConverter" ref="autocompleteSolrSearchRequestConverter" />
+		<property name="searchResponseConverter" ref="commerceSolrSearchResponseConverter" />
+    </bean>
+
+
+    <bean id="autocompleteSolrSearchRequestConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass"
+			value="de.hybris.platform.commerceservices.search.solrfacetsearch.data.SolrSearchResponse" />
+        <property name="populators">
+            <list>
+				<ref bean="solrAutocompleteSearchRequestResponsePopulator" />
+            </list>
+        </property>
+    </bean>
+
+    <bean id="solrAutocompleteSearchRequestResponsePopulator"
+          class="de.hybris.platform.commerceservices.search.solrfacetsearch.populators.SolrSearchRequestResponsePopulator">
+		<property name="solrFacetSearchService" ref="autocompleteFacetSearchService" />
+		<property name="solrKeywordRedirectService" ref="solrKeywordRedirectService" />
+    </bean>
+
+	<alias name="defaultSslSolrAutoSuggestService" alias="solrAutoSuggestService" />
+    <bean id="defaultSslSolrAutoSuggestService"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.suggester.impl.DefaultSslSolrAutoSuggestService"
+          parent="defaultSolrAutoSuggestService">
+		<property name="solrIndexedTypeCodeResolver" ref="solrIndexedTypeCodeResolver" />
+    </bean>
+	<alias name="sslCommerceSolrAutocompleteService" alias="commerceAutocompleteService" />
+    <bean id="sslCommerceSolrAutocompleteService"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.suggester.impl.SslSolrProductSearchAutocompleteService">
+		<property name="facetSearchConfigService" ref="facetSearchConfigService" />
+		<property name="commonI18NService" ref="commonI18NService" />
+		<property name="solrAutoSuggestService" ref="solrAutoSuggestService" />
+		<property name="solrIndexedTypeCodeResolver" ref="solrIndexedTypeCodeResolver" />
+		<property name="solrFacetSearchConfigSelectionStrategy" ref="solrFacetSearchConfigSelectionStrategy" />
+    </bean>
+
+    <bean id="autocompleteFacetSearchResultBasicPopulator"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.populators.SSLAutocompleteFacetSearchResultBasicPopulator">
+    </bean>
+
+    <!-- SSLM-3389 Starts -->
+    <bean id="sendAbandonedBusinessEmail"
+          class="com.borngroup.ssl.core.email.actions.SendAbandonedBusinessEmailAction"
+          parent="abstractAction">
+		<property name="emailService" ref="emailService" />
+		<property name="mediaService" ref="mediaService" />
+		<property name="catalogVersionService" ref="catalogVersionService" />
+    </bean>
+    <!-- SSLM-3389 Ends -->
+    <!-- Promotional Message Component -->
+    <bean id="promtionalMessageInfoComponentService"
+          class="com.borngroup.ssl.core.services.impl.DefaultPromtionalMessageInfoComponentService"
+		scope="tenant" />
+    <bean id="promotionalMessageInfoComponentdao"
+          class="com.borngroup.ssl.core.dao.impl.DefaultPromtionalMessageInfoComponentdao"
+		scope="tenant" />
+
+	<alias name="sslAutoSuggestUtilService" alias="autoSuggestUtilService" />
+    <bean id="sslAutoSuggestUtilService"
+          class="com.borngroup.ssl.core.autosuggest.impl.AutosuggestServiceImpl">
+    </bean>
+    <!-- ODC Returns and Exchange -->
+    <bean id="sslODCReturnDao" class="com.borngroup.ssl.core.dao.impl.SSLODCReturnDaoImpl">
+		<property name="searchService" ref="flexibleSearchService" />
+    </bean>
+
+    <bean id="invoiceAnalyzerService"
+          class="com.borngroup.ssl.core.services.impl.InvoiceAnalyzerServiceImpl"
+		scope="tenant" />
+    <bean id="invoiceAnalyzerDao" class="com.borngroup.ssl.core.dao.impl.InvoiceAnalyzerDaoImpl"
+		scope="tenant" />
+
+    <bean id="de.hybris.platform.voucher.jalo.SerialVoucher" class="com.borngroup.ssl.core.jalo.SSLSerialVoucher"
+		scope="prototype" />
+
+    <bean id="de.hybris.platform.voucher.jalo.ProductQuantityRestriction"
+          class="com.borngroup.ssl.core.jalo.SSLProductQuantityRestriction"
+		scope="prototype" />
+
+    <bean id="de.hybris.platform.voucher.jalo.PromotionVoucher" class="com.borngroup.ssl.core.jalo.SSLPromotionVoucher"
+		scope="prototype" />
+		
+	<bean id="de.hybris.platform.voucher.jalo.OrderRestriction" class="de.hybris.platform.voucher.jalo.SSLOrderRestriction"
+		scope="prototype" />
+
+   <bean id="voucher.manager" class="de.hybris.platform.voucher.jalo.SSLVoucherManager" init-method="init" destroy-method="destroy"/>
+
+    <!--ECD-119 (Offer Listing Page ) -->
+	<alias name="sslpromotionApplicableProductValueProvider" alias="promotionApplicableProductValueProvider" />
+    <bean id="sslpromotionApplicableProductValueProvider"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.provider.impl.PromotionApplicableProductValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+		<property name="promotionsService" ref="promotionsService" />
+    </bean>
+
+    <bean id="sslStyleSKUValueProvider" parent="abstractPropertyFieldValueProvider"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.provider.impl.SSLStyleSKUValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+    </bean>
+
+    <bean id="sslSeasonCodeValueProvider" parent="abstractPropertyFieldValueProvider"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.provider.impl.SSLSeasonCodeValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+    </bean>
+
+    <bean id="popularityRankValueProvider" parent="abstractPropertyFieldValueProvider"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.provider.impl.PopularityRankValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+    </bean>
+
+    <bean id="sslStyleVariantColorValueProvider" parent="abstractPropertyFieldValueProvider"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.provider.impl.SSLStyleVariantColorValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+    </bean>
+
+	<alias name="sslCommerceAddToCartStrategy" alias="commerceAddToCartStrategy" />
+    <bean id="sslCommerceAddToCartStrategy"
+          class="com.borngroup.ssl.core.order.strategies.impl.SSLCommerceAddToCartStrategy"
+          parent="defaultCommerceAddToCartStrategy">
+    </bean>
+
+	<alias name="sslCommerceUpdateCartEntryStrategy" alias="commerceUpdateCartEntryStrategy" />
+    <bean id="sslCommerceUpdateCartEntryStrategy"
+          class="com.borngroup.ssl.core.order.strategies.impl.SSLCommerceUpdateCartEntryStrategy"
+          parent="defaultCommerceUpdateCartEntryStrategy">
+    </bean>
+
+	<alias alias="undeliveredPincodeInfoService" name="defaultUndeliveredPincodeInfoService" />
+    <bean id="defaultUndeliveredPincodeInfoService"
+          class="com.ss.core.report.service.impl.DefaultUndeliveredPincodeInfoService">
+		<property name="undeliveredPincodeInfoDao" ref="undeliveredPincodeInfoDao" />
+		<property name="modelService" ref="modelService" />
+    </bean>
+	<alias alias="undeliveredPincodeInfoDao" name="undeliveredPincodeInfoDaoImpl" />
+    <bean id="undeliveredPincodeInfoDaoImpl"
+          class="com.ss.core.report.dao.impl.UndeliveredPincodeInfoDaoImpl"
+          parent="baseI18NDao">
+    </bean>
+	<alias name="defaultODCReturnService" alias="odcReturnService" />
+    <bean id="defaultODCReturnService"
+          class="com.borngroup.ssl.core.services.impl.DefaultODCReturnService">
+		<property name="sslDefaultRMAConverter" ref="sslDefaultRMAConverter" />
+		<property name="sslDefaultRMAReturnEntryConverter" ref="sslDefaultRMAReturnEntryConverter" />
+		<property name="sslRTOConverter" ref="sslRTOConverter" />
+        <property name="sslDefaultRMAProductConverter" ref="sslDefaultRMAProductConverter"></property>
+        <property name="sslDefaultRMAProductImageDataConverter" ref="sslDefaultRMAProductImageDataConverter"></property>
+		<property name="sslODCReturnDao" ref="sslODCReturnDao" />
+		<property name="modelService" ref="modelService" />
+		<property name="businessProcessService" ref="businessProcessService" />
+		<property name="sslSendEmailWithAttachmentService" ref="sslSendEmailWithAttachmentService" />
+		<property name="sslReturnServiceImpl" ref="sslReturnService" />
+    </bean>
+	<alias name="defaultSSLReturnDocumentGeneratorService" alias="returnDocumentService" />
+    <bean id="defaultSSLReturnDocumentGeneratorService"
+          class="com.borngroup.ssl.core.services.impl.DefaultSSLReturnDocumentGeneratorService">
+		<property name="sslODCReturnDao" ref="sslODCReturnDao" />
+		<property name="odcReturnService" ref="odcReturnService" />
+		<property name="sslDefaultRMAConverter" ref="sslDefaultRMAConverter" />
+		<property name="sslDefaultRMAExtensionConverter" ref="sslDefaultRMAExtensionConverter" />
+		<property name="addressConverter" ref="addressConverter" />
+    </bean>
+
+    <bean id="sslReturnOrderDao" class="com.borngroup.ssl.core.dao.impl.SSLReturnOrderDaoImpl">
+		<property name="pagedFlexibleSearchService" ref="pagedFlexibleSearchService" />
+    </bean>
+
+    <bean id="defaultReturnOrderService"
+          class="com.borngroup.ssl.core.services.impl.DefaultReturnOrderService">
+		<property name="sslReturnOrderDao" ref="sslReturnOrderDao" />
+    </bean>
+	<alias name="sslDefaultCartValidationStrategy" alias="cartValidationStrategy" />
+    <bean id="sslDefaultCartValidationStrategy"
+		class="com.borngroup.ssl.core.strategies.impl.SSLDefaultCartValidationStrategy"
+		parent="defaultCartValidationStrategy">
+    </bean>
+
+    <bean id="sslDynamicImageRollOverLink"
+          class="com.borngroup.ssl.core.model.SSLDynamicImageRollOverLink"
+		scope="tenant" />
+    <bean id="sslPrimaryImageUrlCronJob"
+          class="com.borngroup.ssl.core.jobs.SSLProductPrimaryImageUrlReportCronJob"
+		autowire="byName" />
+
+    <bean id="sslProductAttrTemplateJob" class="com.borngroup.ssl.core.jobs.SSLProductAttrTemplateJob"
+		parent="abstractJobPerformable" />
+
+    <bean id="sslProductHierarchyStyleWiseJob"
+          class="com.borngroup.ssl.core.jobs.SSLProductHierarchyStyleWiseJob"
+		parent="abstractJobPerformable" />
+
+	<alias name="sslProductAttrMappingLookupDao" alias="sslProductAttrMappingLookupDao" />
+    <bean id="sslProductAttrMappingLookupDao"
+          class="com.borngroup.ssl.core.dao.impl.SSLProductAttrMappingLookupDaoImpl"
+		scope="tenant" />
+
+    <bean id="sslGSTService"
+          class="com.borngroup.ssl.core.services.gst.impl.SslGSTServiceImpl"
+		scope="tenant" />
+
+	<alias name="sslCustomIndexerQueriesExecutor" alias="indexerQueriesExecutor" />
+    <bean id="sslCustomIndexerQueriesExecutor"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.indexer.impl.SSLCustomIndexerQueriesExecutor">
+		<property name="indexerQueryContextFactory" ref="indexerQueryContextFactory" />
+		<property name="flexibleSearchService" ref="flexibleSearchService" />
+		<property name="searchRestrictionService" ref="searchRestrictionService" />
+    </bean>
+
+    <bean id="sslProductPromotionValidateInterceptor"
+          class="com.borngroup.ssl.core.interceptors.SslProductPromotionValidateInterceptor"
+		scope="tenant" />
+    <bean id="sslProductPromotionValidateInterceptorMapping"
+          class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping"
+          scope="tenant">
+		<property name="interceptor" ref="sslProductPromotionValidateInterceptor" />
+		<property name="typeCode" value="ProductPromotion" />
+    </bean>
+
+    <bean id="sslOrderPromotionValidateInterceptor"
+          class="com.borngroup.ssl.core.interceptors.SslOrderPromotionValidateInterceptor"
+		scope="tenant" />
+    <bean id="sslOrderPromotionValidateInterceptorMapping"
+          class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping"
+          scope="tenant">
+		<property name="interceptor" ref="sslOrderPromotionValidateInterceptor" />
+		<property name="typeCode" value="OrderPromotion" />
+    </bean>
+    <bean id="unapprovedProductsMailCronJob"
+          class="com.borngroup.ssl.core.jobs.UnapprovedProductsMailCronJob"
+		parent="abstractJobPerformable" />
+    <bean id="sslProductImagePrepareInterceptor"
+          class="com.borngroup.ssl.core.interceptors.SSLProductImagePrepareInterceptor"
+		scope="tenant" />
+    <bean id="sslProductImagePrepareInterceptorMapping"
+          class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping"
+          scope="tenant">
+		<property name="interceptor" ref="sslProductImagePrepareInterceptor" />
+		<property name="typeCode" value="Product" />
+    </bean>
+    <bean id="PreferredPaymentInterceptor"
+          class="com.borngroup.ssl.core.interceptors.PreferredPaymentInterceptor"
+          scope="tenant"/>
+    <bean id="PreferredPaymentInterceptorMapping"
+          class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping"
+          scope="tenant">
+        <property name="interceptor" ref="PreferredPaymentInterceptor" />
+        <property name="typeCode" value="PreferredPaymentGroup" />
+    </bean>
+
+	<bean id="sslCustomerVerifiedForCodPopulatingJob"
+		class="com.borngroup.ssl.core.jobs.SSLCustomerVerifiedForCodPopulatingJob"
+		parent="abstractJobPerformable" />
+    <bean id="maskRmaBankDetailsJob" class="com.borngroup.ssl.core.jobs.MaskRmaBankDetailsJob"
+		parent="abstractJobPerformable" />
+
+	<bean id="sslReceiptVoucherDao"
+		class="com.borngroup.ssl.core.gst.dao.impl.SSLReceiptVoucherDaoImpl" />
+
+	<bean id="CreditNoteDao" class="com.borngroup.ssl.core.gst.dao.impl.CreditNoteDaoImpl" />
+	<bean id="refundVoucherDaoImpl"
+		class="com.borngroup.ssl.core.gst.dao.impl.RefundVoucherDaoImpl" />
+	<bean id="gstDocumentsService"
+		class="com.borngroup.ssl.core.gst.services.impl.GSTDocumentsServiceImpl">
+		<property name="sslGSTService" ref="sslGSTService" />
+		<property name="coreGSTTaxCalculationService" ref="coreGSTTaxCalculationService" />
+		<property name="modelService" ref="modelService" />
+		<property name="commonHelper" ref="coreCommonHelper" />
+		<property name="flexibleSearchService" ref="flexibleSearchService" />
+		<property name="gstDocumentsDao" ref="gstDocumentsDao" />
+    </bean>
+	<bean id="coreGSTTaxCalculationService"
+		class="com.borngroup.ssl.core.gst.services.impl.CoreGSTTaxCalculationServiceImpl" />
+	<bean id="gstTaxCalculationDAO"
+		class="com.borngroup.ssl.core.gst.dao.impl.GSTTaxCalculationDAOImpl">
+    </bean>
+
+    <bean id="gstDocumentsDao" class="com.borngroup.ssl.core.gst.dao.impl.GSTDocumentsDaoImpl">
+		<property name="flexibleSearchService" ref="flexibleSearchService" />
+		<property name="modelService" ref="modelService" />
+    </bean>
+
+    <bean id="sslGSTDocumentGenerationService"
+          class="com.borngroup.ssl.core.gst.services.impl.SslGSTDocumentGenerationServiceImpl">
+    </bean>
+
+	<bean id="applyGstComponentToOrdersJob"
+		class="com.borngroup.ssl.core.gst.jobs.ApplyGSTComponentsToOrdersJob"
+		parent="abstractJobPerformable">
+    </bean>
+
+	<alias name="returnRequestBankDetailsService" alias="returnRequestBankDetailsService" />
+    <bean id="returnRequestBankDetailsService"
+          class="com.borngroup.ssl.core.services.impl.SSLDefaultReturnRequestBankDetailsService"
+		scope="tenant" />
+
+	<alias name="returnRequestBankDetailsDao" alias="returnRequestBankDetailsDao" />
+    <bean id="returnRequestBankDetailsDao"
+          class="com.borngroup.ssl.core.dao.impl.SSLDefaultReturnRequestBankDetailsDao"
+		scope="tenant" />
+    <bean id="sslEmailFrontendTemplateNameMapping" class="java.util.HashMap">
+        <constructor-arg>
+            <map key-type="java.lang.String" value-type="java.lang.String">
+				<entry key="frontendTemplateName" value="eGiftVoucherEmailTemplate" />
+            </map>
+        </constructor-arg>
+
+    </bean>
+
+
+    <alias alias="commerceStockService" name="sslStockService"/>
+    <bean id="sslStockService" parent="defaultCommerceStockService"
+          class=" com.borngroup.ssl.core.services.SslCommerceStockService"
+          scope="tenant">
+        <property name="sslDepartmentBufferstockDao" ref="sslDepartmentBufferstockDao"/>
+    </bean>
+
+    <!--  Stock Service -->
+	<bean id="customSSLStockService"
+	      class="com.borngroup.ssl.core.services.SslStockService"
+	      parent="stockService" scope="tenant">
+		<property name="stockLevelStatusStrategy" ref="stockLevelStatusStrategy"/>
+		<property name="productAvailabilityStrategy" ref="productAvailabilityStrategy"/>
+		<property name="stockLevelProductStrategy" ref="stockLevelProductID"/>
+		<property name="sslStockLevelDao" ref="defaultSSLStockLevelDao"/>
+	</bean>
+
+    <bean id="sslDepartmentBufferstockDao"
+          class="com.borngroup.ssl.core.dao.impl.SslDepartmentBufferstockDaoImpl"
+          scope="tenant">
+        <property name="flexibleSearchService" ref="flexibleSearchService"/>
+    </bean>
+    
+    <bean id="sslDepartmentBufferstockService"
+          class="com.borngroup.ssl.core.services.impl.SslDepartmentBufferstockServiceImpl"/>
+
+
+	<bean id="sslCustomerProductReviewsReportCronJob"
+		class="com.borngroup.ssl.core.jobs.SSLCustomerProductReviewsReportCronJob"
+		parent="abstractJobPerformable">
+		<property name="sslCustomerReviewService" ref="sslCustomerReviewService" />
+   </bean>
+   <alias name="eanService" alias="eanService" />
+	<bean id="eanService"
+		class="com.borngroup.ssl.core.services.impl.SSLDefaultEanService"
+		scope="tenant" />
+
+	<alias name="eanDao" alias="eanDao" />
+	<bean id="eanDao" class="com.borngroup.ssl.core.dao.impl.SSLDefaultEanDao"
+		scope="tenant" />
+
+	<alias name="dealComponentDao" alias="dealComponentDao" />
+	<bean id="dealComponentDao" class="com.borngroup.ssl.core.dao.impl.DealComponentDaoImpl"
+		scope="tenant" />
+	<alias name="dealComponentService" alias="dealComponentService" />
+	<bean id="dealComponentService"
+		class="com.borngroup.ssl.core.services.impl.DealComponentServiceImpl"
+		scope="tenant" />
+
+	<bean id="configurablePageIndexDao"
+		class="com.borngroup.ssl.core.dao.impl.ConfigurablePageIndexDaoImpl" />
+
+	<bean id="configurablePageIndexService"
+		class="com.borngroup.ssl.core.services.impl.ConfigurablePageIndexServiceImpl">
+		<property name="configurablePageIndexDao" ref="configurablePageIndexDao" />
+	</bean>
+
+	<bean id="sslPostalCodeCityStateMappingDao"
+		class="com.borngroup.ssl.core.dao.impl.SslPostalCodeCityStateMappingDaoImpl" />
+
+	<bean id="sslPostalCodeCityStateMappingService"
+		class="com.borngroup.ssl.core.services.impl.SslPostalCodeCityStateMappingServiceImpl">
+		<property name="sslPostalCodeCityStateMappingDao" ref="sslPostalCodeCityStateMappingDao" />
+	</bean>
+
+	<bean id="sslBannerWidgetComponentValidateInterceptor"
+		class="com.borngroup.ssl.core.interceptors.SSLBannerWidgetComponentValidateInterceptor">
+	</bean>
+
+	<bean id="sslBannerWidgetComponentValidateInterceptorMapping"
+		class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+		<property name="interceptor" ref="sslBannerWidgetComponentValidateInterceptor" />
+		<property name="typeCode" value="SSLBannerWidgetComponent" />
+	</bean>
+
+	<bean id="sslBannerCarouselComponentValidateInterceptor"
+		class="com.borngroup.ssl.core.interceptors.SSLBannerCarouselComponentValidateInterceptor">
+	</bean>
+
+	<bean id="sslBannerCarouselComponentValidateInterceptorMapping"
+		class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+		<property name="interceptor"
+			ref="sslBannerCarouselComponentValidateInterceptor" />
+		<property name="typeCode" value="SSLBannerCarouselComponent" />
+	</bean>
+
+	<bean id="sslBannerWidgetGridComponentValidateInterceptor"
+		class="com.borngroup.ssl.core.interceptors.SSLBannerWidgetGridComponentValidateInterceptor">
+	</bean>
+
+	<bean id="sslBannerWidgetGridComponentValidateInterceptorMapping"
+		class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+		<property name="interceptor"
+			ref="sslBannerWidgetGridComponentValidateInterceptor" />
+		<property name="typeCode" value="SSLBannerWidgetGridComponent" />
+	</bean>
+
+	<bean id="sslContentWidgetComponentValidateInterceptor"
+		class="com.borngroup.ssl.core.interceptors.SSLContentWidgetComponentValidateInterceptor">
+	</bean>
+
+	<bean id="sslContentWidgetComponentValidateInterceptorMapping"
+		class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+		<property name="interceptor" ref="sslContentWidgetComponentValidateInterceptor" />
+		<property name="typeCode" value="SSLContentWidgetComponent" />
+	</bean>
+
+	<bean id="sslBannerWidgetWithOptionsComponentValidateInterceptor"
+		class="com.borngroup.ssl.core.interceptors.SSLBannerWidgetWithOptionsComponentValidateInterceptor">
+	</bean>
+
+	<bean id="sslBannerWidgetWithOptionsComponentValidateInterceptorMapping"
+		class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+		<property name="interceptor"
+			ref="sslBannerWidgetWithOptionsComponentValidateInterceptor" />
+		<property name="typeCode" value="SSLBannerWidgetWithOptionsComponent" />
+	</bean>
+
+	<bean id="sslProductWidgetCarouselComponentValidateInterceptor"
+		class="com.borngroup.ssl.core.interceptors.SSLProductWidgetCarouselComponentValidateInterceptor">
+	</bean>
+
+	<bean id="sslProductWidgetCarouselComponentValidateInterceptorMapping"
+		class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+		<property name="interceptor"
+			ref="sslProductWidgetCarouselComponentValidateInterceptor" />
+		<property name="typeCode" value="SSLProductWidgetCarouselComponent" />
+	</bean>
+
+	<bean id="sslCircleWidgetComponentValidateInterceptor"
+		class="com.borngroup.ssl.core.interceptors.SSLCircleWidgetComponentValidateInterceptor">
+	</bean>
+
+	<bean id="sslCircleWidgetComponentValidateInterceptorMapping"
+		class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+		<property name="interceptor" ref="sslCircleWidgetComponentValidateInterceptor" />
+		<property name="typeCode" value="SSLCircleWidgetComponent" />
+	</bean>
+
+	<bean id="sslLinkGridWidgetComponentValidateInterceptor"
+		class="com.borngroup.ssl.core.interceptors.SSLLinkGridWidgetComponentValidateInterceptor">
+	</bean>
+
+	<bean id="sslLinkGridWidgetComponentValidateInterceptorMapping"
+		class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+		<property name="interceptor"
+			ref="sslLinkGridWidgetComponentValidateInterceptor" />
+		<property name="typeCode" value="SSLLinkGridWidgetComponent" />
+	</bean>
+	
+	
+	<bean id="sslDepartmentBufferStockPrepareInterceptor"
+		class="com.borngroup.ssl.core.interceptors.SslDepartmentBufferStockPrepareInterceptor">
+		<property name="sslDepartmentBufferstockService" ref="sslDepartmentBufferstockService"/>
+	</bean>
+
+	<bean id="sslDepartmentBufferStockPrepareInterceptorMapping"
+		class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+		<property name="interceptor"
+			ref="sslDepartmentBufferStockPrepareInterceptor" />
+		<property name="typeCode" value="DepartmentBufferStock" />
+	</bean>
+
+	<alias name="sslCustomerNotificationService" alias="customerNotificationService" />
+	<bean id="sslCustomerNotificationService"
+		class="com.borngroup.ssl.core.services.notifycustomer.impl.SSLCustomerNotificationServiceImpl">
+		<property name="modelService" ref="modelService" />
+	</bean>
+
+	<bean id="ssLMobileContentPageService"
+		class="com.borngroup.ssl.core.services.impl.SSLMobileContentPageServiceImpl">
+		<property name="ssLMobileContentPageDao" ref="ssLMobileContentPageDao" />
+	</bean>
+
+	<bean id="ssLMobileContentPageDao"
+		class="com.borngroup.ssl.core.dao.impl.SSLMobileContentPageDaoImpl" />
+
+	<bean id="sslPostalCodeDataImportCronJob"
+		class="com.borngroup.ssl.core.cron.SSLPostalCodeDataImportCronJob"
+		parent="abstractJobPerformable" autowire="byName">
+		<property name="directory"
+			value="#{configurationService.configuration.getProperty('sslcore.postalcode.dataimport.download.directory')}" />
+		<property name="url"
+			value="#{configurationService.configuration.getProperty('sslcore.postalcode.download.url')}" />
+	</bean>
+
+	<bean id="sslUniqueDeviceIdentifierService"
+		class="com.borngroup.ssl.core.services.impl.SSLUniqueDeviceIdentifierServiceImpl">
+		<property name="uniqueDeviceIdentifierDao" ref="uniqueDeviceIdentifierDao" />
+		<property name="modelService" ref="modelService" />
+	</bean>
+
+	<bean id="uniqueDeviceIdentifierDao"
+		class="com.borngroup.ssl.core.dao.impl.SSLUniqueDeviceIdentifierDaoImpl">
+		<property name="flexibleSearchService" ref="flexibleSearchService" />
+	</bean>
+
+	<alias alias="customerAccountService" name="sslCustomerAccountService" />
+	<bean id="sslCustomerAccountService"
+		class="com.borngroup.ssl.core.services.customer.account.impl.SSLCustomerAccountServiceImpl"
+		parent="defaultCustomerAccountService">
+	</bean>
+
+	<bean id="sslCustomerOrderDao" class="com.borngroup.ssl.core.dao.impl.SSLCustomerOrderDaoImpl">
+		<property name="modelService" ref="modelService" />
+		<property name="flexibleSearchService" ref="flexibleSearchService" />
+	</bean>
+
+	<bean id="sslMobileWidgetLimitDao"
+		class="com.borngroup.ssl.core.dao.impl.SSLMobileWidgetLimitDaoImpl">
+		<property name="flexibleSearchService" ref="flexibleSearchService" />
+	</bean>
+
+	<bean id="sslMobileWidgetLimitService"
+		class="com.borngroup.ssl.core.services.impl.SSLMobileWidgetLimitServiceImpl">
+		<property name="sslMobileWidgetLimitDao" ref="sslMobileWidgetLimitDao" />
+	</bean>
+
+	<bean id="sslCmsComponentLinkQueryAttributeHandler"
+		class="com.borngroup.ssl.core.dynamic.attribute.handlers.SslCmsComponentLinkQueryAttributeHandler" />
+
+	<bean id="sslCmsComponentLinkSortAttributeHandler"
+		class="com.borngroup.ssl.core.dynamic.attribute.handlers.SslCmsComponentLinkSortAttributeHandler" />
+
+	<bean id="notifyCustomerDao"
+		class="de.hybris.platform.servicelayer.internal.dao.DefaultGenericDao">
+		<constructor-arg name="typecode">
+			<util:constant
+				static-field="com.borngroup.ssl.core.model.NotifyCustomerModel._TYPECODE" />
+		</constructor-arg>
+	</bean>
+
+	<bean id="guestCustomerRegistrationEventListener"
+		class="com.borngroup.ssl.core.event.GuestCustomerRegistrationEventListener"
+		parent="abstractSiteEventListener">
+		<property name="modelService" ref="modelService" />
+		<property name="businessProcessService" ref="businessProcessService" />
+	</bean>
+	<bean id="guestCustomerRegistrationEmailProcessDefinitionResource"
+		class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+		<property name="resource"
+			value="classpath:/sslcore/processes/guestCustomerRegistrationEmailProcess.xml" />
+	</bean>
+
+
+	<bean id="generateGuestCustomerRegistrationEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="GuestCustomerRegistrationEmailTemplate" />
+	</bean>
+
+	<alias alias="sslUserOTPService" name="defaultSSlUserOTPService" />
+	<bean id="defaultSSlUserOTPService"
+		class="com.borngroup.ssl.core.services.customer.otp.impl.SSLUserOTPServiceImpl">
+		<property name="defaultExpiryTime" value="300" />
+		<property name="defaultLockingPeriod" value="86400" />
+	</bean>
+
+
+
+    <!-- Personal Shoppers Spring Config -->
+
+    <bean id="psAppointmentService" class="com.borngroup.ssl.core.personalshoppers.services.impl.PSAppointmentServiceImpl">
+    	<property name="psAppointmentDao" ref="psAppointmentDao" />
+    	<property name="modelService" ref="modelService"/>
+    </bean>
+    
+     <bean id="psStoreMasterDAO"
+          class="com.borngroup.ssl.core.personalshoppers.dao.impl.PSStoreMasterDAOImpl">
+    </bean>
+
+    <bean id="psStoreMasterService"
+          class="com.borngroup.ssl.core.personalshoppers.services.impl.PSStoreMasterServiceImpl">
+    </bean>
+    <bean id="psCrmService" class="com.borngroup.ssl.core.personalshoppers.services.impl.PSCrmServiceImpl"/>
+
+	<bean id="psAppointmentDao" class="com.borngroup.ssl.core.personalshoppers.dao.impl.PSAppointmentDaoImpl">
+		<property name="flexibleSearchService" ref="flexibleSearchService" />
+		<property name="pagedFlexibleSearchService" ref="pagedFlexibleSearchService" />
+    </bean>
+
+   <!-- Auto incrementing appointment code/id using hybris key generator -->
+	 <bean id="psAppointmentCodeGenerator" class="de.hybris.platform.servicelayer.keygenerator.impl.PersistentKeyGenerator">
+		<property name="key" value="PS_APPOINTMENT_CODE_SERIES"/>
+		<property name="digits" value="8"/>
+		<property name="start" value="00000000"/>
+        <property name="type" value="numeric"/>
+		<property name="template" value="$"/>
+	</bean>
+
+	<bean id="psAppointmentInterceptor" class="com.borngroup.ssl.core.interceptors.PSAppointmentInterceptor" scope="tenant">
+		<property name="psAppointmentCodeGenerator" ref="psAppointmentCodeGenerator" />
+	</bean>
+
+	<bean id="psAppointmentInterceptorMapping"
+		class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping"
+		scope="tenant">
+		<property name="interceptor" ref="psAppointmentInterceptor" />
+		<property name="typeCode" value="PSAppointment" />
+	</bean>
+
+    <bean id="sslProductLinkSimilarProductsCronJob"
+          class="com.borngroup.ssl.core.jobs.SSLProductLinkSimilarProductsCronJob"
+          autowire="byName"/>
+
+	<bean id="sslSimilarProductsSearchStrategy"
+		class="com.borngroup.ssl.core.search.solrfacetsearch.impl.SSLSimilarProductsSearchStrategy"
+		parent="abstractFacetSearchStrategy">
+		<property name="solrService" ref="solrService" />
+		<property name="facetSearchQueryConverter" ref="facetSearchQueryConverter" />
+		<property name="facetSearchResultConverter" ref="facetSearchResultConverter" />
+		<property name="facetSearchContextFactory" ref="facetSearchContextFactory" />
+	</bean>
+
+	<!-- Configuration for the Tibco ESB connection Starts -->
+
+	<bean id="tibcoConnectionFactory" class="com.tibco.tibjms.TibjmsConnectionFactory"
+    p:userName="#{configurationService.configuration.getProperty('mms.tibco.ems.username')}"
+    p:userPassword="#{configurationService.configuration.getProperty('mms.tibco.ems.password')}"
+    p:connAttemptCount="#{configurationService.configuration.getProperty('mms.tibco.ems.connection.attempt.threshhold')}"
+    p:connAttemptDelay="#{configurationService.configuration.getProperty('mms.tibco.ems.connection.attempt.delay')}"
+    p:connAttemptTimeout="#{configurationService.configuration.getProperty('mms.tibco.ems.connection.attempt.timeout')}"
+    p:reconnAttemptCount="#{configurationService.configuration.getProperty('mms.tibco.ems.connection.reconnect.attempt.count')}"
+    p:reconnAttemptDelay="#{configurationService.configuration.getProperty('mms.tibco.ems.connection.reconnect.attempt.delay')}">
+	    <constructor-arg value="#{configurationService.configuration.getProperty('mms.tibco.ems.url')}"/>
+	</bean>
+
+	<bean id="cachedConnectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory"
+	p:targetConnectionFactory-ref="tibcoConnectionFactory"
+	p:sessionCacheSize="#{configurationService.configuration.getProperty('mms.tibco.ems.connection.session.cachesize')}" />
+
+	<bean id="mmsEsbDestination" class="com.tibco.tibjms.TibjmsQueue">
+		<constructor-arg value="#{configurationService.configuration.getProperty('mms.tibco.ems.queue.name')}" />
+	</bean>
+
+	<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate"
+		p:connectionFactory-ref="cachedConnectionFactory"
+		p:defaultDestination-ref="mmsEsbDestination" />
+
+
+	<bean id="mmsJaxbMarshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+		<property name="packagesToScan">
+			<list>
+				<!-- List of java packages that contain the jaxb generated classes -->
+				<value>com.ssl.core.mms.jaxb.api</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="sslBestSellerProductsInL3CategoryCronjob"
+          class="com.borngroup.ssl.core.jobs.SSLBestSellerProductsInL3CategoryCronjob"
+          autowire="byName"/>
+
+	<!-- <oxm:jaxb2-marshaller id="mmsJaxbMarshaller">
+           <oxm:class-to-be-bound name="com.ssl.fulfillmentprocess.mms.jaxb.api.MMSMessagePublishDTO"/>
+       </oxm:jaxb2-marshaller> -->
+
+	<!-- Configuration for the Tibco ESB connection Ends -->
+
+	<alias alias="cartFactory" name="sslCommerceCartFactory"/>
+	<bean id="sslCommerceCartFactory" class="com.borngroup.ssl.core.factories.SslCommerceCartFactory">
+		<property name="netGrossStrategy" ref="netGrossStrategy"/>
+		<property name="keyGenerator" ref="orderCodeGenerator"/>
+		<property name="modelService" ref="modelService"/>
+		<property name="userService" ref="userService"/>
+		<property name="commonI18NService" ref="commonI18NService"/>
+		<property name="baseSiteService" ref="baseSiteService"/>
+		<property name="baseStoreService" ref="baseStoreService"/>
+		<property name="guidKeyGenerator" ref="guidKeyGenerator"/>
+		<property name="commerceCartDao" ref="commerceCartDao"/>
+	</bean>
+
+    <bean id="colorPDPValueProvider" parent="abstractPropertyFieldValueProvider"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.provider.impl.SSLColorPDPValueProvider">
+        <property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+    </bean>
+	<bean id="sterlingRestTemplate" class="org.springframework.web.client.RestTemplate" />
+
+	<alias name="sslStorePickupService" alias="sslStorePickupService" />
+	<bean id="sslStorePickupService"
+		class="com.borngroup.ssl.core.storepickup.service.impl.SslStorePickupServiceImpl"
+		scope="tenant" />
+    <bean id="downloadSSLMediaJob" class="com.borngroup.ssl.core.jobs.SSLMediaDownloadCronJob" parent="abstractJobPerformable"/>
+
+	<alias name="sslStorePickupDao" alias="sslStorePickupDao" />
+	<bean id="sslStorePickupDao"
+		class="com.borngroup.ssl.core.storepickup.dao.impl.SslStorePickupDaoImpl"
+		scope="tenant">
+		<property name="flexibleSearchService" ref="flexibleSearchService" />
+	</bean>
+
+	<bean id="sslSterlingRestClientUtil" class="com.ssl.core.sterling.client.SSLSterlingRestClientUtil">
+		<property name="sslMQConnectionManager" ref="sslMQConnectionManager"/>
+	</bean>
+
+	<bean id="itemPromotionCalculationService" class="com.ssl.core.sterling.discounts.impl.SSLItemPromotionCalculationService"/>
+	<bean id="orderPromotionCalculationService" class="com.ssl.core.sterling.discounts.impl.SSLOrderPromotionCalculationService"/>
+	<bean id="voucherCalculationService" class="com.ssl.core.sterling.discounts.impl.SSLVoucherCalculationService"/>
+
+	<bean id="sslSterlingDiscountServiceImpl" class="com.ssl.core.sterling.discounts.impl.SSLSterlingDiscountServiceImpl"/>
+
+	<bean id="sslSterlingCreateSalesOrderService" class="com.ssl.core.sterling.services.impl.SSLSterlingCreateSalesOrderServiceImpl"/>
+
+	<bean name="sslMQConnectionManager" class="com.borngroup.ssl.core.sterling.ibmmq.util.SSLSterlingMQConnectionManager" />
+	<bean id="sslSwatchColorErrorReportService" class="com.borngroup.ssl.core.services.impl.DefaultSslSwatchColorErrorReportService"/>
+	 <alias name="sslDealService" alias="sslDealService" />
+    <bean id="sslDealService" class="com.borngroup.ssl.core.deal.SslDealServiceImpl" scope="tenant" >
+    </bean>
+
+	<bean id="productPopularityEventListner"
+           class="com.borngroup.ssl.core.event.ProductPopularityEventListner" parent="abstractEventListener">
+    </bean>
+
+<bean id="sslCategoryMediaUploadCronJob" class="com.borngroup.ssl.core.jobs.SSLCategoryMediaUploadCronJob" parent="abstractJobPerformable"/>	
+
+	<!-- SSLM-6360 starts -->
+	<bean name="sslEGiftFlagUpdateProductCronJob" class="com.borngroup.ssl.core.jobs.SSLEGiftFlagUpdateProductCronJob" parent="abstractJobPerformable"/>
+	<!-- SSLM-6360 end -->
+
+
+    <alias name="sslWishlist2Service" alias="wishlistService"/>
+    <bean id="sslWishlist2Service"
+        class="com.borngroup.ssl.core.services.wishlist.impl.SslWishlist2ServiceImpl" parent="defaultWishlistService">
+    </bean>
+
+    <alias name="sslWishlist2Dao" alias="wishlist2Dao"/>
+    <bean id="sslWishlist2Dao" class="com.borngroup.ssl.core.dao.impl.SslWishlist2DaoImpl">
+        <property name="pagedFlexibleSearchService" ref="pagedFlexibleSearchService" />
+        <property name="flexibleSearchService" ref="flexibleSearchService"/>
+        <property name="modelService" ref="modelService"/>
+    </bean>    
+	
+	<bean id="promotions.manager" class="com.borngroup.ssl.core.jalo.SSLPromotionsManager" init-method="init"
+        destroy-method="destroy" scope="tenant">
+    </bean>
+
+	<!-- SSLM-6360 end -->
+
+    <bean id="pickFromStoreProductsValueProvider" parent="abstractPropertyFieldValueProvider"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.provider.impl.PickFromStoreProductsValueProvider">
+        <property name="fieldNameProvider" ref="solrFieldNameProvider" />
+    </bean>
+    
+    <!-- ECD-2511 -->
+     <bean id="sslNewArrivalValueProvider" class="com.borngroup.ssl.core.search.solrfacetsearch.provider.impl.SSLNewArrivalValueProvider"
+          parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+    </bean>
+    
+    <!-- ECD-2510 Bean Creation for Business Process-->
+    <bean id="sendFccDeliveryEmailProcess" class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+        <property name="resource" value="classpath:/sslcore/processes/sendFccDeliveryEmailProcess.xml"/>
+    </bean>
+    
+     <!-- ECD-2510 Bean Creation for Email -->
+    <bean id="generateFccDeliverySentEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="FccDeliverySentEmailTemplate" />
+    </bean>
+
+ 	<!-- Start: Remove interceptor for Voucher -->
+	<bean id="sslVoucherRemoveInterceptor"
+		class="com.borngroup.ssl.core.interceptors.SslVoucherRemoveInterceptor"
+		scope="tenant" />
+
+	<bean id="sslVoucherRemoveInterceptorMapping"
+		class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping"
+		scope="tenant">
+		<property name="interceptor" ref="sslVoucherRemoveInterceptor" />
+		<property name="typeCode" value="Voucher" />
+	</bean>
+	 <!-- End: Remove interceptor for Voucher -->
+
+    <bean id="sslProductBOGODiscountPromotionValidateInterceptor"
+          class="com.borngroup.ssl.core.interceptors.SslProductBOGODiscountPromotionValidateInterceptor">
+    </bean>
+
+    <bean id="sslProductBOGODiscountPromotionValidateInterceptorMapping"
+          class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+        <property name="interceptor"
+                  ref="sslProductBOGODiscountPromotionValidateInterceptor" />
+        <property name="typeCode" value="SslProductBOGODiscountPromotion" />
+    </bean>
+
+	<bean id="cmsItemVersionUpdateEventListner"
+           class="com.borngroup.ssl.core.event.CMSItemVersionUpdateEventListner" parent="abstractEventListener">
+    </bean>
+    
+    <bean id="solrExtIndexerJobParameterProvider"
+          class="com.borngroup.ssl.core.search.solrfacetsearch.provider.impl.SolrExtIndexerJobParameterProvider">
+    </bean>
+    
+    <alias name="sslSolrExtIndexerJob" alias="solrExtIndexerJob"/>
+       <bean id="sslSolrExtIndexerJob" class="com.borngroup.ssl.core.jobs.SslSolrExtIndexerCronJob"
+       parent="abstractJobPerformable">
+             <property name="facetSearchConfigService" ref="facetSearchConfigService" />
+             <property name="indexerService" ref="indexerService" />
+             <property name="indexerQueriesExecutor" ref="indexerQueriesExecutor" />
+       </bean>
+       
+       <!-- ECD-2709 Return in Store Email Process Definition-->
+    <bean id="sendReturnInStoreEmailProcess" class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+        <property name="resource" value="classpath:/sslcore/processes/sendReturnInStoreEmailProcess.xml" />
+    </bean>
+    
+     <!--  ECD-2709 Bean Creation for Email -->
+    <bean id="generateReturnInStoreProcessEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="ReturnInStoreEmailTemplate" />
+    </bean>
+
+            <!-- Start:  customer mdm cron job -->
+	<bean id="emsConnectionManager" class="com.borngroup.ssl.core.util.EMSConnectionManager" />
+
+	<bean id="mdmEcomCustCronjob" class="com.borngroup.ssl.core.cron.MDMEcomCustCronjob"
+		parent="abstractJobPerformable" />
+
+	<bean id="customerModelValidator" class="com.ssl.core.validator.CustomerModelValidator" />
+  	<!-- End: customer mdm cron job -->
+    
+    <bean id="sslCMSLinkComponentInterceptor"
+          class="com.borngroup.ssl.core.interceptors.SslCMSLinkComponentValidateInterceptor"/>
+
+    <bean id="sslCMSLinkComponentInterceptorMapping"
+          class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+		<property name="interceptor" ref="sslCMSLinkComponentInterceptor" />
+		<property name="typeCode" value="CMSLinkComponent" />
+    </bean>
+    <bean id="sslCMSNavigationNodeInterceptor"
+          class="com.borngroup.ssl.core.interceptors.SslCMSNavigationNodeValidateInterceptor"/>
+
+    <bean id="sslCMSNavigationNodeInterceptorMapping"
+          class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+		<property name="interceptor" ref="sslCMSNavigationNodeInterceptor" />
+		<property name="typeCode" value="CMSNavigationNode" />
+    </bean>
+    <alias name="sslCMSCategoryRestrictionEvaluator" alias="cmsCategoryRestrictionEvaluator"/>
+    <bean id="sslCMSCategoryRestrictionEvaluator" class="com.borngroup.ssl.core.services.evaluator.impl.SSLCMSCategoryRestrictionEvaluator"
+		scope="tenant" />
+    
+    <!--  WCMS Caching Start -->
+    <alias name="sslCurrentProductCmsCacheKeyProvider" alias="currentProductCmsCacheKeyProvider"/>
+	<bean id="sslCurrentProductCmsCacheKeyProvider" class="com.ssl.core.cms.cache.impl.SSLCurrentProductCmsCacheKeyProvider" parent="defaultCmsCacheKeyProvider"/>
+ 
+    <alias name="sslCurrentBaseProductCmsCacheKeyProvider" alias="currentBaseProductCmsCacheKeyProvider"/>
+	<bean id="sslCurrentBaseProductCmsCacheKeyProvider" class="com.ssl.core.cms.cache.impl.SSLCurrentBaseProductCmsCacheKeyProvider" parent="defaultCmsCacheKeyProvider"/>
+    
+    <alias name="defaultCacheKeyProviders" alias="cacheKeyProviders"/>
+	<util:map id="defaultCacheKeyProviders" key-type="java.lang.String">
+		<entry key="SSLProductDetailImageCarousalComponent" value-ref="currentProductCmsCacheKeyProvider"/>
+		<entry key="SSLProductDetailReviewRatingComponent" value-ref="currentBaseProductCmsCacheKeyProvider"/>
+	</util:map>
+    
+    <!--  WCMS Caching End -->
+    
+    <alias name="defaultMiscellaneousCacheKeyProviders" alias="miscellaneousCacheKeyProviders" />
+	<util:map id="defaultMiscellaneousCacheKeyProviders" key-type="java.lang.String">
+		<entry key="Blog" value-ref="sslBlogCacheKeyProvider" />
+	</util:map>
+
+	<alias name="defaultMiscellaneousCacheKeyProvider" alias="miscellaneousCacheKeyProvider" />
+	<bean id="defaultMiscellaneousCacheKeyProvider"
+		class="com.ssl.core.cache.miscellaneous.key.provider.impl.MiscellaneousCacheKeyProviderImpl">
+		<property name="commerceCommonI18NService" ref="commerceCommonI18NService" />
+	</bean>
+	<alias name="sslBlogCacheKeyProvider" alias="sslBlogCacheKeyProvider" />
+	<bean id="sslBlogCacheKeyProvider"
+		class="com.ssl.core.cache.miscellaneous.key.provider.blogs.SSLBlogCacheKeyProvider"
+		parent="defaultMiscellaneousCacheKeyProvider" />
+
+
+	<alias name="defaultMiscellaneousCacheService" alias="miscellaneousCacheService" />
+	<bean id="defaultMiscellaneousCacheService"
+		class="com.ssl.core.cache.miscellaneous.impl.MiscellaneousCacheServiceImpl">
+		<property name="cacheKeyProviders" ref="miscellaneousCacheKeyProviders" />
+		<property name="configurationService" ref="configurationService" />
+		<property name="cacheController" ref="cacheController" />
+	</bean>
+    
+    <bean id="sslPDPSimpleCMSTabComponentModelInterceptor"
+          class="com.borngroup.ssl.core.interceptors.SSLPDPSimpleCMSTabComponentModelInterceptor"/>
+    <bean id="sslPDPSimpleCMSTabComponentInterceptorMapping"
+          class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+		<property name="interceptor" ref="sslPDPSimpleCMSTabComponentModelInterceptor" />
+		<property name="typeCode" value="SSLPDPSimpleCMSTabComponent" />
+    </bean>
+</beans>

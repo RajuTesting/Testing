@@ -1,0 +1,223 @@
+# Import essential data for the Accelerator
+#
+# Includes:
+# * Languages
+# * Currencies
+# * Titles
+# * Vendors
+# * Warehouses
+# * Supported Credit/Debit cards
+# * User Groups
+# * DistanceUnits for Storelocator
+# * MediaFolders
+# * MediaFormats                               s
+# * Tax & Tax Groups
+# * Jobs
+#% impex.setLocale(Locale.GERMAN);
+
+# Languages
+INSERT_UPDATE Language;isocode[unique=true];fallbackLanguages(isocode);active[default=true]
+;en;;;
+
+# Currencies
+INSERT_UPDATE Currency;isocode[unique=true];conversion;digits;symbol
+;USD;1,4;2;$
+;INR;1;2;₹
+
+# Vendor
+INSERT_UPDATE Vendor;code[unique=true];name
+;default;Default Vendor
+
+# Disable preview for email pages
+UPDATE CMSPageType;code[unique=true];previewDisabled
+;EmailPage;true
+
+# Titles
+INSERT_UPDATE Title;code[unique=true]
+;mr
+;mrs
+;miss
+;ms
+;dr
+;rev
+
+# Media Folders
+INSERT_UPDATE MediaFolder;qualifier[unique=true];path[unique=true]
+;images;images
+;email-body;email-body
+;email-attachments;email-attachments
+
+INSERT_UPDATE ServicelayerJob;code[unique=true];springId[unique=true]
+;cartRemovalJob;cartRemovalJob
+;siteMapMediaJob;siteMapMediaJob
+
+# Deactivate Frontend Restriction on category by default for perfomance purposes
+UPDATE SearchRestriction;code[unique=true];active[default=false]
+;Frontend_RestrictedCategory
+
+ # SSL Loyalty related to data - Occupation
+INSERT_UPDATE OccupationMapping;occupationCode[unique=true];occupationName
+;B;"Businessman"
+;D;"Doctor"
+;E;"Engineer"
+;H;"House Wife"
+;N;"Not Available"
+;O;"Own / Self-employed"
+;P;"Pupil / Student"
+;R;"Retired"
+;S;"Salaried"
+
+ # SSL Loyalty related to data - Education
+INSERT_UPDATE EducationMapping;educationCode[unique=true];educationName
+;A;"Architect"
+;C;"Consultant"
+;D;"Doctor"
+;E;"Engineer"
+;F;"Finance / CA"
+;G;"Graduate"
+;I;"Intermediate"
+;L;"Lawyer"
+;M;"Post-Graduate"
+;N;"Not Available"
+;P;"Primary"
+;S;"Secondary"
+
+# SSL Loyalty related to data - Marital Status
+INSERT_UPDATE MaritalStatusMapping;maritalStatusCode[unique=true];maritalStatusName
+;B;"Bachelor"
+;M;"Married"
+;N;"Not Available"
+;S;"Single"
+;W;"Widow / Widower"
+
+# SSL Loyalty related to data - Business Type
+INSERT_UPDATE BusinessTypeMapping;businessTypeCode[unique=true];businessTypeName
+;A;"Teacher / Professor / Principal"
+;B;"Construction"
+;C;"Consultancy"
+;F;"Banks / Financial Institutions"
+;G;"Government Employee"
+;N;"FMCG Company"
+;R;"Retailing"
+;S;"Software"
+;W;"Service"
+
+# SSL Loyalty related to data - Relationship
+INSERT_UPDATE RelationshipMapping;relationshipCode[unique=true];relationshipName
+;B;"Brother"
+;C;"Sister"
+;D;"Daughter"
+;F;"Father"
+;M;"Mother"
+;O;"Self"
+;S;"Son"
+;W;"Spouse"
+
+# SSL Loyalty related to data - Designation
+INSERT_UPDATE DesignationMapping;designationCode[unique=true];designationName
+;A;"Assistant"
+;AC;"Accountant"
+;AD;"Assistant Director"
+;AE;"Assistant Editor"
+;AM;"Assistant Manager"
+;AN;"Analyst"
+;AP;"Analyst Programmer"
+;AR;"Administrator"
+;AS;"Associate"
+;BA;"Business Analyst"
+;C;"Consultant"
+;CA;"Chartered Accountant"
+;CC;"Chief Cashier"
+;CE;"Chief Executive Officer"
+;CL;"Clerk"
+;CM;"Chairman"
+;CN;"Contractor"
+;CO;"Co-ordinator"
+;CP;"Captain"
+;D;"Designer"
+;DE;"Developer"
+;DI;"Director"
+;DO;"Doctor"
+;E;"Engineer"
+;EA;"Executive Adminstrator"
+;EG;"Software Engineer"
+;ET;"Entrepreneur"
+;EX;"Executive"
+;FI;"Finance"
+;GL;"Group Leader"
+;GM;"General Manager"
+;IN;"Inspector"
+;J;"Journalist"
+;L;"Lecturer"
+;M;"Merchant"
+;MA;"Manager Admin"
+;MD;"Managing Director"
+;ME;"Marketing Executive"
+;MG;"Manager"
+;MM;"Marketing Manager"
+;MP;"Managing Partner / Member of Parliament"
+;MT;"Management Trainee"
+;OF;"Officer"
+;ON;"Owner"
+;P;"Partner"
+;PF;"Professor"
+;PG;"Programmer"
+;PL;"Project Leader"
+;PM;"Product Manager"
+;PO;"Public Relation Officer"
+;PP;"President"
+;PR;"Principal"
+;PS;"Project Scientist"
+;PT;"Proprietor"
+;QA;"Quality Analyst"
+;RM;"Resource Manager"
+;S;"Sales"
+;SA;"System Analyst"
+;SC;"Secretary"
+;SE;"Sales Executive"
+;SM;"Sales Manager"
+;SP;"Self Employee"
+;SR;"Service"
+;T;"Technician"
+;TE;"Technical Leader"
+;TL;"Team Leader"
+;TN;"Trainee"
+;TR;"Teacher"
+;VP;"Vice President"
+;W;"Writer"
+;WD;"Web Developer"
+;ZM;"Zonal Manager"
+
+# SSL Loyalty related to data - Member Type
+INSERT_UPDATE MemberTypeMapping;memberTypeCode[unique=true];memberTypeName
+;P;"Primary"
+
+# Payment Modes
+INSERT_UPDATE StandardPaymentMode ;code[unique=true] ;name[lang=en]   ;description[lang=en]         ;active;paymentinfotype(code)
+                                  ;cod        		;cash on delivery ;payment with cod      ;true;CODPaymentInfo
+                                  ;online          ;Online pyment ;payment online    ;true;OnlinePaymentInfo
+INSERT_UPDATE StandardPaymentModeValue;paymentmode(code)[unique=true];currency(isoCode)[unique=true];value;;;;
+;cod;INR;0;;;;
+;online;INR;0;;;;;;
+
+
+# SDI Excluded SKUs
+INSERT_UPDATE SdiPromotionExcludedSku;productCode[unique=true];active
+;"333100";true
+;"333250";true
+;"333500";true
+;"3331000";true
+;"3332000";true
+;"3333000";true
+;"3350";true
+;"33100";true
+;"33250";true
+;"33500";true
+;"331000";true
+;"332000";true
+;"11500";true
+;"111000";true
+;"112000";true
+;"115000";true
+;"1110000";true
+;"999";true

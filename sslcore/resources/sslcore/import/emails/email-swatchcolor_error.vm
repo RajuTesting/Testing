@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta  name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0," />
+        <title>*|MC:SUBJECT|*</title>
+  <style>
+        table {
+        border-collapse: collapse;
+       }
+
+       table,td, th {
+        border: 1px solid black;
+      }
+ </style>
+    </head>
+    
+    <body>
+	<h4><b>*** This is an automatically generated email, please do not reply ***</b></h4>
+
+    	Team, <br/></br>
+    	
+    	#if(${ctx.rowCount}<=${ctx.maxRowCount})
+    	
+    	Please find below style variants are missing the Swatch color value.<br/>
+    	<br/>
+ <table>
+  <tr>
+    <th>Style Variant Code</th>
+    <th>Color Code</th> 
+    <th>Color Family</th>
+    <th>Error Meassge</th>
+    <th>Date time</th>
+  </tr>
+		<tbody>
+		 #foreach ($swatchColorErrorData in ${ctx.swatchColorErrorData})
+			<tr>
+			    <td>
+				   ${swatchColorErrorData.skuCode}
+				</td>
+			     <td>
+			           ${swatchColorErrorData.colorCode}
+			        </td>
+			      <td> 
+			       ${swatchColorErrorData.colorFamily}
+                </td>
+                <td> 
+			       ${swatchColorErrorData.errorMessage}
+                </td>
+             <td>
+			 ${swatchColorErrorData.eventDate}
+			</td>
+          </tr>
+			#end
+	    #else
+	      Please find below style variants are missing the Swatch color value.<br/>
+		 #end	
+    	</tbody>
+    </table>
+
+    </br></br>
+    <h5>
+    	Thanks and Regards<br>
+    	Shoppers Stop Customer Support
+    </h5>
+    </body>
+</html>

@@ -1,0 +1,3554 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- [y] hybris Platform Copyright (c) 2000-2015 hybris AG All rights reserved. 
+	This software is the confidential and proprietary information of hybris ("Confidential 
+	Information"). You shall not disclose such Confidential Information and shall 
+	use it only in accordance with the terms of the license agreement you entered 
+	into with hybris. -->
+<configuration xmlns="hybris.de/schemas/hmc/generic"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="hybris.de/schemas/hmc/generic hmc.xsd">
+
+	<explorertree mode="append">
+		<group name="SSL">
+			<typeref type="BrandMapping" />
+			<typeref type="ColorMapping" />
+			<typeref type="SizeMapping" />
+			<typeref type="CategorySizeGuideMapping" />
+			<typeref type="SizeGuideMapping" />
+			<typeref type="FraudSymptom" />
+			<typeref type="NewsLetterSubscribeForCustomer" />
+			<typeref type="DeliveryPostalCode" />
+			<typeref type="PincodesDeliverList" />
+			<typeref type="PincodesList" />
+			<typeref type="MobileAppReleaseDetails" />
+			<typeref type="SslShopBySizeMapping" />
+			<typeref type="FailureOrderImportProcess" />
+			<typeref type="MPOrderImportHistory" />
+			<typeref type="MPOrderUpdateHistory" />
+			<typeref type="CapAvailabilityLimit" />
+			<typeref type="SSLProductAttrMapping" />
+			<typeref type="MobileVersionUpdateInfo" />
+			<typeref type="DepartmentBufferStock" />
+			<typeref type="Season" />
+			<typeref type="SeasonGroup" />
+			<typeref type="PickFromStoreBuffer" />
+			<typeref type="SterlingHybrisStatusMapping" />
+			<typeref type="SSLCheckoutMessages" />
+			<typeref type="ConfigurablePageIndex" />
+			<typeref type="UserOTPConfigRules" />
+			<typeref type="SSLPostalCodeCityStateMapping"/>
+			<typeref type="SSLMobileWidgetLimit"/>
+			<typeref type="SSLConfigurableTab"/>
+			<typeref type="GstTax"/>
+			<typeref type="PreferredPayment"/>
+			<typeref type="PreferredPaymentGroup"/>
+			<typeref type="PaymentGatewayMapping"/>
+			<typeref type="SSLPaymentSubtitle"/>
+		</group>
+		<group name="order">
+			<typeref type="InternalConsignmentEntry" />
+			<typeref type="InternalConsignmentEntryTransferLog" />
+			<typeref type="EGiftVoucher" />
+		</group>
+		<group name="group.basecommerce">
+			<typeref type="Vendor" />
+			<typeref type="SourcingStrategy" />
+			<typeref type="ChannelWarehouseMapping" />
+			<typeref type="BTHybrisChannelMapping" />
+			<!-- for BrandDept WareHouse Mapping -->
+			<typeref type="BrandDepWarehouseMapping" />
+
+			<!-- for Pincode WareHouse Mapping -->
+			<typeref type="PincodeWarehouseMapping" />
+			<!-- pincode-pickup store mapping -->
+			<typeref type="PincodePickupStoreMapping" />
+			<!-- for Logicloud Status Mapping -->
+			<typeref type="LCStatusMapping" />
+			<!-- for Courier Service Mapping -->
+			<typeref type="CourierServiceMapping" />
+			<typeref type="Courier" />
+
+			<!-- for Logicloud Return Status Mapping -->
+			<typeref type="LCReturnStatusMapping" />
+
+			<typeref type="SSLRefundVoucher" />
+			<typeref type="SSLAdvanceReceipt" />
+
+		</group>
+		<group name="marketing">
+			<typeref type="Event" />
+			<typeref type="LoyaltyDataMapping" />
+			<typeref type="SSLCustomerType" />
+			<typeref type="UserDomains" />
+		</group>
+		<!-- Group Starting for Personal shoppers -->
+		<group name="PersonalShoppers">
+			<typeref type="PSAppointment" />
+			<typeref type="PSAppointmentFeedback" />
+			<typeref type="PSServices" />
+		</group>
+
+		<!-- Group Ending for Personal shoppers -->
+	</explorertree>
+
+	<!-- Configuration for extension sslcore -->
+	<type name="PincodesDeliverList" mode="append">
+		<organizer>
+			<search>
+				<condition attribute="pincode" />
+				<condition attribute="city" />
+				<condition attribute="state" />
+			</search>
+			<result>
+				<listview mode="replace" scrollbar="true">
+					<itemlayout>
+						<attribute name="pincode" />
+						<attribute name="city" />
+						<attribute name="state" />
+						<attribute name="shipper" />
+						<attribute name="cod" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+				<tab name="properties" position="0" mode="replace">
+					<section name="section.PincodesDeliverList">
+						<listlayout mode="append">
+							<attribute name="pincode" />
+							<attribute name="city" />
+							<attribute name="state" />
+							<attribute name="shipper" />
+							<attribute name="cod" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+	<type name="MobileAppReleaseDetails" mode="append">
+		<organizer>
+			<search>
+				<condition attribute="versionId" />
+				<condition attribute="appType" />
+			</search>
+			<result>
+				<listview mode="replace" scrollbar="true">
+					<itemlayout>
+						<attribute name="versionId" />
+						<attribute name="appType" />
+						<attribute name="forceUpdate" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+				<tab name="properties" position="0" mode="replace">
+					<section name="section.MobileAppReleaseDetails">
+						<listlayout mode="append">
+							<attribute name="versionId" />
+							<attribute name="appType" />
+							<attribute name="forceUpdate" />
+							<attribute name="releaseNotes" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+	<type name="SslShopBySizeMapping" mode="append">
+		<organizer>
+			<search>
+				<condition attribute="size" />
+				<condition attribute="priority" />
+			</search>
+			<result>
+				<listview mode="replace" scrollbar="true">
+					<itemlayout>
+						<attribute name="size" />
+						<attribute name="priority" />
+						<attribute name="priorityDesc" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+				<tab name="properties" position="0" mode="replace">
+					<section name="section.sslshopbysizemapping">
+						<listlayout mode="append">
+							<attribute name="size" />
+							<attribute name="priority" />
+							<attribute name="priorityDesc" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+	<type name="BrandMapping" mode="append">
+		<organizer>
+			<search>
+				<condition attribute="brandCode" />
+				<condition attribute="altBrandDesc" />
+			</search>
+			<result>
+				<listview mode="replace" scrollbar="true">
+					<itemlayout>
+						<attribute name="brandCode" />
+						<attribute name="altBrandDesc" />
+						<attribute name="brandDesc" />
+						<attribute name="altBrandCode" />
+						<attribute name="brandInfo" />
+						<attribute name="brandLogo" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+				<tab name="properties" position="0" mode="replace">
+					<section name="section.brandmapping">
+						<listlayout mode="append">
+							<attribute name="brandCode" />
+							<attribute name="altBrandDesc" />
+							<attribute name="brandDesc" />
+							<attribute name="altBrandCode" />
+							<attribute name="brandInfo" />
+							<attribute name="brandLogo" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+		<defaultreference mode="replace" searchattribute="altBrandDesc">
+			<itemlayout>
+				<attribute name="altBrandDesc" />
+			</itemlayout>
+		</defaultreference>
+	</type>
+
+
+
+	<type name="NewsLetterSubscribeForCustomer" mode="append"
+		useselector="true">
+		<organizer>
+			<search>
+				<condition attribute="email" />
+				<condition attribute="services" />
+				<condition attribute="FrequentPromotional" />
+				<condition attribute="subscribe" />
+			</search>
+			<result>
+				<listview mode="replace" scrollbar="true">
+					<itemlayout>
+						<attribute name="email" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+				<tab name="properties" position="0" mode="replace">
+					<section name="section.newsletter">
+						<listlayout mode="append">
+							<attribute name="email" />
+							<attribute name="services" />
+							<attribute name="FrequentPromotional" />
+							<attribute name="subscribe" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+	<type name="FraudSymptom" mode="append" useselector="true">
+		<organizer>
+			<search>
+				<condition attribute="fraudType" />
+				<condition attribute="fraudList" />
+			</search>
+			<result>
+				<listview mode="replace" scrollbar="true">
+					<itemlayout>
+						<attribute name="fraudType" />
+						<attribute name="fraudList" />
+						<attribute name="symptomValues" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+				<tab name="properties" position="0" mode="replace">
+					<section name="section.fraudsymptom">
+						<listlayout mode="append">
+							<attribute name="fraudType">
+								<enumerationvalueselecteditor />
+							</attribute>
+							<attribute name="fraudList">
+								<referencecollectioneditor editable="true"
+									externalcreate="false" resortable="false" remove="true" create="true">
+									<preset targetattribute="fraudList" />
+								</referencecollectioneditor>
+							</attribute>
+							<attribute name="symptomValues" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+
+	</type>
+
+
+	<type name="CategorySizeGuideMapping" mode="append">
+		<organizer>
+			<search>
+				<condition attribute="category" />
+				<condition attribute="brand" />
+			</search>
+			<result>
+				<listview mode="replace" scrollbar="true">
+					<itemlayout>
+						<attribute name="category" />
+						<attribute name="brand" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+				<tab name="properties" position="0" mode="replace">
+					<section name="section.categorysizeguidemapping">
+						<listlayout mode="append">
+							<attribute name="category">
+								<referencecollectioneditor editable="true"
+									externalcreate="false" resortable="false" remove="true" create="true">
+									<preset targetattribute="category" />
+								</referencecollectioneditor>
+							</attribute>
+							<attribute name="brand">
+								<referencecollectioneditor editable="true"
+									externalcreate="false" resortable="false" remove="true" create="true">
+									<preset targetattribute="category" />
+								</referencecollectioneditor>
+							</attribute>
+							<attribute name="categorySizeGuideHTML">
+								<wysiwygeditor />
+							</attribute>
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+	<type name="SizeGuideMapping" mode="append">
+		<organizer>
+			<search>
+				<condition attribute="category" />
+				<condition attribute="altBrandDesc" />
+				<condition attribute="product" />
+			</search>
+			<result>
+				<listview mode="replace" scrollbar="true">
+					<itemlayout>
+						<attribute name="category" />
+						<attribute name="altBrandDesc" />
+						<attribute name="product" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+				<tab name="properties" position="0" mode="replace">
+					<section name="section.categorysizeguidemapping">
+						<listlayout mode="append">
+							<attribute name="category">
+								<referencecollectioneditor editable="true"
+									externalcreate="false" resortable="false" remove="true" create="true">
+									<preset targetattribute="category" />
+								</referencecollectioneditor>
+							</attribute>
+							<attribute name="altBrandDesc">
+							</attribute>
+							<attribute name="product">
+								<referencecollectioneditor editable="true"
+									externalcreate="false" resortable="false" remove="true" create="true">
+									<preset targetattribute="apparelproduct" />
+								</referencecollectioneditor>
+							</attribute>
+							<attribute name="sizeGuideHTML">
+								<wysiwygeditor />
+							</attribute>
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+	<type name="ApparelStyleVariantProduct" mode="append">
+		<organizer>
+			<editor mode="append">
+				<tab name="SizeGuide" position="1" mode="replace">
+					<section name="section.sizeguide">
+						<listlayout mode="append">
+							<attribute name="sizeGuideHTML">
+								<wysiwygeditor />
+							</attribute>
+						</listlayout>
+					</section>
+				</tab>
+				<tab name="tab.product.multimedia" mode="append">
+					<section name="section.product.additionalmedias" mode="append">
+						<listlayout>
+							<attribute name="colorSwatchImage" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+	<type name="ColorMapping" mode="append">
+		<organizer>
+			<search>
+				<condition attribute="colourCode" />
+				<condition attribute="altColourDesc" />
+			</search>
+			<result>
+				<listview mode="replace" scrollbar="true">
+					<itemlayout>
+						<attribute name="colourCode" />
+						<attribute name="altColourDesc" />
+						<attribute name="colourDesc" />
+						<attribute name="altColorCode" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+				<tab name="properties" position="0" mode="replace">
+					<section name="section.colormapping">
+						<listlayout mode="append">
+							<attribute name="colourCode" />
+							<attribute name="altColourDesc" />
+							<attribute name="colourDesc" />
+							<attribute name="altColorCode" />
+							<attribute name="colorFamily" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+	<type name="SizeMapping" mode="append">
+		<organizer>
+			<search>
+				<condition attribute="departmentCode" />
+				<condition attribute="subDepartmentCode" />
+				<condition attribute="sizeCode" />
+				<condition attribute="altSizeCode" />
+				<condition attribute="altBrandCode" />
+				<condition attribute="newSize" />
+			</search>
+			<result>
+				<listview mode="replace" scrollbar="true">
+					<itemlayout>
+						<attribute name="departmentCode" />
+						<attribute name="subDepartmentCode" />
+						<attribute name="sizeCode" />
+						<attribute name="altSizeCode" />
+						<attribute name="altBrandCode" />
+						<attribute name="altSizeDesc" />
+						<attribute name="newSize" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+				<tab name="properties" position="0" mode="replace">
+					<section name="section.sizemapping">
+						<listlayout mode="append">
+							<attribute name="departmentCode" />
+							<attribute name="subDepartmentCode" />
+							<attribute name="sizeCode" />
+							<attribute name="altSizeCode" />
+							<attribute name="altBrandCode" />
+							<attribute name="altSizeDesc" />
+							<attribute name="description" />
+							<attribute name="newSize" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+	<type name="Consignment" mode="append">
+		<organizer>
+			<editor mode="append">
+				<tab name="properties" position="0" mode="append">
+					<section name="consignment.details">
+						<listlayout mode="append">
+							<attribute name="deliveryAddress" />
+							<attribute name="trackingStatus" />
+							<attribute name="invoiceNumber" />
+							<attribute name="mpInvoiceNumber" />
+							<attribute name="invoiceAmount" />
+							<attribute name="mpInvoiceStoreID" />
+							<attribute name="deliveryAddress" />
+							<attribute name="voucherDiscountAmount" />
+							<attribute name="invoiceTime" />
+							<attribute name="deliveredTime" />
+							<attribute name="cnmtDeliveryCost" />
+							<attribute name="deliveryAddress" />
+							<attribute name="mpInvoiceLabelPath" />
+							<attribute name="mpShippingLabelPath" />
+							<attribute name="billed" />
+							<attribute name="lspStatusDesc" />
+							<attribute name="gstInvoiceNumber" />
+							<attribute name="bosNumber" />
+							<attribute name="bosAmount" />
+							<attribute name="bosVoucherDiscountAmount" />
+							<attribute name="bosDeliveryCost" />
+							<attribute name="wayBillNumber" />
+							<attribute name="wayBillDate" />
+							<attribute name="lcPushRetryCount" />
+							<attribute name="lspComment" />
+							<attribute name="historicalAwbNumbers" />
+							<attribute name="reverseAwbNumbers" />
+							<action type="item"
+								classname="com.borngroup.ssl.core.hmc.PickupConfirmationHMCAction"
+								name="btn.consignment.confirm.pickup" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+	<type name="OccupationMapping" mode="append">
+		<organizer>
+			<search>
+				<condition attribute="occupationName" />
+			</search>
+			<result>
+				<listview mode="replace" scrollbar="true">
+					<itemlayout>
+						<attribute name="occupationName" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+				<tab name="properties" position="0" mode="replace">
+					<section name="section.occupationmapping">
+						<listlayout mode="append">
+							<attribute name="occupationName" />
+							<attribute name="occupationCode" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+	<type name="EducationMapping" mode="append">
+		<organizer>
+			<search>
+				<condition attribute="educationName" />
+			</search>
+			<result>
+				<listview mode="replace" scrollbar="true">
+					<itemlayout>
+						<attribute name="educationName" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+				<tab name="properties" position="0" mode="replace">
+					<section name="section.educationmapping">
+						<listlayout mode="append">
+							<attribute name="educationName" />
+							<attribute name="educationCode" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+	<type name="MaritalStatusMapping" mode="append">
+		<organizer>
+			<search>
+				<condition attribute="maritalStatusName" />
+			</search>
+			<result>
+				<listview mode="replace" scrollbar="true">
+					<itemlayout>
+						<attribute name="maritalStatusName" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+				<tab name="properties" position="0" mode="replace">
+					<section name="section.maritalstatusmapping">
+						<listlayout mode="append">
+							<attribute name="maritalStatusName" />
+							<attribute name="maritalStatusCode" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+	<type name="BusinessTypeMapping" mode="append">
+		<organizer>
+			<search>
+				<condition attribute="businessTypeName" />
+			</search>
+			<result>
+				<listview mode="replace" scrollbar="true">
+					<itemlayout>
+						<attribute name="businessTypeName" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+				<tab name="properties" position="0" mode="replace">
+					<section name="section.businesstypemapping">
+						<listlayout mode="append">
+							<attribute name="businessTypeName" />
+							<attribute name="businessTypeCode" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+	<type name="AltBrandCodeRestriction" mode="replace">
+		<organizer>
+			<editor mode="replace">
+				<tab name="properties" position="0" mode="append">
+					<section name="section.AltBrandCodeRestriction">
+						<listlayout mode="append">
+							<attribute name="descriptionPattern" />
+							<attribute name="include" />
+							<attribute name="altBrandCodeList" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+	<type name="SslOrderWithProductRestriction" mode="append">
+		<organizer>
+			<editor mode="append">
+				<tab name="properties">
+					<section name="section.restrictions" mode="append"
+						position="0">
+						<listlayout mode="append">
+							<attribute name="include" />
+							<attribute name="products" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+	<type name="DesignationMapping" mode="append">
+		<organizer>
+			<search>
+				<condition attribute="designationName" />
+			</search>
+			<result>
+				<listview mode="replace" scrollbar="true">
+					<itemlayout>
+						<attribute name="designationName" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+				<tab name="properties" position="0" mode="replace">
+					<section name="section.designationmapping">
+						<listlayout mode="append">
+							<attribute name="designationName" />
+							<attribute name="designationCode" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+	<type name="RelationshipMapping" mode="append">
+		<organizer>
+			<search>
+				<condition attribute="relationshipName" />
+			</search>
+			<result>
+				<listview mode="replace" scrollbar="true">
+					<itemlayout>
+						<attribute name="relationshipName" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+				<tab name="properties" position="0" mode="replace">
+					<section name="section.relationshipmapping">
+						<listlayout mode="append">
+							<attribute name="relationshipName" />
+							<attribute name="relationshipCode" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+	<type name="CustomerReview" mode="append"
+		icon="ext/customerreview/images/customer_review.gif">
+		<organizer>
+			<search mode="replace">
+				<condition attribute="reply" />
+			</search>
+
+			<result>
+				<listview mode="replace">
+					<itemlayout>
+						<attribute name="reply" />
+					</itemlayout>
+				</listview>
+			</result>
+
+			<editor mode="append">
+				<tab name="customerreview.tabs.commons" mode="append">
+					<section name="customerreview.sections.commons">
+						<listlayout>
+							<attribute name="baseProduct" width="200">
+								<referencecollectioneditor editable="true"
+									externalcreate="false" resortable="false" remove="true" create="true">
+									<preset targetattribute="baseproduct" />
+								</referencecollectioneditor>
+							</attribute>
+							<attribute name="reply" width="400">
+								<textareaeditor rows="10" cols="50" expanded="true">
+								</textareaeditor>
+							</attribute>
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+	<type name="StockLevel" mode="append">
+		<organizer>
+			<search mode="replace">
+				<condition attribute="productCode" />
+				<condition attribute="warehouse" />
+			</search>
+			<result defaultview="list" mode="replace">
+				<listview>
+					<itemlayout>
+						<attribute name="productCode" width="200" />
+						<attribute name="warehouse" width="400" />
+						<attribute name="available" width="100" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor>
+				<essentials>
+					<listlayout>
+						<attribute name="productCode" />
+						<attribute name="warehouse" />
+						<attribute name="inStockStatus" />
+					</listlayout>
+				</essentials>
+				<tab name="properties" position="0" mode="append">
+					<section name="section.stocklevel.stock" mode="append">
+						<columnlayout>
+							<row>
+								<attribute name="available" />
+								<attribute name="reserved" />
+							</row>
+							<row>
+								<attribute name="overSelling" />
+								<attribute name="preOrder" />
+							</row>
+							<row>
+								<attribute name="maxPreOrder" />
+								<attribute name="treatNegativeAsZero" />
+							</row>
+							<row>
+								<attribute name="releaseDate" />
+								<attribute name="nextDeliveryTime" />
+							</row>
+							<row>
+								<attribute name="holdQuantity" />
+								<attribute name="bufferQuantity" />
+							</row>
+							<row>
+								<attribute name="nonSellableQuantity" />
+								<attribute name="nextDeliveryTime" />
+							</row>
+							<row>
+								<attribute name="onlineSuspense" />
+								<attribute name="onlineReserved" />
+							</row>
+							<row>
+								<attribute name="onlineDamaged" />
+							</row>
+						</columnlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+		<defaultreference mode="replace" searchattribute="productCode">
+			<itemlayout>
+				<attribute name="productCode" />
+				<attribute name="warehouse" />
+			</itemlayout>
+		</defaultreference>
+	</type>
+	<type name="InternalConsignmentEntry" mode="append">
+		<organizer>
+			<search mode="replace">
+				<condition attribute="orderNumber" />
+				<condition attribute="stockLocation" />
+			</search>
+			<result defaultview="list" mode="replace">
+				<listview>
+					<itemlayout>
+						<attribute name="orderNumber" width="200" />
+						<attribute name="product" width="200" />
+						<attribute name="stockLocation" width="200" />
+						<attribute name="status" width="100" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor>
+				<essentials>
+					<listlayout>
+						<attribute name="orderNumber" />
+						<attribute name="product" />
+						<attribute name="stockLocation" />
+					</listlayout>
+				</essentials>
+				<tab name="properties" position="0" mode="append">
+					<section name="section.transfer.details" mode="append">
+						<columnlayout>
+							<row>
+								<attribute name="shippedQuantity" />
+								<attribute name="singleItem" />
+							</row>
+							<row>
+								<attribute name="batchNumber" />
+								<attribute name="transferNumber" />
+							</row>
+						</columnlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+		<defaultreference mode="replace" searchattribute="orderNumber">
+			<itemlayout>
+				<attribute name="orderNumber" />
+				<attribute name="stockLocation" />
+			</itemlayout>
+		</defaultreference>
+	</type>
+	<type name="InternalConsignmentEntryTransferLog" mode="append">
+		<organizer>
+			<search mode="replace">
+				<condition attribute="sourceStockLocation" />
+				<condition attribute="pickFailureReasonCode" />
+			</search>
+			<result defaultview="list" mode="replace">
+				<listview>
+					<itemlayout>
+						<attribute name="sourceStockLocation" width="200" />
+						<attribute name="targetStockLocation" width="200" />
+						<attribute name="pickFailureReasonCode" width="200" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor>
+				<essentials>
+					<listlayout>
+						<attribute name="sourceStockLocation" />
+						<attribute name="targetStockLocation" />
+						<attribute name="pickFailureReasonCode" />
+					</listlayout>
+				</essentials>
+				<tab name="properties" position="0" mode="append">
+					<section name="section.transferlog.details" mode="append">
+						<columnlayout>
+							<row>
+								<attribute name="quantity" />
+								<attribute name="pickFailureRemarks" />
+							</row>
+							<row>
+								<attribute name="entry" />
+							</row>
+						</columnlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+		<defaultreference mode="replace" searchattribute="orderNumber">
+			<itemlayout>
+				<attribute name="orderNumber" />
+				<attribute name="stockLocation" />
+			</itemlayout>
+		</defaultreference>
+	</type>
+	<type name="EGiftVoucher" mode="append">
+		<organizer>
+			<search mode="replace">
+				<condition attribute="order" />
+				<condition attribute="invoiceNumber" />
+			</search>
+			<result defaultview="list" mode="replace">
+				<listview>
+					<itemlayout>
+						<attribute name="order" width="100" />
+						<attribute name="invoiceNumber" width="100" />
+						<attribute name="cardNumber" width="100" />
+						<attribute name="batchId" width="100" />
+						<attribute name="approvalCode" width="100" />
+						<attribute name="amount" width="100" />
+						<attribute name="expiry" width="100" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor>
+				<tab name="properties" position="0" mode="replace">
+					<section name="section.egiftvoucher.details">
+						<listlayout mode="append">
+							<attribute name="order" />
+							<attribute name="invoiceNumber" />
+							<attribute name="cardNumber" />
+							<attribute name="batchId" />
+							<attribute name="approvalCode" />
+							<attribute name="amount" />
+							<attribute name="expiry" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+	<type name="Vendor" mode="append">
+		<organizer>
+			<search mode="replace">
+				<condition attribute="code" />
+				<condition attribute="name" />
+			</search>
+			<result defaultview="list" mode="replace">
+				<listview>
+					<itemlayout>
+						<attribute name="code" width="200" />
+						<attribute name="name" width="200" />
+						<attribute name="dropShip" width="200" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor>
+				<essentials>
+					<listlayout>
+						<attribute name="code" />
+						<attribute name="name" />
+						<attribute name="dropShip" />
+						<attribute name="warehouses" />
+					</listlayout>
+				</essentials>
+			</editor>
+		</organizer>
+		<defaultreference mode="replace" searchattribute="code">
+			<itemlayout>
+				<attribute name="code" />
+				<attribute name="name" />
+			</itemlayout>
+		</defaultreference>
+	</type>
+	<type name="FraudSymptom" mode="append">
+		<organizer>
+			<search mode="replace">
+				<condition attribute="code" />
+				<condition attribute="name" />
+			</search>
+			<result defaultview="list" mode="replace">
+				<listview>
+					<itemlayout>
+						<attribute name="fraudType" width="200" />
+						<attribute name="fraudList" width="200" />
+						<attribute name="values" width="200" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor>
+				<essentials>
+					<listlayout>
+						<attribute name="fraudType" />
+						<attribute name="fraudList" />
+						<attribute name="values" />
+					</listlayout>
+				</essentials>
+			</editor>
+		</organizer>
+		<defaultreference mode="replace" searchattribute="code">
+			<itemlayout>
+				<attribute name="fraudType" />
+				<attribute name="fraudList" />
+			</itemlayout>
+		</defaultreference>
+	</type>
+
+	<type name="OrderThresholdDiscountPercentagePromotion" mode="append">
+		<organizer>
+			<editor mode="append">
+				<tab name="tab.promotion.properties" mode="append">
+					<section name="section.promotion.description" mode="replace"
+						position="0">
+					</section>
+					<section name="section.promotion.prices">
+						<columnlayout leftwidth="370">
+							<row>
+								<attribute name="thresholdTotals" labelwidth="100">
+									<referencecollectioneditor editable="true"
+										externalcreate="false" resortable="false" remove="true"
+										create="true">
+										<itemlayout>
+											<attribute name="currency" width="60" />
+											<attribute name="price" width="60" />
+										</itemlayout>
+									</referencecollectioneditor>
+								</attribute>
+							</row>
+							<row>
+								<attribute name="percentageDiscount" labelwidth="100" />
+							</row>
+						</columnlayout>
+					</section>
+				</tab>
+				<tab name="tab.promotion.messages" mode="append">
+					<section name="section.promotion.messages" mode="append">
+						<columnlayout leftwidth="500">
+							<row>
+								<attribute name="messageFired" labelwidth="100" width="400">
+									<textareaeditor expanded="true" rows="5" />
+								</attribute>
+							</row>
+							<row>
+								<attribute name="messagecouldhavefired" labelwidth="100"
+									width="400">
+									<textareaeditor expanded="true" rows="5" />
+								</attribute>
+							</row>
+						</columnlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+	<type name="SslOrderLimitDiscountPercentagePromotion" mode="append">
+		<organizer>
+			<editor mode="append">
+				<tab name="tab.promotion.properties" mode="append">
+					<section name="section.promotion.description" mode="replace"
+						position="0">
+						<listlayout>
+							<text
+								name="text.sslorderlimitdiscountpercentagepromotion.detaileddescription" />
+						</listlayout>
+					</section>
+					<section name="section.promotion.prices">
+						<columnlayout leftwidth="370">
+							<row>
+								<attribute name="lowerThresholdTotals" labelwidth="100">
+									<referencecollectioneditor editable="true"
+										externalcreate="false" resortable="false" remove="true"
+										create="true">
+										<itemlayout>
+											<attribute name="currency" width="60" />
+											<attribute name="price" width="60" />
+										</itemlayout>
+									</referencecollectioneditor>
+								</attribute>
+								<text
+									name="text.sslorderlimitdiscountpercentagepromotion.lowerthreshold" />
+							</row>
+							<row>
+								<attribute name="upperThresholdTotals" labelwidth="100">
+									<referencecollectioneditor editable="true"
+										externalcreate="false" resortable="false" remove="true"
+										create="true">
+										<itemlayout>
+											<attribute name="currency" width="60" />
+											<attribute name="price" width="60" />
+										</itemlayout>
+									</referencecollectioneditor>
+								</attribute>
+								<text
+									name="text.sslorderlimitdiscountpercentagepromotion.upperthreshold" />
+							</row>
+							<row>
+								<attribute name="percentageDiscount" labelwidth="100">
+									<referencecollectioneditor editable="true"
+										externalcreate="false" resortable="false" remove="true"
+										create="true">
+										<itemlayout>
+											<attribute name="currency" width="60" />
+											<attribute name="price" width="60" />
+										</itemlayout>
+									</referencecollectioneditor>
+								</attribute>
+								<text name="text.sslorderlimitdiscountpercentagepromotion.discounts" />
+							</row>
+						</columnlayout>
+					</section>
+				</tab>
+				<tab name="tab.promotion.messages" mode="append">
+					<section name="section.promotion.messages" mode="append">
+						<columnlayout leftwidth="500">
+							<row>
+								<text name="text.promotion.messages.overview" />
+							</row>
+							<row>
+								<text name="text.orderthresholddiscountpromotion.messagefired" />
+							</row>
+							<row>
+								<attribute name="messageFired" labelwidth="100" width="400">
+									<textareaeditor expanded="true" rows="5" />
+								</attribute>
+								<text name="text.orderthresholddiscountpromotion.messagefiredargs" />
+							</row>
+							<row>
+								<text
+									name="text.orderthresholddiscountpromotion.messagecouldhavefired" />
+							</row>
+							<row>
+								<attribute name="messageCouldHaveFired" labelwidth="100"
+									width="400">
+									<textareaeditor expanded="true" rows="5" />
+								</attribute>
+								<text
+									name="text.orderthresholddiscountpromotion.messagecouldhavefiredargs" />
+							</row>
+						</columnlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+	<type name="PromotionVoucher" icon="ext/voucher/images/e_voucher.gif"
+		mode="append">
+		<organizer>
+			<editor>
+				<tab name="tab.common" position="0">
+					<section name="section.voucher.value">
+						<columnlayout>
+							<row>
+								<attribute name="ShowOnStorefront" labelwidth="100"
+									width="200">
+									<advancedbooleaneditor truename="yes"
+										falsename="no" />
+								</attribute>
+								<attribute name="termAndConditionURL" labelwidth="100"
+									width="200">
+								</attribute>
+							</row>
+						</columnlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+	<type name="OrderValuePromotionVoucher" icon="ext/voucher/images/e_voucher.gif"
+		mode="append">
+		<organizer>
+			<search>
+				<condition attribute="voucherCode" />
+			</search>
+			<editor>
+				<essentials mode="replace">
+					<listlayout>
+						<text name="text.promotionvoucher.common" width="353" />
+						<attribute name="code" maxlength="3" />
+						<attribute name="name" />
+					</listlayout>
+				</essentials>
+				<tab name="tab.common" position="0">
+					<section name="section.voucher.threshold">
+						<columnlayout leftwidth="500">
+							<row>
+								<attribute name="upperThreshold" labelwidth="100"
+									width="200">
+									<textareaeditor expanded="true" rows="5" />
+								</attribute>
+								<text name="text.ordervaluepromotionvoucher.upperthreshold" />
+							</row>
+							<row>
+								<attribute name="lowerThreshold" labelwidth="100"
+									width="200">
+									<textareaeditor expanded="true" rows="5" />
+								</attribute>
+								<text name="text.ordervaluepromotionvoucher.lowerthreshold" />
+							</row>
+						</columnlayout>
+					</section>
+					<section name="section.restriction.errormessage">
+						<listlayout>
+							<text name="text.restriction.errormessage" width="353" />
+							<attribute name="violationMessage">
+								<textareaeditor expanded="true" wrap="true" rows="4" />
+							</attribute>
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+	<type name="DeliveryPostalCode" mode="append">
+		<organizer>
+			<search>
+				<condition attribute="pinCode" />
+				<condition attribute="city" />
+				<condition attribute="state" />
+			</search>
+			<result>
+				<listview mode="replace" scrollbar="true">
+					<itemlayout>
+						<attribute name="pinCode" />
+						<attribute name="city" />
+						<attribute name="state" />
+						<attribute name="shipper" />
+						<attribute name="cod" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+				<tab name="properties" position="0" mode="replace">
+					<section name="section.deliverypostalcode">
+						<listlayout mode="append">
+							<attribute name="pinCode" />
+							<attribute name="city" />
+							<attribute name="state" />
+							<attribute name="shipper" />
+							<attribute name="cod" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+	<!-- Added to make latitude and longitude field editable in PointOfService -->
+
+	<type name="PointOfService" mode="append">
+		<organizer>
+
+			<editor>
+				<tab name="tab.address">
+					<section name="sec.geodata" position="1" mode="replace">
+						<columnlayout>
+							<row>
+								<attribute name="geocodeTimestamp" editable="true" />
+								<action classname="de.hybris.platform.basecommerce.hmc.GeoCodePOSAction"
+									type="item" name="geocode" />
+							</row>
+							<row>
+								<attribute name="latitude" editable="true" />
+								<attribute name="longitude" editable="true" />
+							</row>
+						</columnlayout>
+
+					</section>
+					<section name="sec.address" mode="append">
+						<listlayout>
+							<attribute name="pickUpAddress" editable="true">
+								<referenceeditor>
+									<preset targetattribute="owner" />
+								</referenceeditor>
+							</attribute>
+						</listlayout>
+					</section>
+
+				</tab>
+				<tab name="properties">
+					<section name="section.personalshopper">
+						<listlayout mode="append">
+							<attribute name="storeManager" />
+							<attribute name="isEnabledForPersonalShopper" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+	<!-- End -->
+
+	<type name="CMSLinkComponent" mode="append"
+		icon="images/cms2/contentelementlink.gif">
+		<organizer mode="append">
+			<editor mode="append">
+				<tab name="properties" position="0">
+					<section name="properties" mode="append">
+						<listlayout>
+							<attribute name="linkName" />
+							<attribute name="external" />
+							<attribute name="contentPage" />
+							<attribute name="category" />
+							<attribute name="product" />
+							<attribute name="url" />
+							<attribute name="linkType" />
+							<attribute name="query" />
+							<attribute name="linkCategoryType" />
+							<attribute name="target" />
+							<attribute name="styleAttributes" />
+						</listlayout>
+					</section>
+				</tab>
+				<tab name="administration" mode="append">
+					<section name="section.cms.admin" mode="append">
+						<listlayout>
+							<attribute name="containers" />
+							<attribute name="productCode" />
+							<attribute name="categoryCode" />
+							<attribute name="contentPageLabelOrId" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+	<type name="SslProductMultiBuyDiscountPromotion" mode="append">
+		<organizer>
+			<editor mode="append">
+				<tab name="tab.promotion.properties" mode="append">
+					<section name="section.promotion.description" mode="append"
+						position="0">
+						<listlayout>
+							<text
+								name="text.sslproductmultibuydiscountpromotion.detaileddescription" />
+						</listlayout>
+					</section>
+					<section name="section.promotion.products" mode="append">
+						<columnlayout leftwidth="370">
+							<row>
+								<attribute name="qualifyingCount" labelwidth="100" />
+								<text name="text.sslproductmultibuydiscountpromotion.qualifyingcount" />
+							</row>
+						</columnlayout>
+					</section>
+					<section name="section.promotion.discounts">
+						<columnlayout leftwidth="370">
+							<row>
+								<attribute name="bundleDiscounts" labelwidth="100">
+									<referencecollectioneditor editable="true"
+										externalcreate="false" resortable="false" remove="true"
+										create="true">
+										<itemlayout>
+											<attribute name="currency" width="60" />
+											<attribute name="percentageDiscount" width="60" />
+										</itemlayout>
+									</referencecollectioneditor>
+								</attribute>
+								<text name="text.sslproductmultibuydiscountpromotion.bundlediscounts" />
+							</row>
+						</columnlayout>
+					</section>
+
+				</tab>
+				<tab name="tab.promotion.messages" mode="append">
+					<section name="section.promotion.messages" mode="append">
+						<columnlayout leftwidth="500">
+							<row>
+								<text name="text.promotion.messages.overview" />
+							</row>
+							<row>
+								<text name="text.sslproductmultibuydiscountpromotion.messagefired" />
+							</row>
+							<row>
+								<attribute name="messageFired" labelwidth="100" width="400">
+									<textareaeditor expanded="true" rows="5" />
+								</attribute>
+								<text
+									name="text.sslproductmultibuydiscountpromotion.messagefiredargs" />
+							</row>
+							<row>
+								<text
+									name="text.sslproductmultibuydiscountpromotion.messagecouldhavefired" />
+							</row>
+							<row>
+								<attribute name="messageCouldHaveFired" labelwidth="100"
+									width="400">
+									<textareaeditor expanded="true" rows="5" />
+								</attribute>
+								<text
+									name="text.sslproductmultibuydiscountpromotion.messagecouldhavefiredargs" />
+							</row>
+						</columnlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+	<type name="SslProductPerfectPartnerDiscountPromotion" mode="append">
+		<organizer>
+			<editor mode="append">
+				<tab name="tab.promotion.properties" mode="append">
+					<section name="section.promotion.description" mode="replace"
+						position="0">
+						<listlayout>
+							<text
+								name="text.sslproductperfectpartnerdiscountpromotion.detaileddescription" />
+						</listlayout>
+					</section>
+					<section name="section.promotion.products" mode="append">
+						<listlayout>
+							<text
+								name="text.sslproductperfectpartnerdiscountpromotion.partnerproductList" />
+							<attribute name="partnerProductList" labelwidth="100">
+								<referencecollectioneditor
+									autoperform="true" resortable="true" add="true" remove="true"
+									create="false">
+									<itemlayout>
+										<attribute name="code" width="274" />
+										<attribute name="name" width="274" />
+									</itemlayout>
+								</referencecollectioneditor>
+							</attribute>
+						</listlayout>
+					</section>
+					<section name="section.promotion.discounts">
+						<columnlayout leftwidth="370">
+							<row>
+								<attribute name="partnerPercentageDiscounts"
+									labelwidth="100">
+									<referencecollectioneditor editable="true"
+										externalcreate="false" resortable="false" remove="true"
+										create="true">
+										<itemlayout>
+											<attribute name="currency" width="60" />
+											<attribute name="percentageDiscount" width="60" />
+										</itemlayout>
+									</referencecollectioneditor>
+								</attribute>
+								<text
+									name="text.sslproductperfectpartnerdiscountpromotion.partnerpercentagediscounts" />
+							</row>
+						</columnlayout>
+					</section>
+				</tab>
+				<tab name="tab.promotion.messages" mode="append">
+					<section name="section.promotion.messages" mode="append">
+						<columnlayout leftwidth="500">
+							<row>
+								<text name="text.promotion.messages.overview" />
+							</row>
+							<row>
+								<text
+									name="text.sslproductperfectpartnerdiscountpromotion.messagefired" />
+							</row>
+							<row>
+								<attribute name="messageFired" labelwidth="100" width="400">
+									<textareaeditor expanded="true" rows="5" />
+								</attribute>
+								<text
+									name="text.sslproductperfectpartnerdiscountpromotion.messagefiredargs" />
+							</row>
+							<row>
+								<text
+									name="text.sslproductperfectpartnerdiscountpromotion.messagecouldhavefired" />
+							</row>
+							<row>
+								<attribute name="messageCouldHaveFired" labelwidth="100"
+									width="400">
+									<textareaeditor expanded="true" rows="5" />
+								</attribute>
+								<text
+									name="text.sslproductperfectpartnerdiscountpromotion.messagecouldhavefiredargs" />
+							</row>
+						</columnlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+	<type name="SslProductPromotionRestriction" mode="replace">
+		<organizer>
+			<editor mode="replace">
+				<tab name="properties" position="0" mode="append">
+					<section name="section.SslProductPromotionRestriction">
+						<listlayout mode="append">
+							<attribute name="descriptionPattern" />
+							<attribute name="include" />
+							<attribute name="productCodeList" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+	<type name="SslOrderSteppedMultiBuyDiscountPromotion" mode="append">
+		<organizer>
+			<editor mode="append">
+				<tab name="tab.promotion.properties" mode="append">
+					<section name="section.promotion.description" mode="replace"
+						position="0">
+						<listlayout>
+							<text
+								name="text.sslordersteppedmultibuydiscountpromotion.detaileddescription" />
+						</listlayout>
+					</section>
+					<section name="section.promotion.discounts">
+						<columnlayout leftwidth="370">
+							<row>
+								<attribute name="qualifyingValueAndBundleDiscounts"
+									labelwidth="100">
+									<referencecollectioneditor
+										autoperform="true" resortable="true" add="true" remove="true"
+										create="true">
+										<itemlayout>
+											<attribute name="value" width="100" />
+										</itemlayout>
+									</referencecollectioneditor>
+								</attribute>
+								<text
+									name="text.sslordersteppedmultibuydiscountpromotion.qualifyingvalueandbundlediscounts" />
+							</row>
+						</columnlayout>
+					</section>
+				</tab>
+				<tab name="tab.promotion.messages" mode="append">
+					<section name="section.promotion.messages" mode="append">
+						<columnlayout leftwidth="500">
+							<row>
+								<text name="text.promotion.messages.overview" />
+							</row>
+							<row>
+								<text
+									name="text.sslordersteppedmultibuydiscountpromotion.messagefired" />
+							</row>
+							<row>
+								<attribute name="messageFired" labelwidth="100" width="400">
+									<textareaeditor expanded="true" rows="5" />
+								</attribute>
+								<text
+									name="text.sslOrdersteppedmultibuydiscountpromotion.messagefiredargs" />
+							</row>
+							<row>
+								<text
+									name="text.sslordersteppedmultibuydiscountpromotion.messagecouldhavefired" />
+							</row>
+							<row>
+								<attribute name="messageCouldHaveFired" labelwidth="100"
+									width="400">
+									<textareaeditor expanded="true" rows="5" />
+								</attribute>
+								<text
+									name="text.sslordersteppedmultibuydiscountpromotion.messagecouldhavefiredargs" />
+							</row>
+						</columnlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+	<type name="PromotionValueAndDiscountRow" mode="append">
+		<organizer>
+			<editor mode="append">
+				<tab name="tab.promotion.properties" mode="append">
+					<section name="section.promotion.discounts">
+						<columnlayout leftwidth="500">
+							<row>
+								<attribute name="value" labelwidth="100">
+									<referencecollectioneditor editable="true"
+										externalcreate="false" resortable="false" remove="true"
+										create="true">
+										<itemlayout>
+											<attribute name="currency" width="60" />
+											<attribute name="price" width="60" />
+										</itemlayout>
+									</referencecollectioneditor>
+								</attribute>
+								<text name="text.promotionvalueanddiscountrow.value" />
+							</row>
+							<row>
+								<attribute name="discount" labelwidth="100">
+									<referencecollectioneditor editable="true"
+										externalcreate="false" resortable="false" remove="true"
+										create="true">
+										<itemlayout>
+											<attribute name="currency" width="60" />
+											<attribute name="price" width="60" />
+										</itemlayout>
+									</referencecollectioneditor>
+								</attribute>
+								<text name="text.promotionvalueanddiscountrow.discount" />
+							</row>
+						</columnlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+	<type name="SslProductValueDiscountPromotion" mode="append">
+		<organizer>
+			<editor mode="append">
+				<tab name="tab.promotion.properties" mode="append">
+					<section name="section.promotion.description" mode="replace"
+						position="0">
+						<listlayout>
+							<text name="text.sslproductvaluediscountpromotion.detaileddescription" />
+						</listlayout>
+					</section>
+					<section name="section.promotion.discounts">
+						<columnlayout leftwidth="370">
+							<row>
+								<attribute name="valueDiscount" labelwidth="100">
+									<referencecollectioneditor editable="true"
+										externalcreate="false" resortable="false" remove="true"
+										create="true">
+										<itemlayout>
+											<attribute name="currency" width="60" />
+											<attribute name="price" width="60" />
+										</itemlayout>
+									</referencecollectioneditor>
+								</attribute>
+							</row>
+						</columnlayout>
+					</section>
+				</tab>
+				<tab name="tab.promotion.messages" mode="append">
+					<section name="section.promotion.messages" mode="append">
+						<columnlayout leftwidth="500">
+							<row>
+								<text name="text.promotion.messages.overview" />
+							</row>
+							<row>
+								<text name="text.sslproductvaluediscountpromotion.messagefired" />
+							</row>
+							<row>
+								<attribute name="messageFired" labelwidth="100" width="400">
+									<textareaeditor expanded="true" rows="5" />
+								</attribute>
+								<text name="text.sslproductvaluediscountpromotion.messagefiredargs" />
+							</row>
+							<row>
+								<text
+									name="text.sslproductvaluediscountpromotion.messagecouldhavefired" />
+							</row>
+							<row>
+								<attribute name="messageCouldHaveFired" labelwidth="100"
+									width="400">
+									<textareaeditor expanded="true" rows="5" />
+								</attribute>
+								<text
+									name="text.sslproductvaluediscountpromotion.messagecouldhavefiredargs" />
+							</row>
+						</columnlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+	<type name="SslProductSteppedMultiBuyDiscountPromotion" mode="append">
+		<organizer>
+			<editor mode="append">
+				<tab name="tab.promotion.properties" mode="append">
+					<section name="section.promotion.description" mode="replace"
+						position="0">
+						<listlayout>
+							<text
+								name="text.sslproductsteppedmultibuydiscountpromotion.detaileddescription" />
+						</listlayout>
+					</section>
+					<section name="section.promotion.discounts">
+						<columnlayout leftwidth="370">
+							<row>
+								<attribute name="qualifyingCountsAndBundleDiscounts"
+									labelwidth="100">
+									<referencecollectioneditor
+										autoperform="true" resortable="true" add="true" remove="true"
+										create="true">
+										<itemlayout>
+											<attribute name="quantity" width="100" />
+										</itemlayout>
+									</referencecollectioneditor>
+								</attribute>
+								<text
+									name="text.sslproductsteppedmultibuydiscountpromotion.qualifyingcountsandbundlediscounts" />
+							</row>
+						</columnlayout>
+					</section>
+				</tab>
+				<tab name="tab.promotion.messages" mode="append">
+					<section name="section.promotion.messages" mode="append">
+						<columnlayout leftwidth="500">
+							<row>
+								<text name="text.promotion.messages.overview" />
+							</row>
+							<row>
+								<text
+									name="text.sslproductsteppedmultibuydiscountpromotion.messagefired" />
+							</row>
+							<row>
+								<attribute name="messageFired" labelwidth="100" width="400">
+									<textareaeditor expanded="true" rows="5" />
+								</attribute>
+								<text
+									name="text.sslproductsteppedmultibuydiscountpromotion.messagefiredargs" />
+							</row>
+							<row>
+								<text
+									name="text.sslproductsteppedmultibuydiscountpromotion.messagecouldhavefired" />
+							</row>
+							<row>
+								<attribute name="messageCouldHaveFired" labelwidth="100"
+									width="400">
+									<textareaeditor expanded="true" rows="5" />
+								</attribute>
+								<text
+									name="text.sslproductsteppedmultibuydiscountpromotion.messagecouldhavefiredargs" />
+							</row>
+						</columnlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+	<type name="SslProductBOGODiscountPromotion" mode="append">
+		<organizer>
+			<editor mode="append">
+				<tab name="tab.promotion.properties" mode="append">
+					<section name="section.promotion.description" mode="replace"
+						position="0">
+						<listlayout>
+							<text name="text.sslproductbogodiscountpromotion.detaileddescription" />
+						</listlayout>
+					</section>
+					<section name="section.promotion.products" mode="append">
+						<columnlayout leftwidth="370">
+							<row>
+								<text name="text.sslproductbogodiscountpromotion.qualifyingoverview" />
+							</row>
+							<row>
+								<attribute name="qualifyingCount" labelwidth="100" />
+								<text name="text.sslproductbogodiscountpromotion.qualifyingcount" />
+							</row>
+							<row>
+								<attribute name="discountedCount" labelwidth="100" />
+								<text name="text.sslproductbogodiscountpromotion.discountedcount" />
+							</row>
+						</columnlayout>
+					</section>
+					<section name="section.promotion.discounts">
+						<columnlayout leftwidth="370">
+							<row>
+								<attribute name="discounts" labelwidth="100">
+									<referencecollectioneditor editable="true"
+										externalcreate="false" resortable="false" remove="true"
+										create="true">
+										<itemlayout>
+											<attribute name="currency" width="60" />
+											<attribute name="percentageDiscount" width="60" />
+										</itemlayout>
+									</referencecollectioneditor>
+								</attribute>
+								<text name="text.sslproductbogodiscountpromotion.discounts" />
+							</row>
+						</columnlayout>
+					</section>
+				</tab>
+				<tab name="tab.promotion.messages" mode="append">
+					<section name="section.promotion.messages" mode="append">
+						<columnlayout leftwidth="500">
+							<row>
+								<text name="text.promotion.messages.overview" />
+							</row>
+							<row>
+								<text name="text.sslproductbogodiscountpromotion.messagefired" />
+							</row>
+							<row>
+								<attribute name="messageFired" labelwidth="100" width="400">
+									<textareaeditor expanded="true" rows="5" />
+								</attribute>
+								<text name="text.sslproductbogodiscountpromotion.messagefiredargs" />
+							</row>
+							<row>
+								<text
+									name="text.sslproductbogodiscountpromotion.messagecouldhavefired" />
+							</row>
+							<row>
+								<attribute name="messageCouldHaveFired" labelwidth="100"
+									width="400">
+									<textareaeditor expanded="true" rows="5" />
+								</attribute>
+								<text
+									name="text.sslproductbogodiscountpromotion.messagecouldhavefiredargs" />
+							</row>
+						</columnlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+
+	<type name="PromotionQuantityAndDiscountRow" mode="append">
+		<organizer>
+			<editor mode="append">
+				<tab name="tab.promotion.properties" mode="append">
+					<section name="section.promotion.discounts">
+						<listlayout>
+							<attribute name="quantity" width="60" />
+							<attribute name="discounts" labelwidth="100">
+								<referencecollectioneditor editable="true"
+									externalcreate="false" resortable="false" remove="true" create="true">
+									<itemlayout>
+										<attribute name="currency" width="60" />
+										<attribute name="percentageDiscount" width="60" />
+									</itemlayout>
+								</referencecollectioneditor>
+							</attribute>
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+	<type name="Category" mode="append">
+		<organizer>
+			<editor>
+				<exclude>
+					<exclusion attribute="virtualCategoryEntries" />
+					<exclusion attribute="isVirtualCategory" />
+				</exclude>
+				<tab name="tab.structure" position="1" mode="replace">
+					<section name="section.supercategories" mode="replace">
+						<listlayout>
+							<attribute name="supercategories">
+								<referencecollectioneditor
+									autoperform="true" resortable="true" add="true" remove="true"
+									showsearcheditor="true">
+									<preset sourceattribute="catalogVersion"
+										targetattribute="catalogVersion" />
+									<itemlayout>
+										<attribute name="code" width="180" />
+										<attribute name="name" width="180" />
+										<attribute name="catalogversion" width="187" />
+									</itemlayout>
+								</referencecollectioneditor>
+							</attribute>
+						</listlayout>
+					</section>
+					<section name="section.virtualCategories">
+						<listlayout>
+							<attribute name="isVirtualCategory">
+							</attribute>
+							<attribute name="virtualCategoryEntries">
+								<referencecollectioneditor
+									autoperform="true" resortable="true" add="true" remove="true"
+									showsearcheditor="true">
+									<itemlayout>
+										<attribute name="category" width="180" />
+										<attribute name="brandCode" width="180" />
+										<attribute name="classAttributeAssignment" width="180" />
+										<attribute name="classificationAttributeValue"
+											width="180" />
+									</itemlayout>
+								</referencecollectioneditor>
+							</attribute>
+							<text name="text.virtualcategorywarning" />
+						</listlayout>
+					</section>
+					<section name="section.subcategoriesandproducts" mode="replace">
+						<listlayout>
+							<attribute name="categories">
+								<referencecollectioneditor
+									autoperform="true" resortable="true" add="true" remove="true"
+									create="true" showsearcheditor="true">
+									<preset sourceattribute="catalogVersion"
+										targetattribute="catalogVersion" />
+									<preset targetattribute="supercategories" />
+									<itemlayout>
+										<attribute name="code" width="180" />
+										<attribute name="name" width="180" />
+										<attribute name="catalogversion" width="187" />
+									</itemlayout>
+								</referencecollectioneditor>
+							</attribute>
+							<attribute name="products">
+								<referencecollectioneditor
+									autoperform="true" resortable="true" add="true" remove="true"
+									showsearcheditor="true">
+									<preset sourceattribute="catalogVersion"
+										targetattribute="catalogVersion" />
+									<itemlayout>
+										<attribute name="code" width="180" />
+										<attribute name="name" width="180" />
+										<attribute name="catalogversion" width="187" />
+									</itemlayout>
+								</referencecollectioneditor>
+							</attribute>
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+	<type name="Customer" mode="append">
+		<organizer>
+			<editor>
+				<exclude>
+					<exclusion attribute="homeStoreCreatedDate" />
+					<exclusion attribute="homeStoreModifiedDate" />
+				</exclude>
+			</editor>
+		</organizer>
+	</type>
+	<!-- node for ChannelWarehouseMapping -->
+	<type name="ChannelWarehouseMapping" mode="append">
+		<organizer>
+			<search>
+				<condition attribute="channel" />
+				<condition attribute="warehouse" />
+				<condition attribute="priority" />
+			</search>
+			<result>
+				<listview mode="replace" scrollbar="true">
+					<itemlayout>
+						<attribute name="channel" />
+						<attribute name="warehouse" />
+						<attribute name="priority" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+				<tab name="properties" position="0" mode="replace">
+					<section name="section.channelwarehousemapping">
+						<listlayout mode="append">
+							<attribute name="channel" />
+							<attribute name="warehouse" />
+							<attribute name="priority" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+		<defaultreference mode="replace" searchattribute="channel">
+			<itemlayout>
+				<attribute name="channel" />
+			</itemlayout>
+		</defaultreference>
+	</type>
+	<!-- node for Failure oreders -->
+	<type name="FailureOrderImportProcess" mode="append">
+		<organizer>
+			<search>
+				<condition attribute="orderId" />
+				<condition attribute="retryCount" />
+				<condition attribute="maxRetryCount" />
+			</search>
+			<result>
+				<listview mode="replace" scrollbar="true">
+					<itemlayout>
+
+						<attribute name="orderId" />
+						<attribute name="retryCount" />
+						<attribute name="maxRetryCount" />
+						<attribute name="reason" />
+
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+				<tab name="properties" position="0" mode="replace">
+					<section name="section.failureorderimportprocess">
+						<listlayout mode="append">
+							<attribute name="orderId" />
+							<attribute name="retryCount" />
+							<attribute name="maxRetryCount" />
+							<attribute name="reason" />
+
+
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+		<defaultreference mode="replace" searchattribute="orderId">
+			<itemlayout>
+				<attribute name="orderId" />
+			</itemlayout>
+		</defaultreference>
+	</type>
+	<type name="MPOrderUpdateHistory" mode="append">
+		<organizer>
+			<search>
+				<condition attribute="referenceId" />
+				<condition attribute="modifiedFromDate" />
+				<condition attribute="modifiedToDate" />
+				<condition attribute="hasFailurePages" />
+			</search>
+			<result>
+				<listview mode="replace" scrollbar="true">
+					<itemlayout>
+						<attribute name="referenceId" width="100" />
+						<attribute name="modifiedFromDate" width="150" />
+						<attribute name="modifiedToDate" width="150" />
+						<attribute name="resultsCount" width="100" />
+						<attribute name="failureCount" width="100" />
+						<attribute name="failurePages" width="100" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+				<tab name="properties" position="0" mode="replace">
+					<section name="section.MPOrderUpdateHistory">
+						<listlayout mode="append">
+							<attribute name="referenceId" />
+							<attribute name="modifiedFromDate" />
+							<attribute name="modifiedToDate" />
+							<attribute name="resultsCount" />
+							<attribute name="failureCount" />
+							<attribute name="hasFailurePages" />
+							<attribute name="failurePages" />
+							<attribute name="responseData" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+		<defaultreference mode="replace" searchattribute="modifiedFromDate">
+			<itemlayout>
+				<attribute name="modifiedFromDate" />
+			</itemlayout>
+		</defaultreference>
+	</type>
+	<type name="MPOrderImportHistory" mode="append">
+		<organizer>
+			<search>
+				<condition attribute="referenceId" />
+				<condition attribute="importFromDate" />
+				<condition attribute="importToDate" />
+				<condition attribute="hasFailurePages" />
+			</search>
+			<result>
+				<listview mode="replace" scrollbar="true">
+					<itemlayout>
+						<attribute name="referenceId" width="100" />
+						<attribute name="importFromDate" width="150" />
+						<attribute name="importToDate" width="150" />
+						<attribute name="resultsCount" width="100" />
+						<attribute name="failureCount" width="100" />
+						<attribute name="duplicateOrdersCount" width="150" />
+						<attribute name="failurePages" width="100" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+				<tab name="properties" position="0" mode="replace">
+					<section name="section.MPOrderImportHistory">
+						<listlayout mode="append">
+							<attribute name="referenceId" />
+							<attribute name="importFromDate" />
+							<attribute name="importToDate" />
+							<attribute name="resultsCount" />
+							<attribute name="failureCount" />
+							<attribute name="duplicateOrdersCount" />
+							<attribute name="hasFailurePages" />
+							<attribute name="failurePages" />
+							<attribute name="responseData" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+		<defaultreference mode="replace" searchattribute="importFromDate">
+			<itemlayout>
+				<attribute name="importFromDate" />
+			</itemlayout>
+		</defaultreference>
+	</type>
+	<type name="BTHybrisChannelMapping" mode="append">
+		<organizer>
+			<search>
+				<condition attribute="channelCode" />
+				<condition attribute="tenderCode" />
+				<condition attribute="salesApplication" />
+				<condition attribute="mpInvoiceStoreID" />
+			</search>
+			<result>
+				<listview mode="replace" scrollbar="true">
+					<itemlayout>
+						<attribute name="channelCode" />
+						<attribute name="salesApplication" />
+						<attribute name="description" />
+						<attribute name="mpInvoiceStoreID" />
+						<attribute name="tenderCode" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+				<tab name="properties" position="0" mode="replace">
+					<section name="section.BTHybrisChannelMapping">
+						<listlayout mode="append">
+							<attribute name="channelCode" />
+							<attribute name="salesApplication" />
+							<attribute name="description" />
+							<attribute name="mpInvoiceStoreID" />
+							<attribute name="tenderCode" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+		<defaultreference mode="replace" searchattribute="channelCode">
+			<itemlayout>
+				<attribute name="importFromDate" />
+			</itemlayout>
+		</defaultreference>
+	</type>
+	<type name="Order" mode="append">
+		<organizer>
+			<result>
+				<listview mode="append">
+					<itemlayout>
+						<attribute name="salesApplication" />
+					</itemlayout>
+				</listview>
+			</result>
+		</organizer>
+	</type>
+
+	<!-- node for BrandDepWarehouseMapping -->
+
+	<type name="BrandDepWarehouseMapping" mode="append">
+		<organizer>
+			<search>
+				<condition attribute="BrandDeptCode" />
+			</search>
+			<result>
+				<listview mode="replace" scrollbar="true">
+					<itemlayout>
+						<attribute name="brandDeptCode" />
+						<attribute name="type" />
+						<attribute name="stockLocation" />
+						<attribute name="stockLocationPriority" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+				<tab name="properties" position="0" mode="replace">
+					<section name="section.BrandDepWarehouseMapping">
+						<listlayout mode="append">
+							<attribute name="brandDeptCode" />
+							<attribute name="type" />
+							<attribute name="stockLocation" />
+							<attribute name="stockLocationPriority" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+	<!-- node for PincodeWarehouseMapping -->
+	<type name="PincodeWarehouseMapping" mode="append">
+		<organizer>
+			<search>
+				<condition attribute="PinCode" />
+			</search>
+			<result>
+				<listview mode="replace" scrollbar="true">
+					<itemlayout>
+						<attribute name="pinCode" />
+						<attribute name="stockLocation" />
+						<attribute name="stockLocationPriority" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+				<tab name="properties" position="0" mode="replace">
+					<section name="section.PincodeWarehouseMapping">
+						<listlayout mode="append">
+							<attribute name="pinCode" />
+							<attribute name="stockLocation" />
+							<attribute name="stockLocationPriority" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+	<!-- node for PincodePickupStoreMapping -->
+	<type name="PincodePickupStoreMapping" mode="append">
+		<organizer>
+			<search>
+				<condition attribute="pinCode" />
+			</search>
+			<result>
+				<listview mode="replace" scrollbar="true">
+					<itemlayout>
+						<attribute name="pinCode" />
+						<attribute name="pickupStoreLocation" />
+						<attribute name="odc" />
+						<attribute name="pickupStorePriority" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+				<tab name="properties" position="0" mode="replace">
+					<section name="section.PincodePickupStoreMapping">
+						<listlayout mode="append">
+							<attribute name="pinCode" />
+							<attribute name="pickupStoreLocation" />
+							<attribute name="odc" />
+							<attribute name="pickupStorePriority" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+	<!-- node for Sourcing Strategy -->
+	<type name="SourcingStrategy" mode="append">
+		<organizer>
+			<search>
+				<condition attribute="StrategyName" />
+				<condition attribute="StrategyType" />
+				<condition attribute="CheckNextStrategy" />
+			</search>
+			<result>
+				<listview mode="replace" scrollbar="true">
+					<itemlayout>
+						<attribute name="StrategyName" />
+						<attribute name="StrategyType" />
+						<attribute name="Weightage" />
+						<attribute name="CheckNextODC" />
+						<attribute name="StrategyEnabled" />
+						<attribute name="CapEnabled" />
+						<attribute name="CheckNextStrategy" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+				<tab name="properties" position="0" mode="replace">
+					<section name="section.SourcingStrategy">
+						<listlayout mode="append">
+							<attribute name="StrategyName" />
+							<attribute name="StrategyType" />
+							<attribute name="Weightage" />
+							<attribute name="CheckNextODC" />
+							<attribute name="StrategyEnabled" />
+							<attribute name="CapEnabled" />
+							<attribute name="CheckNextStrategy" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+	<!-- node for LCStatusMapping -->
+	<type name="LCStatusMapping" mode="append">
+		<organizer>
+			<search>
+				<condition attribute="StatusCode" />
+				<condition attribute="ConsignmentStatus" />
+				<condition attribute="OrderStatus" />
+			</search>
+			<result>
+				<listview mode="replace" scrollbar="true">
+					<itemlayout>
+						<attribute name="StatusCode" width="100" />
+						<attribute name="ConsignmentStatus" width="200" />
+						<attribute name="OrderStatus" width="200" />
+						<attribute name="Description" width="200" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+				<tab name="properties" position="0" mode="replace">
+					<section name="section.LCStatusMapping">
+						<listlayout mode="append">
+							<attribute name="StatusCode" />
+							<attribute name="ConsignmentStatus" />
+							<attribute name="OrderStatus" />
+							<attribute name="Description" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+
+	<!-- node for LCReturnStatusMapping -->
+	<type name="LCReturnStatusMapping" mode="append">
+		<organizer>
+			<search>
+				<condition attribute="StatusCode" />
+				<condition attribute="ReturnStatus" />
+			</search>
+			<result>
+				<listview mode="replace" scrollbar="true">
+					<itemlayout>
+						<attribute name="StatusCode" width="100" />
+						<attribute name="Description" width="200" />
+						<attribute name="ReturnStatus" width="200" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+				<tab name="properties" position="0" mode="replace">
+					<section name="section.LCReturnStatusMapping">
+						<listlayout mode="append">
+							<attribute name="StatusCode" />
+							<attribute name="Description" />
+							<attribute name="ReturnStatus" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+	<!-- node for SSLRefundVoucher -->
+	<type name="SSLRefundVoucher" mode="append">
+		<organizer>
+			<search>
+				<condition attribute="orderNumber" />
+				<condition attribute="gstDocumentNumber" />
+				<condition attribute="internalRefNumber" />
+			</search>
+			<result>
+				<listview mode="replace" scrollbar="true">
+					<itemlayout>
+						<attribute name="internalRefNumber" width="100" />
+						<attribute name="orderNumber" width="200" />
+						<attribute name="gstDocumentNumber" width="200" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+				<tab name="properties" position="0" mode="replace">
+					<section name="SSLRefundVoucher">
+						<listlayout mode="append">
+							<attribute name="gstDocumentNumber" />
+							<attribute name="internalRefNumber" />
+							<attribute name="advReceiptInternalRefNo" />
+							<attribute name="orderNumber" />
+							<attribute name="quantity" />
+							<attribute name="amountRec" />
+							<attribute name="receiptLocation" />
+							<attribute name="refundVoucherDate" />
+							<attribute name="salesDataEntry" />
+							<attribute name="advanceReceiptRef" />
+							<attribute name="isBOS" />
+							<attribute name="isPostableSDI" />
+							<attribute name="refVoucherTenderEntries" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+	<!-- node for SSLAdvanceReceipt -->
+	<type name="SSLAdvanceReceipt" mode="append">
+		<organizer>
+			<search>
+				<condition attribute="orderNumber" />
+				<condition attribute="gstDocNumber" />
+				<condition attribute="internalRefNumber" />
+			</search>
+			<result>
+				<listview mode="replace" scrollbar="true">
+					<itemlayout>
+						<attribute name="internalRefNumber" width="100" />
+						<attribute name="orderNumber" width="200" />
+						<attribute name="gstDocNumber" width="200" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+				<tab name="properties" position="0" mode="replace">
+					<section name="section.SSLAdvanceReceipt">
+						<listlayout mode="append">
+							<attribute name="receivedAdvanceAmount" />
+							<attribute name="gstDocNumber" />
+							<attribute name="internalRefNumber" />
+							<attribute name="orderNumber" />
+							<attribute name="receiptLocation" />
+							<attribute name="refundVoucherDate" />
+							<attribute name="advanceReceiptNo" />
+							<attribute name="salesDataEntry" />
+							<attribute name="advanceRecTenderEntries" />
+							<attribute name="isBOS" />
+							<attribute name="isPostableSDI" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+	<!-- CapAvailabilityLimit HMC Node configuration -->
+	<type name="CapAvailabilityLimit" mode="append">
+		<organizer>
+			<search>
+				<condition attribute="allocatedQty" />
+				<condition attribute="warehouse" />
+				<condition attribute="date" />
+			</search>
+			<result>
+				<listview mode="replace" scrollbar="true">
+					<itemlayout>
+						<attribute name="allocatedQty" />
+						<attribute name="warehouse" />
+						<attribute name="date" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+				<tab name="properties" position="0" mode="replace">
+					<section name="section.CapAvailabilityLimit">
+						<listlayout mode="append">
+							<attribute name="allocatedQty" />
+							<attribute name="warehouse" />
+							<attribute name="date" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+	<type name="SSLLeftRightComponent" mode="append">
+		<organizer>
+			<editor mode="append">
+				<tab name="properties" position="0">
+					<section name="section.customproperties">
+						<listlayout>
+							<attribute name="leftComponent" />
+							<attribute name="rightComponent" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+	<type name="SSLImageRollOverComponent" mode="append">
+		<organizer>
+			<editor mode="append">
+				<tab name="properties" position="0">
+					<section name="section.customproperties">
+						<listlayout>
+							<attribute name="webComponent" />
+							<attribute name="responsiveComponent" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+	<type name="SSLImageRollOverSubComponent" mode="append">
+		<organizer>
+			<editor mode="append">
+				<tab name="properties" position="0">
+					<section name="section.customproperties">
+						<listlayout>
+							<attribute name="topLeft" />
+							<attribute name="topRight" />
+							<attribute name="bottomLeft" />
+							<attribute name="bottomRight" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+	<type name="SSLImageRollOverLinkComponent" mode="append">
+		<organizer>
+			<editor mode="append">
+				<tab name="properties" position="0">
+					<section name="section.customproperties">
+						<listlayout>
+							<attribute name="sslImageLinkList" />
+							<attribute name="defaultSSLImageLink" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+	<type name="SSLImageLinkComponent" mode="append">
+		<organizer>
+			<editor mode="append">
+				<tab name="properties" position="0">
+					<section name="section.customproperties">
+						<listlayout>
+							<attribute name="activeFrom" />
+							<attribute name="activeUntil" />
+							<attribute name="rollOverText" />
+							<attribute name="link" />
+							<attribute name="linkType" />
+							<attribute name="media" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+	<type name="SSLProductAttrMapping" mode="append">
+		<organizer>
+			<search>
+				<condition attribute="hybrisName" />
+				<condition attribute="mdmName" />
+			</search>
+			<result>
+				<listview mode="replace" scrollbar="true">
+					<itemlayout>
+						<attribute name="hybrisName" />
+						<attribute name="mdmName" />
+						<attribute name="parentName" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+				<tab name="properties" position="0" mode="replace">
+					<section name="section.sslproductAttrMapping">
+						<listlayout mode="append">
+							<attribute name="hybrisName" />
+							<attribute name="mdmName" />
+							<attribute name="parentName" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+	<type name="BaseStore" mode="append">
+		<organizer mode="append">
+			<editor mode="append">
+				<tab name="properties" position="1" mode="append">
+					<section name="section.basestore.customercarecreditslimit"
+						mode="append">
+						<listlayout>
+							<attribute name="customerCareCreditsLimit" width="300" />
+						</listlayout>
+					</section>
+
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+	<type name="CourierServiceMapping" mode="append">
+		<organizer>
+			<search>
+				<condition attribute="courier" />
+				<condition attribute="serviceType" />
+			</search>
+			<result>
+				<listview mode="replace" scrollbar="true">
+					<itemlayout>
+						<attribute name="courier" width="100" />
+						<attribute name="serviceType" width="200" />
+						<attribute name="paymentMode" width="200" />
+						<attribute name="serviceAlias" width="200" />
+						<attribute name="forwardEnabled" width="200" />
+						<attribute name="reverseEnabled" width="200" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+				<tab name="properties" position="0" mode="replace">
+					<section name="section.courierservicemapping">
+						<listlayout mode="append">
+							<attribute name="courier" />
+							<attribute name="serviceType" />
+							<attribute name="paymentMode" />
+							<attribute name="serviceAlias" />
+							<attribute name="forwardEnabled" />
+							<attribute name="reverseEnabled" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+	<type name="Courier" mode="append">
+		<organizer>
+			<search>
+				<condition attribute="courierName" />
+				<condition attribute="carrierAlias" />
+			</search>
+			<result>
+				<listview mode="replace" scrollbar="true">
+					<itemlayout>
+						<attribute name="courierName" width="100" />
+						<attribute name="carrierAlias" width="200" />
+						<attribute name="registeredWithLC" width="200" />
+						<attribute name="lspCustomerID" width="200" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+				<tab name="properties" position="0" mode="replace">
+					<section name="section.courier">
+						<listlayout mode="append">
+							<attribute name="courierName" />
+							<attribute name="carrierAlias" />
+							<attribute name="registeredWithLC" />
+							<attribute name="lspCustomerID" />
+							<attribute name="shipmentTrackingUrl" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+	<type name="SocialHubComponent" mode="append">
+		<organizer>
+			<editor mode="append">
+				<tab name="properties" position="0">
+					<section name="section.customproperties">
+						<listlayout>
+							<attribute name="socialHubHeading">
+								<wysiwygeditor />
+							</attribute>
+							<attribute name="socialHubImageList" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+	<type name="MobileVersionUpdateInfo" mode="append">
+		<organizer>
+			<search>
+				<condition attribute="mobileType" />
+			</search>
+			<result>
+				<listview mode="replace" scrollbar="true">
+					<itemlayout>
+						<attribute name="mobileType" />
+						<attribute name="forceUpdateVersion" />
+						<attribute name="softUpdateVersion" />
+						<attribute name="osLowerVersion" />
+						<attribute name="osUpperVersion" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+				<tab name="properties" position="0" mode="replace">
+					<section name="section.mobileVersionUpdateInfo">
+						<listlayout mode="append">
+							<attribute name="mobileType" />
+							<attribute name="forceUpdateVersion" />
+							<attribute name="softUpdateVersion" />
+							<attribute name="osLowerVersion" />
+							<attribute name="osUpperVersion" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+	<!-- SSLM-4859 -->
+	<type name="Product" mode="append">
+		<organizer mode="append">
+			<editor mode="append">
+				<tab name="administration" mode="append">
+					<section name="section.gst.admin" mode="append">
+						<listlayout>
+							<attribute name="categoryOfSupply" />
+							<attribute name="hsnCode" />
+							<attribute name="uqc" />
+							<attribute name="classificationOfGoods" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+	<type name="DepartmentBufferstock">
+		<organizer>
+			<search>
+				<condition attribute="departmentCode" />
+				<condition attribute="bufferStock" />
+				<condition attribute="subDepartmentCode" />
+				<condition attribute="seasonCode" />
+				<condition attribute="seasonGroupCode" />
+			</search>
+			<result>
+				<listview mode="replace" scrollbar="true">
+					<itemlayout>
+						<attribute name="departmentCode" />
+						<attribute name="bufferStock" />
+						<attribute name="subDepartmentCode" />
+						<attribute name="seasonCode"></attribute>
+						<attribute name="seasonGroupCode"></attribute>
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+				<tab name="properties" position="0" mode="replace">
+					<section name="section.departmentbufferstock">
+						<listlayout mode="append">
+							<attribute name="departmentCode" />
+							<attribute name="bufferStock" />
+							<attribute name="subDepartmentCode" />
+							<attribute name="seasonCode" />
+							<attribute name="seasonGroupCode" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+	<type name="SeasonGroup">
+		<organizer>
+			<search>
+				<condition attribute="code" />
+				<condition attribute="seasons" />
+			</search>
+			<result>
+				<listview mode="replace" scrollbar="true">
+					<itemlayout>
+						<attribute name="code" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+				<tab name="properties" position="0" mode="append">
+					<section name="section.seasongroup.seasongroup">
+						<listlayout mode="append">
+							<attribute name="code" />
+							<attribute name="seasons" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+		<defaultreference searchattribute="code" mode="replace">
+			<itemlayout>
+				<attribute name="code" />
+			</itemlayout>
+		</defaultreference>
+	</type>
+	<type name="Season">
+		<organizer>
+			<search>
+				<condition attribute="code" />
+				<condition attribute="seasonGroup" />
+			</search>
+			<result>
+				<listview mode="replace" scrollbar="true">
+					<itemlayout>
+						<attribute name="code" />
+						<attribute name="seasonGroup" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+				<tab name="properties" position="0" mode="replace">
+					<section name="section.season">
+						<listlayout mode="append">
+							<attribute name="code" />
+							<attribute name="seasonGroup" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+		<defaultreference searchattribute="code" mode="replace">
+			<itemlayout>
+				<attribute name="code" />
+			</itemlayout>
+		</defaultreference>
+	</type>
+	<type name="SSLCheckoutMessages">
+		<organizer>
+			<search>
+				<condition attribute="messageCode" />
+				<condition attribute="messageValue" />
+				<condition attribute="messageType" />
+				<condition attribute="messageLevel" />
+			</search>
+			<result>
+				<listview mode="replace" scrollbar="true">
+					<itemlayout>
+						<attribute name="messageCode" />
+						<attribute name="messageValue" />
+						<attribute name="messageType" />
+						<attribute name="messageLevel" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+				<tab name="properties" position="0" mode="replace">
+					<section name="section.checkoutmessages">
+						<listlayout mode="append">
+							<attribute name="messageCode" />
+							<attribute name="messageValue" />
+							<attribute name="messageType" />
+							<attribute name="messageLevel" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+	<type name="Warehouse" mode="append">
+		<organizer>
+			<editor>
+				<exclude>
+					<exclusion attribute="stockLevels" />
+				</exclude>
+			</editor>
+		</organizer>
+	</type>
+
+
+	<type name="SolrIndexedType" mode="append"
+		icon="ext/solrfacetsearch/images/facetsearch.gif">
+		<organizer>
+			<search mode="replace" autoperform="true">
+				<condition attribute="identifier" />
+				<condition attribute="type" />
+			</search>
+			<result defaultview="list" mode="replace">
+				<listview>
+					<itemlayout>
+						<attribute name="identifier" />
+						<attribute name="type" />
+					</itemlayout>
+				</listview>
+				<editview>
+					<itemlayout>
+						<attribute name="identifier" />
+						<attribute name="type" />
+					</itemlayout>
+				</editview>
+				<treeview>
+					<itemlayout>
+						<attribute name="identifier" />
+						<attribute name="type" />
+					</itemlayout>
+				</treeview>
+			</result>
+			<editor>
+				<tab name="tab.configuration.indexedtype">
+					<section name="sec.configuration.indexedtype">
+						<listlayout mode="replace">
+							<attribute name="identifier" />
+							<attribute name="type" />
+							<attribute name="indexName" />
+							<attribute name="configSet" editable="false" />
+							<attribute name="solrIndexedProperties" editable="true">
+								<referencecollectioneditor resortable="false"
+									create="true" remove="true" autosave="false" editable="true">
+									<itemlayout>
+										<attribute name="name" />
+										<attribute name="type" />
+										<attribute name="facet" />
+										<attribute name="multiValue" />
+										<attribute name="useForSpellchecking" />
+										<attribute name="useForAutocomplete" />
+										<attribute name="includeInResponse" />
+										<attribute name="collapse" />
+									</itemlayout>
+								</referencecollectioneditor>
+							</attribute>
+							<attribute name="solrIndexerQueries">
+								<referencecollectioneditor resortable="false"
+									create="true" remove="true" autosave="false" editable="true">
+									<itemlayout>
+										<attribute name="type" />
+										<attribute name="query" width="300" />
+									</itemlayout>
+								</referencecollectioneditor>
+							</attribute>
+							<attribute name="identityProvider" />
+							<attribute name="modelLoader" />
+							<attribute name="defaultFieldValueProvider">
+								<customeditor
+									classname="de.hybris.platform.solrfacetsearch.hmc.FieldValueProviderSelectEditorChip" />
+							</attribute>
+							<attribute name="valuesProvider" />
+							<attribute name="solrResultConverter" />
+						</listlayout>
+					</section>
+				</tab>
+				<tab name="tab.configuration.indexedtype.freetext">
+					<section name="sec.configuration.indexedtype.freetextquery">
+						<listlayout>
+							<attribute name="ftsQueryBuilder" />
+							<attribute name="ftsQueryBuilderParameters" />
+						</listlayout>
+					</section>
+				</tab>
+				<tab name="tab.configuration.solrgrouping">
+					<section name="sec.configuration.solrgrouping">
+						<listlayout>
+							<attribute name="group" />
+							<attribute name="groupFieldName" />
+							<attribute name="groupLimit" />
+							<attribute name="groupFacets" />
+						</listlayout>
+					</section>
+				</tab>
+				<tab name="tab.configuration.listeners">
+					<section name="sec.configuration.listeners">
+						<listlayout>
+							<attribute name="listeners" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+		<defaultreference mode="replace">
+			<itemlayout>
+				<attribute name="identifier" />
+			</itemlayout>
+		</defaultreference>
+	</type>
+
+	<type name="PSAppointment" mode="append">
+		<organizer>
+			<search>
+				<condition attribute="store" />
+				<condition attribute="appointmnetDate" />
+				<condition attribute="customerEmail" />
+				<condition attribute="customerMobileNo" />
+				<condition attribute="appoinmentStatus" />
+				<condition attribute="code" />
+			</search>
+			<result>
+				<listview mode="replace" scrollbar="true">
+					<itemlayout>
+						<attribute name="store" />
+						<!-- <attribute name="serviceType" /> -->
+						<attribute name="appointmnetDate" />
+						<attribute name="customerName" />
+						<attribute name="customerEmail" />
+						<attribute name="customerMobileNo" />
+						<attribute name="appoinmentStatus" />
+						<!-- <attribute name="personalShopper" /> -->
+						<!-- <attribute name="customerFeedback" /> -->
+						<attribute name="description" />
+						<!-- <attribute name="parentAppointment" /> -->
+						<attribute name="customerAge" />
+						<attribute name="customerGender" />
+						<attribute name="code" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+				<tab name="properties" position="0" mode="replace">
+					<section name="section.PSAppointment">
+						<listlayout mode="append">
+							<attribute name="store" />
+							<attribute name="serviceType" />
+							<attribute name="appointmnetDate" />
+							<attribute name="customerName" />
+							<attribute name="customerEmail" />
+							<attribute name="customerMobileNo" />
+							<attribute name="appoinmentStatus" />
+							<attribute name="personalShopper" />
+							<attribute name="customerFeedback" />
+							<attribute name="description" />
+							<attribute name="parentAppointment" />
+							<attribute name="customerAge" />
+							<attribute name="customerGender" />
+							<attribute name="code" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+	<type name="PSAppointmentFeedback" mode="append">
+		<organizer>
+			<search>
+				<condition attribute="appointment" />
+				<condition attribute="customerArrivalStatus" />
+			</search>
+			<result>
+				<listview mode="replace" scrollbar="true">
+					<itemlayout>
+						<attribute name="code" />
+						<attribute name="appointment" />
+						<attribute name="customerArrivalStatus" />
+						<attribute name="shoppedPrice" />
+						<attribute name="customerComments" />
+						<attribute name="reason" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+				<tab name="properties" position="0" mode="replace">
+					<section name="section.PSAppointmentFeedback">
+						<listlayout mode="append">
+							<attribute name="code" />
+							<attribute name="appointment" />
+							<attribute name="customerArrivalStatus" />
+							<attribute name="shoppedPrice" />
+							<attribute name="customerComments" />
+							<attribute name="reason" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+	<type name="PSServices" mode="append">
+		<organizer>
+			<search>
+				<condition attribute="serviceName" />
+				<condition attribute="serviceDuration" />
+			</search>
+			<result>
+				<listview mode="replace" scrollbar="true">
+					<itemlayout>
+						<attribute name="code" />
+						<attribute name="serviceName" />
+						<attribute name="serviceDescription" />
+						<attribute name="serviceDuration" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+				<tab name="properties" position="0" mode="replace">
+					<section name="section.PSServices">
+						<listlayout mode="append">
+							<attribute name="code" />
+							<attribute name="serviceName" />
+							<attribute name="serviceDescription" />
+							<attribute name="serviceDuration" />
+
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+
+	</type>
+
+	<type name="ConfigurablePageIndex" mode="append">
+		<organizer>
+			<search>
+				<condition attribute="pageType" />
+			</search>
+			<result>
+				<listview mode="replace" scrollbar="true">
+					<itemlayout>
+						<attribute name="pageType" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+				<tab name="properties" position="0" mode="replace">
+					<section name="section.ConfigurablePageIndex">
+						<listlayout mode="append">
+							<attribute name="pageType" />
+							<attribute name="sections" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+	<type name="SSLBannerWidgetComponent" mode="append">
+		<organizer mode="append">
+			<editor mode="append">
+				<tab name="administration" mode="append">
+					<section name="unbound" mode="append">
+						<listlayout>
+							<attribute name="version" mode="replace" editable="false" />
+							<attribute name="componentType" mode="replace"
+								editable="false" />
+						</listlayout>
+					</section>
+				</tab>
+
+			</editor>
+		</organizer>
+
+	</type>
+	<type name="SSLBannerCarouselComponent" mode="append">
+		<organizer mode="append">
+			<editor mode="append">
+				<tab name="administration" mode="append">
+					<section name="unbound" mode="append">
+						<listlayout>
+							<attribute name="version" mode="replace" editable="false" />
+							<attribute name="componentType" mode="replace"
+								editable="false" />
+						</listlayout>
+					</section>
+				</tab>
+
+			</editor>
+		</organizer>
+
+	</type>
+
+	<type name="SSLBannerWidgetGridComponent" mode="append">
+		<organizer mode="append">
+			<editor mode="append">
+				<tab name="administration" mode="append">
+					<section name="unbound" mode="append">
+						<listlayout>
+							<attribute name="version" mode="replace" editable="false" />
+							<attribute name="componentType" mode="replace"
+								editable="false" />
+						</listlayout>
+					</section>
+				</tab>
+
+			</editor>
+		</organizer>
+
+	</type>
+
+	<type name="SSLBannerWidgetWithOptionsComponent" mode="append">
+		<organizer mode="append">
+			<editor mode="append">
+				<tab name="administration" mode="append">
+					<section name="unbound" mode="append">
+						<listlayout>
+							<attribute name="version" mode="replace" editable="false" />
+							<attribute name="componentType" mode="replace"
+								editable="false" />
+						</listlayout>
+					</section>
+				</tab>
+
+			</editor>
+		</organizer>
+
+	</type>
+
+	<type name="SSLProductWidgetCarouselComponent" mode="append">
+		<organizer mode="append">
+			<editor mode="append">
+				<tab name="administration" mode="append">
+					<section name="unbound" mode="append">
+						<listlayout>
+							<attribute name="version" mode="replace" editable="false" />
+							<attribute name="componentType" mode="replace"
+								editable="false" />
+						</listlayout>
+					</section>
+				</tab>
+
+			</editor>
+		</organizer>
+
+	</type>
+
+	<type name="SSLContentWidgetComponent" mode="append">
+		<organizer mode="append">
+			<editor mode="append">
+				<tab name="administration" mode="append">
+					<section name="unbound" mode="append">
+						<listlayout>
+							<attribute name="version" mode="replace" editable="false" />
+							<attribute name="componentType" mode="replace"
+								editable="false" />
+						</listlayout>
+					</section>
+				</tab>
+
+			</editor>
+		</organizer>
+
+	</type>
+	<type name="SSLMobileContentPage" mode="append">
+		<organizer mode="append">
+			<editor mode="append">
+				<tab name="administration" mode="append">
+					<section name="unbound" mode="append">
+						<listlayout>
+							<attribute name="version" mode="replace" editable="false" />
+						</listlayout>
+					</section>
+				</tab>
+
+			</editor>
+		</organizer>
+	</type>
+
+	<type name="UserOTPConfigRules" mode="append">
+		<organizer>
+			<search>
+				<condition attribute="otpType" />
+				<condition attribute="channel" />
+				<condition attribute="otpChannel" />
+			</search>
+			<result>
+				<listview mode="replace" scrollbar="true">
+					<itemlayout>
+						<attribute name="otpType" />
+						<attribute name="channel" />
+						<attribute name="otpChannel" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+				<tab name="properties" position="0" mode="replace">
+					<section name="section.UserOTPConfigRules">
+						<listlayout mode="append">
+							<attribute name="otpType" />
+							<attribute name="otpChannel" />
+							<attribute name="channel" />
+							<attribute name="expiryTime" />
+							<attribute name="maxNoOfAttemptsToVerify" />
+							<attribute name="lockPeriodForVerifyLimit" />
+							<attribute name="maxNoOfAttemptsToResend" />
+							<attribute name="lockPeriodForResend" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+	<type name="SSLPostalCodeCityStateMapping" mode="append">
+		<organizer>
+			<search>
+				<condition attribute="pinCode" />
+				<condition attribute="city" />
+			</search>
+			<result>
+				<listview mode="replace" scrollbar="true">
+					<itemlayout>
+						<attribute name="pinCode" />
+						<attribute name="city" />
+						<attribute name="state" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+				<tab name="properties" position="0" mode="replace">
+					<section name="section.SSLPostalCodeCityStateMapping">
+						<listlayout mode="append">
+							<attribute name="pinCode" />
+							<attribute name="city" />
+							<attribute name="state" />
+							<attribute name="region" />
+							<attribute name="country" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+	<type name="SSLMobileWidgetLimit" mode="append">
+		<organizer>
+			<search>
+				<condition attribute="componentType" />
+				<condition attribute="componentAttribute" />
+			</search>
+			<result>
+				<listview mode="replace" scrollbar="true">
+					<itemlayout>
+						<attribute name="componentType" />
+						<attribute name="componentAttribute" />
+						<attribute name="limit" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+				<tab name="properties" position="0" mode="replace">
+					<section name="section.SSLMobileWidgetLimit">
+						<listlayout mode="append">
+							<attribute name="componentType" />
+							<attribute name="componentAttribute" />
+							<attribute name="limit" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+	<type name="PickFromStoreBuffer">
+		<organizer>
+			<search>
+				<condition attribute="departmentCode" />
+				<condition attribute="bufferStock" />
+				<condition attribute="subDepartmentCode" />
+				<condition attribute="classCode" />
+				<condition attribute="subClassCode" />
+				<condition attribute="seasonCode" />
+			</search>
+			<result>
+				<listview mode="replace" scrollbar="true">
+					<itemlayout>
+						<attribute name="departmentCode" />
+						<attribute name="bufferStock" />
+						<attribute name="subDepartmentCode" />
+						<attribute name="classCode" />
+						<attribute name="subClassCode" />
+						<attribute name="seasonCode" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+				<tab name="properties" position="0" mode="replace">
+					<section name="section.pickfromstorebuffer">
+						<listlayout mode="append">
+							<attribute name="departmentCode" />
+							<attribute name="bufferStock" />
+							<attribute name="subDepartmentCode" />
+							<attribute name="classCode" />
+							<attribute name="subClassCode" />
+							<attribute name="seasonCode" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+	<type name="SterlingHybrisStatusMapping">
+		<organizer>
+			<search>
+				<condition attribute="statusCode" />
+				<condition attribute="statusType" />
+			</search>
+			<result>
+				<listview mode="replace" scrollbar="true">
+					<itemlayout>
+						<attribute name="statusCode" />
+						<attribute name="hybrisStatus" />
+						<attribute name="sterlingStatusDesc" />
+						<attribute name="statusType" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+				<tab name="properties" position="0" mode="replace">
+					<section name="section.sterlinghybrisstatusmapping">
+						<listlayout mode="append">
+							<attribute name="statusCode" />
+							<attribute name="hybrisStatus" />
+							<attribute name="sterlingStatusDesc" />
+							<attribute name="statusType" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+	<type name="SSLConfigurableTab" mode="append">
+		<organizer>
+			<search>
+				<condition attribute="page" />
+				<condition attribute="tabType" />
+			</search>
+			<result>
+				<listview mode="replace" scrollbar="true">
+					<itemlayout>
+						<attribute name="page" />
+						<attribute name="tabType" />
+						<attribute name="title" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+				<tab name="properties" position="0" mode="replace">
+					<section name="section.SSLConfigurableTab">
+						<listlayout mode="append">
+							<attribute name="page" />
+							<attribute name="tabType" />
+							<attribute name="title" />
+							<attribute name="banner" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+	<type name="ReverseAwbNumber" mode="append">
+		<organizer>
+			<search mode="replace">
+				<condition attribute="reverseAwbNumber" />
+			</search>
+			<result defaultview="list">
+				<listview>
+					<itemlayout mode="replace">
+						<attribute name="reverseAwbNumber" width="200" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor>
+				<essentials>
+					<columnlayout>
+						<row>
+							<attribute name="reverseAwbNumber" />
+						</row>
+					</columnlayout>
+				</essentials>
+				<tab name="properties">
+					<section name="reverseawbnumber.details">
+						<columnlayout>
+							<row>
+								<attribute name="reverseAwbNumber" />
+							</row>
+						</columnlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+	<type name="HistoricalAwbNumber" mode="append">
+      <organizer>
+         <search mode="replace">
+            <condition attribute="historicalAwbNumber" />
+         </search>
+         <result defaultview="list">
+            <listview>
+               <itemlayout mode="replace">
+                  <attribute name="historicalAwbNumber" width="200"/>
+               </itemlayout>
+            </listview>
+         </result>
+         <editor>
+            <essentials>
+               <columnlayout>
+                  <row>
+                     <attribute name="historicalAwbNumber" />
+                  </row>
+               </columnlayout>
+            </essentials>
+            <tab name="properties">
+               <section name="historicalawbnumber.details">
+                  <columnlayout>
+                     <row>
+                        <attribute name="historicalAwbNumber" />
+                     </row>
+                  </columnlayout>
+               </section>
+            </tab>
+         </editor>
+      </organizer>
+   </type>
+	<type name="PreferredPaymentGroup" mode="append">
+		<organizer>
+			<search mode="append">
+				<condition attribute="preferred"/>
+				<condition attribute="paymentTender"/>
+			</search>
+			<result defaultview="list">
+				<listview>
+					<itemlayout mode="replace">
+						<attribute name="preferred"/>
+						<attribute name="paymentTender"/>
+					</itemlayout>
+				</listview>
+			</result>
+		</organizer>
+	</type>
+	<type name="PreferredPayment" mode="append">
+		<organizer>
+			<search mode="append">
+				<condition attribute="name"/>
+			</search>
+			<result defaultview="list">
+				<listview>
+					<itemlayout mode="append">
+						<attribute name="name"/>
+					</itemlayout>
+				</listview>
+			</result>
+		</organizer>
+	</type>
+	<type name="PaymentGatewayMapping" mode="append">
+		<organizer>
+			<search mode="append">
+				<condition attribute="code" />
+				<condition attribute="paymentGateway" />
+				<condition attribute="paymentTender" />
+				<condition attribute="channelSource" />
+			</search>
+			<result>
+				<listview mode="replace" scrollbar="true">
+					<itemlayout>
+						<attribute name="code" />
+						<attribute name="paymentGateway" />
+						<attribute name="paymentTender" />
+					</itemlayout>
+				</listview>
+			</result>
+		</organizer>
+	</type>
+	
+	<type name="SSLPaymentSubtitle">
+    <organizer>
+        <search>
+            <condition attribute="paymentTender" />
+            <condition attribute="subtitle" />
+        </search>
+        <result>
+            <listview mode="replace" scrollbar="true">
+                <itemlayout>
+                    <attribute name="paymentTender" />
+                    <attribute name="subtitle" />
+                </itemlayout>
+            </listview>
+        </result>
+        <editor mode="append">
+            <tab name="properties" position="15" mode="replace">
+                <section name="section.SSLPaymentSubtitle">
+                    <listlayout mode="append">
+	                 <attribute name="paymentTender" />
+                    <attribute name="subtitle" />                    
+	                 </listlayout>
+                </section>
+            </tab>
+        </editor>
+    </organizer>
+    </type>
+	
+	<type name="MediaFolder" icon="images/icons/mediafolder.gif" mode="append"
+		useselector="false" />
+
+	<type name="MediaFormat" useselector="false"
+		icon="images/icons/mediaformat.gif" mode="append" />
+
+	<type name="Catalog" useselector="false"
+		icon="images/ext/catalog/e_catalog.gif" mode="append" />
+	<type name="BusinessProcess" useselector="false" mode="append" />
+	<type name="Job" useselector="false" mode="append" />
+
+</configuration>

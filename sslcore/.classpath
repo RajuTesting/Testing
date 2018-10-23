@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry exported="true" kind="src" path="/platform"/>
+	<classpathentry exported="true" kind="src" path="/acceleratorservices"/>
+	<classpathentry exported="true" kind="src" path="/acceleratorcms"/>
+	<classpathentry exported="true" kind="src" path="/hmc"/>
+	<classpathentry exported="true" kind="lib" path="resources"/>
+	<classpathentry kind="lib" path="lib/rome-1.5.0.jar"/>
+	<classpathentry kind="lib" path="lib/itextpdf-5.5.6.jar"/>
+	<classpathentry kind="lib" path="lib/xmlworker-5.5.6.jar"/>
+	<classpathentry kind="src" output="classes" path="src"/>
+	<classpathentry kind="src" output="hmc/classes" path="hmc/src"/>
+	<classpathentry kind="src" output="classes" path="testsrc"/>
+	<classpathentry kind="src" output="classes" path="gensrc"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/mediaconversion"/>
+	<classpathentry kind="lib" path="lib/ccavutil.jar"/>
+	<classpathentry kind="src" path="/basecommerce"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/amazoncloud"/>
+	<classpathentry kind="lib" path="lib/poi-ooxml-3.7-20101029.jar"/>
+	<classpathentry kind="lib" path="lib/opencsv-3.5.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/acceleratorstorefrontcommons"/>
+	<classpathentry kind="src" path="/sslccavenuepg"/>
+	<classpathentry exported="true" kind="lib" path="/cockpit/lib/itext-2.1.7.jar"/>
+	<classpathentry kind="lib" path="lib/jms-2.0.jar"/>
+	<classpathentry kind="lib" path="lib/tibjms.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/wishlist"/>
+	<classpathentry kind="output" path="eclipsebin/notused"/>
+</classpath>

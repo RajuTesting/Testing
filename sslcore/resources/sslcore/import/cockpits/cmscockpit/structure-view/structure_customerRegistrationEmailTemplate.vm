@@ -1,0 +1,143 @@
+<div>
+	<table width="100%" cellspacing="0" style="margin:0;padding:0;table-layout:fixed;border:1px solid #1E4EBF;">
+		<tbody>
+			<tr>
+				<td colspan="2" height="125px" width="35%" rowspan="2" class="structureViewSection">
+					<cockpit code="NotificationSlot" />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" height="125px" width="35%" rowspan="2" class="structureViewSection">
+					<cockpit code="ShopBagSlot" />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" height="125px" width="35%" rowspan="2" class="structureViewSection">
+					<cockpit code="LogoSlot" />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" height="125px" width="35%" rowspan="2" class="structureViewSection">
+					<cockpit code="ShopOnlineSlot" />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3" class="structureViewSection">
+					<cockpit code="NavigationBar" />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" height="89px" class="structureViewSection">
+					<div>Header</div>
+				</td>
+			</tr>
+			<tr>
+				<td height="170px" colspan="6" class="structureViewSection">
+					<cockpit code="TopContent" />
+				</td>
+			</tr>
+			<tr>
+				<td height="300px" colspan="6" class="structureViewSection">
+				</td>
+			</tr>
+			
+			<tr>
+				<td height="170px" colspan="6" class="structureViewSection">
+					<cockpit code="OffersTextParagraphSlot1" />
+				</td>
+			</tr>
+			<tr>
+				<td height="170px" colspan="6" class="structureViewSection">
+					<cockpit code="OffersTextParagraphSlot2" />
+				</td>
+			</tr>
+			
+			<tr>
+				<td height="170px" colspan="3" class="structureViewSection">
+					<cockpit code="EnvelopeSlot" />
+					
+				</td>
+			</tr>
+			
+			<tr>
+				<td height="170px" colspan="3" class="structureViewSection">
+					<cockpit code="OfferBannerSlot" />
+					
+				</td>
+			</tr>
+			<tr>
+				<td height="170px" colspan="3" class="structureViewSection">
+					<cockpit code="NumberSlot" />
+					
+				</td>
+			</tr>
+			<tr>
+				<td height="170px" colspan="3" class="structureViewSection">
+					<cockpit code="VisaPaymentSlot" />
+				</td>
+			</tr>
+			<tr>
+				<td height="170px" colspan="3" class="structureViewSection">
+					<cockpit code="McardPaymentSlot" />
+				</td>
+			</tr>
+			<tr>
+				<td height="170px" colspan="3" class="structureViewSection">
+					<cockpit code="AmexpPaymentSlot" />
+				</td>
+			</tr>
+			<tr>
+				<td height="170px" colspan="3" class="structureViewSection">
+					<cockpit code="FaceBookSlot" />
+					
+				</td>
+			</tr>
+			<tr>
+				<td height="170px" colspan="3" class="structureViewSection">
+					<cockpit code="TwitterSlot" />
+					
+				</td>
+			</tr>
+			<tr>
+				<td height="170px" colspan="3" class="structureViewSection">
+					<cockpit code="GooglePlusSlot" />
+					
+				</td>
+			</tr>
+			<tr>
+				<td height="170px" colspan="3" class="structureViewSection">
+					<cockpit code="PinterestSlot" />
+					
+				</td>
+			</tr>
+			<tr>
+				<td height="170px" colspan="3" class="structureViewSection">
+					<cockpit code="GiftSlot" />
+				</td>
+			</tr>
+			<tr>
+				<td height="170px" colspan="3" class="structureViewSection">
+					<cockpit code="ShopSlot" />
+				</td>
+			</tr>
+			<tr>
+				<td height="170px" colspan="3" class="structureViewSection">
+					<cockpit code="TruckSlot" />
+				</td>
+			</tr>
+			<tr>
+				<td height="170px" colspan="3" class="structureViewSection">
+					<cockpit code="LaptopSlot" />
+				</td>
+			</tr>
+			<tr>
+				<td height="170px" colspan="6" class="structureViewSection">
+					<cockpit code="BottomContent" />
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<div style="width:100%; border-top: 2px solid #bbb" class="cmsContentEditor">
+		<cockpit code="editor" />
+	</div>
+</div>

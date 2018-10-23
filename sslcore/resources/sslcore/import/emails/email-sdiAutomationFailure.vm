@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<style>
+	table, th, td {
+		border: 1px solid black;
+	}
+	</style>
+	<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta  name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0," />
+        <title>*|MC:SUBJECT|*</title>
+    </head>
+    <body>
+	<h4><b>*** This is an automatically generated email, please do not reply ***</b></h4><br>
+    	Team, <br/></br>
+    	#if (${ctx.sdiAutomationData.failureType}=='INV')
+    		SDI Automation process has been failed dated on ${ctx.sdiAutomationData.reportDate} due to duplicate invoices. </br></br>
+    		Below are the list of duplicate invoices.
+    	#else
+    		SDI Automation process has been failed dated on ${ctx.sdiAutomationData.reportDate} due to duplicate consignments. </br/></br>
+    		Below are the list of duplicate consignments.
+    	#end
+		<br><br><br>
+		<table cellpadding="15" cellspacing="0" border="2" style="width:100% !important; margin:0; padding:0;" id="bodyTable">
+			{tableContent}
+		</table>
+    
+    </br></br>
+    <h4>
+    	Thanks and Regards<br>
+    	Shoppers Stop Customer Support
+    </h4>
+	</body>
+</html>

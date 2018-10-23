@@ -1,0 +1,13 @@
+											
+											
+					#foreach( $nodes in ${ctx.components} )
+						#if ($nodes.navigationNode.visible)
+						#set ( $linkUrl = $ctx.urlResolutionService.getWebsiteUrlForSite($ctx.site,false,$nodes.link.url) )
+						<a href="${linkUrl}" style="text-decoration:none; color:#666; font-weight:bold;"><span style="padding:8px;">$nodes.navigationNode.title</span></a>
+						#end
+						#end
+										
+								
+								
+
+								

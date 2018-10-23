@@ -1,0 +1,104 @@
+<div>
+	<table width="100%" cellspacing="0" style="margin:0;padding:0;table-layout:auto;border:1px solid #1E4EBF;">
+		<tbody>
+			 <tr>
+				<td colspan="5" class="structureViewSection">
+					<cockpit code="SectionImageRotating"/>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="5" class="structureViewSection">
+					<cockpit code="SectionFreeShipping3Links"/>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="5" class="structureViewSection">
+					<cockpit code="SectionStyleInspiration"/>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="5" class="structureViewSection">
+					<cockpit code="SectionBlogs"/>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="5" class="structureViewSection">
+					<cockpit code="SectionLatestfromShoppersStop"/>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="5" class="structureViewSection">
+					<cockpit code="SectionHimHer"/>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="5" class="structureViewSection">
+					<cockpit code="SectionNewArrivals"/>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="5" class="structureViewSection">
+					<cockpit code="SectionNewArrivalsBrands"/>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="5" class="structureViewSection">
+					<cockpit code="SectionBrandsWeLove"/>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="5" class="structureViewSection">
+					<cockpit code="SectionBrandsRotationComp"/>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="5" class="structureViewSection">
+					<cockpit code="SectionOurfavorites"/>
+				</td>
+			</tr>
+						<tr>
+				<td colspan="5" class="structureViewSection">
+					<cockpit code="SectionUnitedColors"/>
+				</td>
+			</tr>
+						<tr>
+				<td colspan="5" class="structureViewSection">
+					<cockpit code="SectionShowAllBrands"/>
+				</td>
+			</tr>
+						<tr>
+				<td colspan="5" class="structureViewSection">
+					<cockpit code="SectionSpecialsAndGifts"/>
+				</td>
+			</tr>
+						<tr>
+				<td colspan="5" class="structureViewSection">
+					<cockpit code="SectionStylingguideforyour"/>
+				</td>
+			</tr>
+						<tr>
+				<td colspan="5" class="structureViewSection">
+					<cockpit code="SectionTheSocialHub"/>
+				</td>
+			</tr>
+						<tr>
+				<td colspan="5" class="structureViewSection">
+					<cockpit code="SectionTheSocialHubBottom"/>
+				</td>
+			</tr>
+						<tr>
+				<td colspan="5" class="structureViewSection">
+					<cockpit code="SectionStartsomething"/>
+				</td>
+			</tr>
+						<tr>
+				<td colspan="5" class="structureViewSection">
+					<cockpit code="SectionSecurePaymentMethods"/>
+				</td>
+			</tr> 
+		</tbody>
+	</table>
+	<div style="width:100%; border-top: 2px solid #bbb" class="cmsContentEditor">
+		<cockpit code="editor" />
+	</div>
+</div>

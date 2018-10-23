@@ -1,0 +1,109 @@
+## messageSource=classpath:/sslcore/messages/email-consignmentInvoice_$lang.properties
+#macro( genHtmlBoldFont $text )
+<font color="#414a4f" size="2" face="Arial, Helvetica, sans-serif"><b>$text</b></font>
+#end
+#macro(genHtmlLinkStartTag $url)
+<a href="$url"><font color="#666666">
+#end
+#macro(genHtmlLinkEndTag)
+</font></a>
+#end
+#macro(genHtmlLink $url $textColor $bodyContent)
+<a href="$url"><font color="$textColor">$bodyContent</font></a>
+#end
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta  name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0," />
+       
+        <style type="text/css">
+
+
+            @media only screen and (max-width: 568px){
+				
+				
+				.fullWidth { width: 100% !important; max-width: 640px !important;}
+				.pad-10{ padding: 0 10px !important;}
+				.imgWidth{ width: 50%;}
+				.display_none{ display: none !important;}
+				.column{width: 100%;max-width: 100% !important; display: inline-block;vertical-align: top;}
+				.prod_det .column{width: 100%;max-width: 100% !important; display: inline-block;vertical-align: top;}
+			}
+			
+			
+		
+        .ExternalClass {width:100%;}
+     
+        .ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div {line-height:100%;}
+
+        body {-webkit-text-size-adjust:none; -ms-text-size-adjust:none;}
+
+        body {margin:0; padding:0;}
+
+        table {border-spacing:0;}
+
+        table td {border-collapse:collapse;}
+
+        p {margin:0; padding:0; margin-bottom:0;}
+
+        h1, h2, h3, h4, h5, h6 {color:#333333; line-height:100%;}
+
+        body, #body_style {width:100% !important; color:#666;  font-family:Arial,Helvetica,sans-serif; font-size:13px; line-height:1.4;}
+
+        a         {color:#666; text-decoration:none;}
+
+        a:link    {color:#666; text-decoration:none;}
+        a:visited {color:#444; text-decoration:none;}
+        a:focus   {color:#333 !important;}
+        a:hover   {color:#333 !important;}
+
+     
+        a[href^="tel"], a[href^="sms"], a[href^="mailto"] {text-decoration:none; color:#666; pointer-events:none; cursor:default;}
+        .mobile_link a[href^="tel"], .mobile_link a[href^="sms"] {text-decoration:default; color:#666666 !important; pointer-events:auto; cursor:default;}
+
+		@-ms-viewport{width:device-width}
+		
+        @media only screen and (max-width: 640px) {
+			
+			@-ms-viewport{width:100%!important;}
+		
+            body[yahoo] .table {width:98% !important;}
+			
+			body[yahoo] table td.container-wpr {padding:20px 10px!important;}  
+
+			body[yahoo] table td.inner-table-white { padding:15px 5px!important;}
+            body[yahoo] .innertable {width:90% !important;}
+			body[yahoo] .tag-img img{width:100% !important;}
+         
+        }
+
+       
+       
+        table {border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;}
+		@media only screen and (max-width: 480px){
+			table[class="social-icons"] img{ 
+				margin-right:3px!important;width:75%;
+			}
+			
+			body[yahoo] table.fabrics-logo img{width:73% !important;}
+			
+			body[yahoo] table.container-wpr img{width:100% !important;}
+		}
+		</style>
+    </head>
+    <body style="width:100% !important;font-family:Arial,Helvetica,sans-serif; font-size:13px; line-height:1.4;">
+        		<!-- SSLM-3389 Starts -->
+				<!-- <tr><td>             Customer ID                   :                      Contact Email          :        Name       :    Phone no.       </tr></td> 
+        		#foreach( $customer in ${ctx.customers})<tr><td>
+        		$!customer.customerID :  $!customer.contactEmail  :  $!customer.name  :   $!customer.defaultPaymentAddress.phone1
+        		</td></tr>
+        		#end
+				-->
+				<!-- SSLM-3389 Ends -->
+        	 </body>
+        	 
+        	
+</html>

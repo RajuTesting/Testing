@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  
+  <title>Document</title>
+ </head>
+ <body>
+ <div id="content">
+ First Name: ${ctx.firstName} </br>
+ Last Name: ${ctx.lastName} </br>
+ Email Id: ${ctx.email} </br>
+ Mobile Number: ${ctx.mobileNo} </br>
+ Order Number:  </br>
+ Category: Loyalty Program </br>
+ Comments:  
+ <div id="comment" style="margin-left: 5%;">
+Dob: ${ctx.loyaltyDob} </br>
+Address: ${ctx.loyaltyAddress} </br>
+ </div>
+ </div>
+ </body>
+</html>

@@ -1,0 +1,338 @@
+## messageSource=classpath:/sslcore/messages/email-forgottenPassword_$lang.properties
+#macro(genHtmlLinkStartTag $url)
+<a href="$url"><font color="#666666">
+#end
+#macro(genHtmlLinkEndTag)
+</font></a>
+#end
+#macro(genHtmlLink $url $textColor $bodyContent)
+<a href="$url"><font color="$textColor">$bodyContent</font></a>
+#end
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta  name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0," />
+        <title>*|MC:SUBJECT|*</title>
+        <style type="text/css">
+			
+            @media only screen and (max-width: 568px){
+				
+				*{margin:0; padding:0;}
+				
+				.fullWidth { width: 100% !important; max-width: 640px !important;}
+				.pad-10{ padding: 0 10px !important;}
+				.imgWidth{ width: 50%;}
+				.display_none{ display: none !important;}
+				.column{width: 100%;max-width: 100% !important; display: inline-block;vertical-align: top;}
+				.prod_det .column{width: 100%;max-width: 100% !important; display: inline-block;vertical-align: top;}
+			}
+		</style>
+    </head>
+    <body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0">
+    	<center>
+        	<table align="center" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable">
+            	<tr>
+                	<td align="center" valign="top" id="bodyCell">
+                    	<!-- BEGIN TEMPLATE // -->
+                    	<table border="0" cellpadding="0" cellspacing="0" id="templateContainer">
+							<tr>
+                            	<td align="center" valign="top">
+                                	
+                                     <table class="fullWidth" bgcolor="#000000" border="0" cellpadding="8" cellspacing="0" style="width:100%;">
+										<tr>
+											<td style="border-right:solid 1px #3c3c3c;">
+												<a href="https://www.shoppersstop.com/store-finder" style="display:inline-block;">
+												<table>
+													<tr>
+														<td class="pad-10" style="padding:0 25px;" align="center">
+															<img src="https://uat.shopper-stop.in/_ui/responsive/common/Emailer/images/notification.png" alt="Notification" width="12" height="17">
+														</td>
+													</tr>
+												</table>
+												</a>
+											</td>
+											<td  align="center" style="border-right:solid 1px #3c3c3c; ">
+												<a href="https://www.shoppersstop.com/trackorders" style="display:inline-block;">
+												<table>
+													<tr>
+														<td class="pad-10" style="padding:0 25px;" align="center">
+																<img src="https://uat.shopper-stop.in/_ui/responsive/common/Emailer/images/shop_bag.png" alt="Notification" width="12" height="17">
+														</td>
+													</tr>
+												</table>
+												</a>
+											</td>
+											<td align="center" style="padding:0 40px; ">
+												<a href="https://www.shoppersstop.com/" style="display:inline-block;">
+												<table>
+													<tr>
+														<td class="pad-10" style="padding:0 25px;" align="center">
+														<td><img style="width:100% !important; max-width:640px !important;" src="https://uat.shopper-stop.in/_ui/responsive/common/Emailer/images/logo.png"" alt="Logo" width="292" height="50"></td>
+													</tr>
+												</table>
+												</a>
+											</td>
+											<td style="margin:10px 0;color:#ffffff;font-size: 14px;line-height:20px;font-family: Myriad Pro, Arial, Helvetica, sans-serif;">
+												
+												<p class="display_none" style="margin:10px 0;color:#ffffff;font-size: 14px;line-height:20px;font-family: Myriad Pro, Arial, Helvetica, sans-serif;">${ctx.cmsSlotContents.ShopOnlineSlot}</p>
+												
+											</td>
+										</tr>
+									
+									</table>
+                                    
+                                </td>
+                            </tr>
+							
+							<tr>
+								<td>
+									<table  border="0" cellpadding="0" cellspacing="0" style="width:100%;border-bottom: 1px solid #e3e3e3;">
+    <tr>
+      <td bgcolor="#ffffff" style="padding: 8px 0px 8px 0px; text-align:center"><div style="font-family:pt-sans, verdana, Helvetica, sans-serif, Tahoma; font-size:14px; color:#686868;"><a style="color:#686868; text-decoration:none;" href="${ctx.baseSiteUrl}/c-A20" target="_blank" title="women">WOMEN</a>&nbsp;&nbsp;&nbsp;&nbsp;<a style="color:#686868; text-decoration:none;" href="${ctx.baseSiteUrl}/c-A10" target="_blank" title="men">MEN</a>&nbsp;&nbsp;&nbsp;&nbsp;<a style="color:#686868; text-decoration:none;" href="${ctx.baseSiteUrl}/c-A30" target="_blank" title="Kids">KIDS</a>&nbsp;&nbsp;&nbsp;&nbsp;<a style="color:#686868; text-decoration:none;" href="${ctx.baseSiteUrl}/c-A80" target="_blank" title="homeware">HOMEWARE</a>&nbsp;&nbsp;&nbsp;&nbsp;<a style="color:#686868; text-decoration:none;" href="${ctx.baseSiteUrl}/brands" target="_blank" title="brands">BRANDS</a>&nbsp;&nbsp;&nbsp;&nbsp;<a style="color:#686868; text-decoration:none;" href="${ctx.baseSiteUrl}/giftshop" target="_blank" title="gift">GIFTS</a>&nbsp;&nbsp;&nbsp;&nbsp;<a style="color:#686868; text-decoration:none;" href="${ctx.baseSiteUrl}/promotions" target="_blank" title="offers">OFFERS</a></div></td>
+    </tr>
+									</table>
+								</td>
+							</tr>
+							
+							<tr>
+                            	<td align="center" valign="top">
+								<table width="600" align="center" cellpadding="0" cellspacing="0" border="0" style="font-family: Arial;">
+    <tr>
+        <td>
+            <img src="${ctx.baseSiteUrl}/_ui/responsive/common/Emailer/images/feedback.jpg" style="display: block;" />
+        </td>
+    </tr>
+    <tr>
+        <td style="background: #4d4b4b; text-align: center; padding: 35px 10px; color: #ffffff; font-size: 13.5px; line-height: 22px; ">
+            <strong style="font-size: 19px; display: block; font-weight: normal; font-family: Arial; margin-bottom: 10px;">Overall, how satisfied were you with your purchase experience?</strong>
+            <span style="display: block; line-height: 18px;">Please rate  your shopping experience:</span>
+            <span style="display: block; line-height: 18px;">Your response will be recorded and you will be redirected to our feedback form</span>
+        </td>
+    </tr>
+    <tr>
+        <td style="padding-top: 25px;text-align: center;">
+            <table width="100%;" style="text-align: center;">
+                <tr>
+                    <td width="20%">
+					    <a href="${ctx.baseSiteUrl}/feedback?param=${ctx.encryptUniqueUrl}1" style="color:#8c1717; text-decoration:underline;"><img src="${ctx.baseSiteUrl}/_ui/responsive/common/Emailer/images/star.png" style="display: inline-block;" /></a>
+                    </td>
+                    <td width="20%">
+						<a href="${ctx.baseSiteUrl}/feedback?param=${ctx.encryptUniqueUrl}2" style="color:#8c1717; text-decoration:underline;"><img src="${ctx.baseSiteUrl}/_ui/responsive/common/Emailer/images/star.png" style="display: inline-block;" /></a>
+                    </td>
+                    <td width="20%">
+						<a href="${ctx.baseSiteUrl}/feedback?param=${ctx.encryptUniqueUrl}3" style="color:#8c1717; text-decoration:underline;"><img src="${ctx.baseSiteUrl}/_ui/responsive/common/Emailer/images/star.png" style="display: inline-block;" /></a>
+                    </td>
+                    <td width="20%">
+						<a href="${ctx.baseSiteUrl}/feedback?param=${ctx.encryptUniqueUrl}4" style="color:#8c1717; text-decoration:underline;"><img src="${ctx.baseSiteUrl}/_ui/responsive/common/Emailer/images/star.png" style="display: inline-block;" /></a>
+                    </td>
+                    <td width="20%">
+						<a href="${ctx.baseSiteUrl}/feedback?param=${ctx.encryptUniqueUrl}5" style="color:#8c1717; text-decoration:underline;"><img src="${ctx.baseSiteUrl}/_ui/responsive/common/Emailer/images/star.png" style="display: inline-block;" /></a>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%">
+                        <span style="display: block; font-size: 18px; color: #8c1717; padding-top: 8px;">Poor</span>
+                    </td>
+                    <td width="20%">
+						<span style="display: block; font-size: 18px; color: #8c1717; padding-top: 8px;">Acceptable</span>
+                    </td>
+                    <td width="20%">
+						<span style="display: block; font-size: 18px; color: #8c1717; padding-top: 8px;">Satisfactory</span>
+                    </td>
+                    <td width="20%">
+						<span style="display: block; font-size: 18px; color: #8c1717; padding-top: 8px;">Good</span>
+                    </td>
+                    <td width="20%">
+						<span style="display: block; font-size: 18px; color: #8c1717; padding-top: 8px;">Excellent</span>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td style="padding: 35px 45px; text-align: left; line-height: 25px; border-bottom: 1px solid #999;">
+            <span style="color: #1d1c1c; font-size: 17px; display: block;">Thank you for taking the time to let us know what you think.</span>
+            <span style="color: #1d1c1c; font-size: 17px; display: block; margin-bottom: 25px;">We will use this information to help improve our services!</span>
+            <span style="color: #1d1c1c; font-size: 17px; display: block;">Thank you.</span>
+            <span style="color: #1d1c1c; font-size: 17px; display: block;">Team Shoppers Stop.</span>
+        </td>
+    </tr>
+</table>
+                                </td>
+                            </tr>
+							
+							<tr>
+						<td>
+						<img alt=""	style="padding-left: 4%; padding-right: 4%;" src="${ctx.secureBaseUrl}/_ui/responsive/common/Emailer/images/downloadapp.jpg">
+						</td>
+						</tr>
+							
+							
+							
+							
+						<tr>
+                            	<td align="center" valign="top">
+                                	
+                                    <table style="margin-bottom:1em;" width="640" cellpadding="0" cellspacing="0" border="0" align="center" class="innertable">
+                                        <tr>
+                                            <td valign="top" class="headerContent" style="text-align:center;">
+                                            	 <table width="640" cellpadding="0" cellspacing="0" border="0" align="center" class="innertable" style="background-color:#f9f9fa;width:100%;">
+													<tr>
+													<td width="640" align="center">
+														<table width="240" align="left">
+															<tr>
+																<td width="250" align="center" style="font-weight:normal;font-size: 14px;line-height:20px;font-family: Myriad Pro, Arial, Helvetica, sans-serif; text-align:center; padding:15px 0; color: #666666;">
+																	<img style="vertical-align:middle;" src="https://uat.shopper-stop.in/_ui/responsive/common/Emailer/images/envelope-icon.png" alt="Envelope"> ${ctx.messages.contactUsEmailAddress}
+																</td>
+															</tr>
+														</table>
+														<table width="400" align="left">
+															<tr>
+																<td align="center" width="400"  style="font-weight:normal;font-size: 14px;line-height:20px;font-family: Myriad Pro, Arial, Helvetica, sans-serif; text-align:center; padding:15px 0px; color: #666666;">
+																	<img style="vertical-align:middle;" src="https://uat.shopper-stop.in/_ui/responsive/common/Emailer/images/phone-icon.png" alt="Phone"> ${ctx.messages.tollfree}	
+																</td>
+															</tr>
+														</table>
+													</td>
+													</tr>
+												</table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    
+                                </td>
+                            </tr>
+							
+							<!--Icons-->
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+								<tr>
+                            	<td align="center" valign="top">
+                                	
+                                    <table style="margin-bottom:1em;" width="640" cellpadding="0" cellspacing="0" border="0" align="center" class="innertable">
+                                        <tr>
+                                            <td valign="top" class="headerContent" style="text-align:center;">
+                                            	<table align="center" border="0" cellpadding="0" cellspacing="0"  style="background-color:#f8f8f8;">
+													<tr>
+														<td width="640" align="center">
+															<table align="left" width="320" border="0"  cellpadding="0" cellspacing="0" class="innertable" style="margin-bottom:1em;">
+																<tr>
+																	<td width="320" align="center" style="font-weight:normal;font-size: 14px;line-height:20px;font-family: Myriad Pro, Arial, Helvetica, sans-serif; text-align:center; color: #666666; padding-bottom:20px;">
+																		<p style="padding:15px 0 0; margin:0; text-align:center;">${ctx.messages.payby}</p>
+																	</td>
+																</tr>
+																<tr>															
+																	<td width="320" align="center">
+																		<img src="https://uat.shopper-stop.in/_ui/responsive/common/Emailer/images/visa.png" alt="Visa">
+																		<img src="https://uat.shopper-stop.in/_ui/responsive/common/Emailer/images/mcard.png" alt="Master Card">
+																		<img src="https://uat.shopper-stop.in/_ui/responsive/common/Emailer/images/amex.png" alt="American Express">
+																	</td>
+																</tr>
+															</table>
+													
+															<table align="left" width="320" style="margin-bottom:1em;"  cellpadding="0" cellspacing="0" border="0"  class="innertable">
+																<tr>
+																	<td width="320" align="center" style="font-weight:normal;font-size: 14px;line-height:20px;font-family: Myriad Pro, Arial, Helvetica, sans-serif; text-align:center; color: #666666; padding-bottom:20px;">
+																		<p style="padding:15px 0 0; margin:0; text-align:center;">${ctx.messages.joinus}</p>
+																	</td>
+																</tr>
+																<tr>														
+																	<td width="320" align="center">
+																		<a href="${ctx.messages.facebook}"><img src="https://uat.shopper-stop.in/_ui/responsive/common/Emailer/images/fb-icon.png" alt="FB Icon" style="margin:0 10px;"></a>
+																		<a href="${ctx.messages.twitter}"><img src="https://uat.shopper-stop.in/_ui/responsive/common/Emailer/images/tweet-icon.png" alt="Tweet" style="margin:0 10px;"></a>
+																		<a href="${ctx.messages.pinterest}"><img src="https://uat.shopper-stop.in/_ui/responsive/common/Emailer/images/pint-icon.png" alt="Pinterest" style="margin:0 10px;"></a>
+																		<a href="${ctx.messages.googleplus}"><img src="https://uat.shopper-stop.in/_ui/responsive/common/Emailer/images/gplus-icon.png" alt="GPlus"  style="margin:0 10px;"></a>
+																	</td>
+																</tr>
+															</table>
+														</td>														
+													</tr>
+												</table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    
+                                </td>
+                            </tr>
+							
+					
+						
+							<!--Footer-->	
+							
+							
+							
+							
+							<tr>
+							<tr>
+								<td>
+									<table style="margin-bottom:1em;" width="640" cellpadding="0" cellspacing="0" border="0" align="center" class="innertable">
+										<tr>
+										<td width="640">
+											<table width="160" align="left">
+												<tr>
+													<td width="100%" align="left" style="font-weight:normal;font-size: 14px;line-height:20px;font-family: Myriad Pro, Arial, Helvetica, sans-serif; padding:15px 0; color: #666666;">
+														<img style="vertical-align:middle" src="https://uat.shopper-stop.in/_ui/responsive/common/Emailer/images/gift-icon.png" alt="Gift">
+														${ctx.messages.firstcitizen}
+													</td>
+												</tr>
+											</table>
+											<table width="200" align="left">
+												<tr>
+													<td width="100%" align="left" style="font-weight:normal;font-size: 14px;line-height:20px;font-family: Myriad Pro, Arial, Helvetica, sans-serif;  padding:15px 0; color: #666666;">
+														<img style="vertical-align:middle" src="https://uat.shopper-stop.in/_ui/responsive/common/Emailer/images/shopper-card-icon.png" alt="Gift">
+														${ctx.messages.giftshop}
+													</td>
+												</tr>
+											</table>
+											<table width="170" align="left">
+												<tr>
+													<td width="100%" align="left" style="font-weight:normal;font-size: 14px;line-height:20px;font-family: Myriad Pro, Arial, Helvetica, sans-serif; padding:15px 0; color: #666666;">
+														<img style="vertical-align:middle" src="https://uat.shopper-stop.in/_ui/responsive/common/Emailer/images/truck-icon.png" alt="Gift">
+														${ctx.messages.cashondelivery}
+													</td>
+												</tr>
+											</table>
+											<table width="110" align="left">
+												<tr>
+													<td width="100%" align="left" style="font-weight:normal;font-size: 14px;line-height:20px;font-family: Myriad Pro, Arial, Helvetica, sans-serif;  padding:15px 0; color: #666666;">
+														<img style="vertical-align:middle" src="https://uat.shopper-stop.in/_ui/responsive/common/Emailer/images/laptop-icon.png" alt="Gift">
+														${ctx.messages.netbanking}
+													</td>
+												</tr>
+											</table>
+										</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						<tr>
+								<td>
+									<table style="margin-bottom:1em;" width="640" cellpadding="0" cellspacing="0" border="0" align="center" class="innertable" bgcolor="#000000">
+										<tr>
+											<td style="font-weight:normal;font-size: 14px;line-height:20px;font-family: Myriad Pro, Arial, Helvetica, sans-serif; text-align:center; vertical-align:top; padding:15px 0; color: #ffffff;">
+												${ctx.messages.secureshopping}
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+							
+							<!--End-->
+                        <!-- // END TEMPLATE -->
+						</table>                        	
+                    </td>
+                </tr>
+            </table>	
+    </body>
+</html>

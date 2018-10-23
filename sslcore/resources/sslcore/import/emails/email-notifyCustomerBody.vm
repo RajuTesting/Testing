@@ -1,0 +1,19 @@
+<html>
+<body>
+<ul>
+	<p style="text-transform: capitalize;">
+		Hello $ctx.customerNotificationData.customerName,
+	</p>
+	<p>
+		The product you were interested in, $ctx.customerNotificationData.product.brandName $ctx.customerNotificationData.product.name, is back in stock. Rush to the Shoppers Stop app to buy it before the stocks run out. Please click on the link below.
+		You will be Notified by Email when it becomes available.
+	</p>
+    <p>    
+    </p>
+    <p>
+        Thanks and happy shopping,
+		Shoppers Stop
+    </p>
+</ul>
+</body>
+</html>

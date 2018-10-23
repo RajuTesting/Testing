@@ -1,0 +1,413 @@
+## messageSource=classpath:/sslcore/messages/email-deliverySent_$lang.properties
+#macro( genHtmlBoldFont $text )
+<font color="#414a4f" size="2" face="Arial, Helvetica, sans-serif"><b>$text</b></font>
+#end
+#macro(genHtmlLinkStartTag $url)
+<a href="$url"><font color="#666666">
+#end
+#macro(genHtmlLinkEndTag)
+</font></a>
+#end
+#macro(genHtmlLink $url $textColor $bodyContent)
+<a href="$url"><font color="$textColor">$bodyContent</font></a>
+#end
+	
+	
+<html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+	        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+			<meta  name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0," />
+	        <title>*|MC:SUBJECT|*</title>
+	        <style type="text/css">
+				
+	            @media only screen and (max-width: 568px){
+				
+					.fullWidth { width: 100% !important; max-width: 640px !important;}
+					.pad-10{ padding: 0 10px !important;}
+					.imgWidth{ width: 50%;}
+					.display_none{ display: none !important;}
+					.column{width: 100%;max-width: 100% !important; display: inline-block;vertical-align: top;}
+					.prod_det .column{width: 100%;max-width: 100% !important; display: inline-block;vertical-align: top;}
+				}
+				
+	
+	        .ExternalClass {width:100%;}
+	     
+	        .ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div {line-height:100%;}
+	
+	        body {-webkit-text-size-adjust:none; -ms-text-size-adjust:none;}
+	
+	        body {margin:0; padding:0;}
+	
+	        table {border-spacing:0;}
+	
+	        table td {border-collapse:collapse;}
+	
+	        p {margin:0; padding:0; margin-bottom:0;}
+	
+	        h1, h2, h3, h4, h5, h6 {color:#333333; line-height:100%;}
+	
+	        body, #body_style {width:100% !important; color:#666;  font-family:Arial,Helvetica,sans-serif; font-size:13px; line-height:1.4;}
+	
+	        a         {color:#666; text-decoration:none;}
+	
+	        a:link    {color:#666; text-decoration:none;}
+	        a:visited {color:#444; text-decoration:none;}
+	        a:focus   {color:#333 !important;}
+	        a:hover   {color:#333 !important;}
+	
+	     
+	        a[href^="tel"], a[href^="sms"], a[href^="mailto"] {text-decoration:none; color:#666; pointer-events:none; cursor:default;}
+	        .mobile_link a[href^="tel"], .mobile_link a[href^="sms"] {text-decoration:default; color:#666666 !important; pointer-events:auto; cursor:default;}
+	
+			@-ms-viewport{width:device-width}
+			
+	        @media only screen and (max-width: 640px) {
+				
+				@-ms-viewport{width:100%!important;}
+			
+	            body[yahoo] .table {width:98% !important;}
+				
+				body[yahoo] table td.container-wpr {padding:20px 10px!important;}  
+	
+				body[yahoo] table td.inner-table-white { padding:15px 5px!important;}
+	            body[yahoo] .innertable {width:90% !important;}
+				body[yahoo] .tag-img img{width:100% !important;}
+	         
+	        }
+	
+	       
+	       
+	        table {border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;}
+		
+			</style>
+	    </head>
+	    <body style="width:100% !important;font-family:Arial,Helvetica,sans-serif; font-size:13px; line-height:1.4;">
+	    #set ($accountUrl = "${ctx.baseUrl}/my-account/orders")
+		#if ( $ctx.order.guestCustomer )
+			#set ($orderInfoUrl = "${ctx.baseUrl}/guest/order/${ctx.order.guid}")
+		#else
+			#set ($orderInfoUrl = "${ctx.baseUrl}/my-account/order/${ctx.order.code}")
+		#end
+				<table cellpadding="0" cellspacing="0" border="0" align="center" bgcolor="#FFFFFF" style="width:100% !important; margin:0; padding:0;" id="bodyTable">
+	            	<tr>
+	                	<td align="center" valign="top" id="bodyCell">
+	                    	<!-- BEGIN TEMPLATE // -->
+	                    	  <table width="640" cellpadding="0" cellspacing="0" border="0" align="center" class="table">
+								<tr>
+	                            	<td align="center" valign="top">
+	                                	
+	                                    <table class="fullWidth" bgcolor="#000000" border="0" cellpadding="8" cellspacing="0" style="width:100%;">
+											<tr>
+												<td style="border-right:solid 1px #3c3c3c;">
+													<a href="https://www.shoppersstop.com/store-finder" style="display:inline-block;">
+													<table>
+														<tr>
+															<td class="pad-10" style="padding:0 25px;" align="center">
+																<img src="https://uat.shopper-stop.in/_ui/responsive/common/Emailer/images/notification.png" alt="Notification" width="12" height="17">
+															</td>
+														</tr>
+													</table>
+													</a>
+												</td>
+												<td  align="center" style="border-right:solid 1px #3c3c3c; ">
+													<a href="https://www.shoppersstop.com/trackorders" style="display:inline-block;">
+													<table>
+														<tr>
+															<td class="pad-10" style="padding:0 25px;" align="center">
+																	<img src="https://uat.shopper-stop.in/_ui/responsive/common/Emailer/images/shop_bag.png" alt="Notification" width="12" height="17">
+															</td>
+														</tr>
+													</table>
+													</a>
+												</td>
+												<td align="center" style="padding:0 40px; ">
+													<a href="https://www.shoppersstop.com/" style="display:inline-block;">
+													<table>
+														<tr>
+															<td class="pad-10" style="padding:0 25px;" align="center">
+															<td><img style="width:100% !important; max-width:640px !important;" src="https://uat.shopper-stop.in/_ui/responsive/common/Emailer/images/logo.png"" alt="Logo" width="292" height="50"></td>
+														</tr>
+													</table>
+													</a>
+												</td>
+												<td style="margin:10px 0;color:#ffffff;font-size: 14px;line-height:20px;font-family: Myriad Pro, Arial, Helvetica, sans-serif;">
+													
+													<p class="display_none" style="margin:10px 0;color:#ffffff;font-size: 14px;line-height:20px;font-family: Myriad Pro, Arial, Helvetica, sans-serif;">${ctx.messages.ShopOnlineSlot}</p>
+													
+												</td>
+											</tr>
+										
+										</table>
+	                                    
+	                                </td>
+	                            </tr>
+								
+								<tr>
+									<td>
+										<table  border="0" cellpadding="0" cellspacing="0" style="width:100%;border-bottom: 1px solid #e3e3e3;">
+											<tr>                                   
+												<td style="text-transform:uppercase;color:#666666;font-size: 14px;line-height:20px;font-family: Myriad Pro, Arial, Helvetica, sans-serif; text-align:center; padding:15px 10px;">											
+													${ctx.cmsSlotContents.NavigationBar}
+												</td>											
+											</tr>
+										</table>
+									</td>
+								</tr>		
+											
+	                        	<tr>
+	                            	<td align="center" valign="top">
+	                                	
+	                                    <table style="margin-bottom:1em; margin-top:15px;" width="640" cellpadding="0" cellspacing="0" border="0" align="center" class="innertable">
+	                                        <tr>
+	                                            <td valign="top" class="headerContent" style="text-align:center;">
+	                                            	<table align="center" border="0" cellpadding="0" cellspacing="0" width="95%" style="background-color:#f8f8f8;">
+														<tr>
+															<td width="640" style="font-weight:bold;text-transform:capitalize;font-size: 16px;line-height:20px;font-family: Myriad Pro, Arial, Helvetica, sans-serif; text-align:left; padding:15px; color: #666666;">
+															Dear First Citizen Member,
+															
+															 
+															#*	#if(${ctx.displayName} ==  "Guest")
+																	${ctx.messages.getMessage('salutation',${ctx.consignment.shippingAddress.firstName})},
+																#else
+																	${ctx.messages.getMessage('salutation',${ctx.displayName})},
+																#end
+															*#
+															</td>
+														</tr>
+	
+														<tr>
+														
+															<td style="font-weight:normal;font-size: 16px;line-height:20px;font-family: Myriad Pro, Arial, Helvetica, sans-serif; text-align:left; padding:0 15px 15px; color: #666666;">
+																
+																<p>Welcome to the Shoppers Stop First Citizen Program!</p> 
+																
+																<p>The name Shoppers Stop First Citizen reflects our commitment to offer an exceptional shopping experience to you. </p>
+																
+																<p>Your journey to this rewarding experience would be more delighted with our mobile application. Please download the app
+															 	and confirm your details with us </p>
+															 	
+															 	<p>
+																Customer Name  				: #if(${ctx.displayName} ==  "Guest")
+																									${ctx.consignment.shippingAddress.firstName}
+																								#else
+																									${ctx.displayName}
+																								#end
+																							##${ctx.customerName}
+																</p>
+																
+																<p>				
+																Contact Number 				: ${ctx.contactNumber}
+																</p>															
+																
+																<p>
+																First Citizen Card Number 	: ${ctx.fccNumber}
+																</p>
+																
+																<p>
+																On the outset, we have credited your First Citizen account with a welcome bonus of 100 Bonus Reward Points. And you shall 	
+																continue to earn reward points as and when you shop. 
+																</p>
+																
+																<p>
+																Apart from this, there are exclusive offers and updates that you can look forward to.  
+																Please <a href="${ctx.messages.fccLink}" style="color:#8c1717; text-decoration:underline;">Click here</a> to know the First Citizen benefits at your service. 
+																</p>
+																
+															</td>
+														</tr>
+													</table>
+	                                            </td>
+	                                        </tr>
+	                                    </table>                                   
+	                                </td>
+	                            </tr>
+
+								<!--Instructions-->
+								<tr>
+	                            	<td align="center" valign="top">
+	                                	
+	                                    <table style="margin-bottom:1em;" width="640" cellpadding="0" cellspacing="0" border="0" align="center" class="innertable">
+	                                        <tr>
+	                                            <td valign="top" class="headerContent" style="text-align:center;">
+	                                            	<table align="center" border="0" cellpadding="0" cellspacing="0" width="95%">
+														
+														<tr>
+															<td style="font-weight:normal;font-size: 16px;line-height:20px;padding-bottom:15px; font-family: Myriad Pro, Arial, Helvetica, sans-serif; text-align:left;color: #666;">
+																<p style="padding:0; margin:0;">${ctx.messages.visit} <a href="${ctx.messages.fccShoppersstopLink}" style="color:#8c1717; text-decoration:underline;">${ctx.messages.fccShoppersstop}</a> ${ctx.messages.excitingoffers}</p>
+	
+															</td>
+														</tr>
+														
+														<tr>
+												<td style="font-weight:normal;font-size: 14px;line-height:20px;padding-bottom:15px;font-family: Myriad Pro, Arial, Helvetica, sans-serif; text-align:left;color: #666;">
+													<p style="margin:0; padding:0">${ctx.messages.fccComplimentaryClosing},<br/><strong>${ctx.messages.signature}</strong></p>
+												</td>
+											</tr>
+											<tr>
+												<td style="font-weight:normal;font-size: 14px;line-height:20px;padding-bottom:15px;font-family: Myriad Pro, Arial, Helvetica, sans-serif; text-align:left;color: #666;">
+													<p style="padding:0; margin:0;"><strong>${ctx.messages.ps}</strong>${ctx.messages.automatedemail}.</p>
+												</td>
+											</tr>
+													</table>
+												</td>
+											</tr>
+										</table>
+									</td>
+								</tr>
+								
+							
+								<tr>
+						<td>
+						<img alt=""	style="padding-left: 4%; padding-right: 4%;" src="${ctx.secureBaseUrl}/_ui/responsive/common/Emailer/images/downloadapp.jpg">
+						</td>
+						</tr>
+						
+							<tr>
+	                            	<td align="center" valign="top">
+	                                	
+	                                    <table style="margin-bottom:1em;" width="640" cellpadding="0" cellspacing="0" border="0" align="center" class="innertable">
+	                                        <tr>
+	                                            <td valign="top" class="headerContent" style="text-align:center;">
+	                                            	 <table width="640" cellpadding="0" cellspacing="0" border="0" align="center" class="innertable" style="background-color:#f9f9fa;width:100%;">
+														<tr>
+														<td width="640" align="center">
+															<table width="240" align="left">
+																<tr>
+																	<td width="250" align="center" style="font-weight:normal;font-size: 14px;line-height:20px;font-family: Myriad Pro, Arial, Helvetica, sans-serif; text-align:center; padding:15px 0; color: #666666;">
+																		<img style="vertical-align:middle;" src="https://uat.shopper-stop.in/_ui/responsive/common/Emailer/images/envelope-icon.png" alt="Envelope"> ${ctx.messages.contactUsEmailAddress}
+																	</td>
+																</tr>
+															</table>
+															<table width="400" align="left">
+																<tr>
+																	<td align="center" width="400"  style="font-weight:normal;font-size: 14px;line-height:20px;font-family: Myriad Pro, Arial, Helvetica, sans-serif; text-align:center; padding:15px 0px; color: #666666;">
+																		<img style="vertical-align:middle;" src="https://uat.shopper-stop.in/_ui/responsive/common/Emailer/images/phone-icon.png" alt="Phone"> ${ctx.messages.tollfree}	
+																	</td>
+																</tr>
+															</table>
+														</td>
+														</tr>
+													</table>
+	                                            </td>
+	                                        </tr>
+	                                    </table>
+	                                    
+	                                </td>
+	                            </tr>
+								
+								<!--Icons-->
+								
+								<tr>
+	                            	<td align="center" valign="top">
+	                                	
+	                                    <table style="margin-bottom:1em;" width="640" cellpadding="0" cellspacing="0" border="0" align="center" class="innertable">
+	                                        <tr>
+	                                            <td valign="top" class="headerContent" style="text-align:center;">
+	                                            	<table align="center" border="0" cellpadding="0" cellspacing="0"  style="background-color:#f8f8f8;">
+														<tr>
+															<td width="640" align="center">
+																<table align="left" width="320" border="0"  cellpadding="0" cellspacing="0" class="innertable" style="margin-bottom:1em;">
+																	<tr>
+																		<td width="320" align="center" style="font-weight:normal;font-size: 14px;line-height:20px;font-family: Myriad Pro, Arial, Helvetica, sans-serif; text-align:center; color: #666666; padding-bottom:20px;">
+																			<p style="padding:15px 0 0; margin:0; text-align:center;">${ctx.messages.payby}</p>
+																		</td>
+																	</tr>
+																	<tr>															
+																		<td width="320" align="center">
+																			<img src="https://uat.shopper-stop.in/_ui/responsive/common/Emailer/images/visa.png" alt="Visa">
+																			<img src="https://uat.shopper-stop.in/_ui/responsive/common/Emailer/images/mcard.png" alt="Master Card">
+																			<img src="https://uat.shopper-stop.in/_ui/responsive/common/Emailer/images/amex.png" alt="American Express">
+																		</td>
+																	</tr>
+																</table>
+														
+																<table align="left" width="320" style="margin-bottom:1em;"  cellpadding="0" cellspacing="0" border="0"  class="innertable">
+																	<tr>
+																		<td width="320" align="center" style="font-weight:normal;font-size: 14px;line-height:20px;font-family: Myriad Pro, Arial, Helvetica, sans-serif; text-align:center; color: #666666; padding-bottom:20px;">
+																			<p style="padding:15px 0 0; margin:0; text-align:center;">${ctx.messages.joinus}</p>
+																		</td>
+																	</tr>
+																	<tr>														
+																		<td width="320" align="center">
+																			<a href="${ctx.messages.facebook}"><img src="https://uat.shopper-stop.in/_ui/responsive/common/Emailer/images/fb-icon.png" alt="FB Icon" style="margin:0 10px;"></a>
+																			<a href="${ctx.messages.twitter}"><img src="https://uat.shopper-stop.in/_ui/responsive/common/Emailer/images/tweet-icon.png" alt="Tweet" style="margin:0 10px;"></a>
+																			<a href="${ctx.messages.pinterest}"><img src="https://uat.shopper-stop.in/_ui/responsive/common/Emailer/images/pint-icon.png" alt="Pinterest" style="margin:0 10px;"></a>
+																			<a href="${ctx.messages.googleplus}"><img src="https://uat.shopper-stop.in/_ui/responsive/common/Emailer/images/gplus-icon.png" alt="GPlus"  style="margin:0 10px;"></a>
+																		</td>
+																	</tr>
+																</table>
+															</td>														
+														</tr>
+													</table>
+	                                            </td>
+	                                        </tr>
+	                                    </table>
+	                                    
+	                                </td>
+	                            </tr>
+							
+								<!--Footer-->	
+								<tr>
+									<td>
+										<table style="margin-bottom:1em;" width="640" cellpadding="0" cellspacing="0" border="0" align="center" class="innertable">
+											<tr>
+											<td width="640">
+												<table width="160" align="left">
+													<tr>
+														<td width="100%" align="left" style="font-weight:normal;font-size: 14px;line-height:20px;font-family: Myriad Pro, Arial, Helvetica, sans-serif; padding:15px 0; color: #666666;">
+															<img style="vertical-align:middle" src="https://uat.shopper-stop.in/_ui/responsive/common/Emailer/images/gift-icon.png" alt="Gift">
+															${ctx.messages.firstcitizen}
+														</td>
+													</tr>
+												</table>
+												<table width="200" align="left">
+													<tr>
+														<td width="100%" align="left" style="font-weight:normal;font-size: 14px;line-height:20px;font-family: Myriad Pro, Arial, Helvetica, sans-serif;  padding:15px 0; color: #666666;">
+															<img style="vertical-align:middle" src="https://uat.shopper-stop.in/_ui/responsive/common/Emailer/images/shopper-card-icon.png" alt="Gift">
+															${ctx.messages.giftshop}
+														</td>
+													</tr>
+												</table>
+												<table width="170" align="left">
+													<tr>
+														<td width="100%" align="left" style="font-weight:normal;font-size: 14px;line-height:20px;font-family: Myriad Pro, Arial, Helvetica, sans-serif; padding:15px 0; color: #666666;">
+															<img style="vertical-align:middle" src="https://uat.shopper-stop.in/_ui/responsive/common/Emailer/images/truck-icon.png" alt="Gift">
+															${ctx.messages.cashondelivery}
+														</td>
+													</tr>
+												</table>
+												<table width="110" align="left">
+													<tr>
+														<td width="100%" align="left" style="font-weight:normal;font-size: 14px;line-height:20px;font-family: Myriad Pro, Arial, Helvetica, sans-serif;  padding:15px 0; color: #666666;">
+															<img style="vertical-align:middle" src="https://uat.shopper-stop.in/_ui/responsive/common/Emailer/images/laptop-icon.png" alt="Gift">
+															${ctx.messages.netbanking}
+														</td>
+													</tr>
+												</table>
+											</td>
+											</tr>
+										</table>
+									</td>
+								</tr>
+								
+								<tr>
+									<td>
+										<table style="margin-bottom:1em;" width="640" cellpadding="0" cellspacing="0" border="0" align="center" class="innertable" bgcolor="#000000">
+											<tr>
+												<td width="640" style="font-weight:normal;font-size: 14px;line-height:20px;font-family: Myriad Pro, Arial, Helvetica, sans-serif; text-align:center; vertical-align:top; padding:15px 0; color: #ffffff;">
+													${ctx.messages.secureshopping}
+												</td>
+											</tr>
+										</table>
+									</td>
+								</tr>
+								
+								<!--End-->
+	                        <!-- // END TEMPLATE -->
+							</table>                        	
+	                    </td>
+	                </tr>
+	            </table>	
+	    </body>
+	</html>

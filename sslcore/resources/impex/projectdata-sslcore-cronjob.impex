@@ -1,0 +1,70 @@
+$productCatalog=sslProductCatalog
+$productCatalogVersion=catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+
+
+INSERT_UPDATE CronJob; code[unique=true];job(code);singleExecutable;sessionLanguage(isocode)
+;productEnrichmentWorkflowMonitorJob;productEnrichmentWorkflowMonitorJob;false;en
+ 
+INSERT_UPDATE Trigger;cronjob(code)[unique=true];cronExpression
+#% afterEach: impex.getLastImportedItem().setActivationTime(new Date());
+;productEnrichmentWorkflowMonitorJob; 0 0 0 * * ?
+
+INSERT_UPDATE CronJob; code[unique=true];job(code);singleExecutable;sessionLanguage(isocode)
+;sslMediaUploadCronJob;sslMediaUploadCronJob;false;en
+
+
+#stock level reset nightly
+INSERT_UPDATE ServicelayerJob;code[unique=true];springId;
+;stockLevelResetCronJob;stockLevelResetCronJob
+;startOrderProcessCronJob;startOrderProcessCronJob
+
+INSERT_UPDATE CronJob; code[unique=true];job(code);singleExecutable;sessionLanguage(isocode)
+;stockLevelResetCronJob;stockLevelResetCronJob;false;en
+;startOrderProcessCronJob;startOrderProcessCronJob;false;en
+
+#starts every 12 am 
+INSERT_UPDATE Trigger;cronjob(code)[unique=true];cronExpression
+;stockLevelResetCronJob;0 00 00 ? * *
+;startOrderProcessCronJob;0 0 0/4 1/1 * ? *
+
+INSERT_UPDATE CronJob; code[unique=true];job(code);singleExecutable;sessionLanguage(isocode)
+;customerBirthdayEmailCronJob;customerBirthdayEmailCronJob;false;en
+
+INSERT_UPDATE Trigger;cronjob(code)[unique=true];cronExpression
+;customerBirthdayEmailCronJob;0 00 00 ? * *
+
+#COD Confirmation now nightly - later to 15 minutes
+INSERT_UPDATE ServicelayerJob;code[unique=true];springId;
+;codConfirmationCronJob;codConfirmationCronJob
+
+INSERT_UPDATE CronJob; code[unique=true];job(code);singleExecutable;sessionLanguage(isocode)
+;codConfirmationCronJob;codConfirmationCronJob;false;en
+
+#runs every 15 minutes 
+INSERT_UPDATE Trigger;cronjob(code)[unique=true];cronExpression
+;codConfirmationCronJob;0 0/15 * 1/1 * ? *
+
+#Delivery confirmation
+INSERT_UPDATE ServicelayerJob;code[unique=true];springId;
+;deliveryConfirmationCronJob;deliveryConfirmationCronJob
+
+INSERT_UPDATE CronJob; code[unique=true];job(code);singleExecutable;sessionLanguage(isocode)
+;deliveryConfirmationCronJob;deliveryConfirmationCronJob;false;en
+
+#starts every 12 am 
+INSERT_UPDATE Trigger;cronjob(code)[unique=true];cronExpression
+;deliveryConfirmationCronJob;0 00 00 ? * *
+
+#Transfer accumulated items
+#INSERT_UPDATE ServicelayerJob;code[unique=true];springId;
+#;transferAccumulatedItemsCronJob;transferAccumulatedItemsCronJob
+
+#INSERT_UPDATE AccumulationCronJob; code[unique=true];job(code);singleExecutable;sessionLanguage(isocode)
+#;transferAccumulatedItemsCronJob;transferAccumulatedItemsCronJob;false;en
+
+#starts every 12 am 
+#INSERT_UPDATE Trigger;cronjob(code)[unique=true];cronExpression
+#;transferAccumulatedItemsCronJob;0 0 0/1 1/1 * ? *
+
+INSERT_UPDATE DeliveryCronJob;code[unique=true];job(code);active;sessionLanguage(isocode);carrier(code)
+;EkartConfirmationCronJob;deliveryConfirmationCronJob;false;en;INSTA

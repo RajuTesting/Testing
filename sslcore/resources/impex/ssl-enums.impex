@@ -1,0 +1,67 @@
+$lang=en
+
+INSERT_UPDATE RefundReason;code[unique=true];name[lang=$lang]
+;GoodWill;Correct size received - but product not fitting
+;MissedLinkDeal;Wrong Size Received
+;MispickItemMissing;Wrong Color Received
+;MispickWrongItemDelivered;Wrong Style and Design received
+;WrongDescription;Received different product than ordered
+;ManufacturingFault;Product received in defect condition
+;DamagedInTransit;Product received in damage condition
+;Refused;Product could not be delivered due to unavailability of customer
+;LateDelivery;Product not delivered on time
+;LostInTransit;Extra quantity ordered
+;PriceMatch;Product received with price variance
+;SiteError;Product received with Security tag
+;ReturnInTime;Product received with expired date
+;QualityDislike;Do not like the quality of the product
+
+INSERT_UPDATE ReplacementReason;code[unique=true];name[lang=$lang]
+;GoodWill;Correct size received - but product not fitting
+;MissedLinkDeal;Wrong Size Received
+;MispickItemMissing;Wrong Color Received
+;MispickWrongItemDelivered;Wrong Style and Design received
+;WrongDescription;Received different product than ordered
+;ManufacturingFault;Product received in defect condition
+;DamagedInTransit;Product received in damage condition
+;Refused;Product could not be delivered due to unavailability of customer
+;LateDelivery;Product not delivered on time
+;LostInTransit;Extra quantity ordered
+;PriceMatch;Product received with price variance
+;SiteError;Product received with Security tag
+;ReturnInTime;Product received with expired date
+;QualityDislike;Do not like the quality of the product
+
+
+INSERT_UPDATE StoreFrontRefundReason;code[unique=true];name[lang=$lang]
+;GoodWill;Correct size received - but product not fitting
+;MissedLinkDeal;Wrong Size Received
+;MispickItemMissing;Wrong Color Received
+;MispickWrongItemDelivered;Wrong Style and Design received
+;WrongDescription;Received different product than ordered
+;ManufacturingFault;Product received in defect condition
+;DamagedInTransit;Product received in damage condition
+;Refused;Product could not be delivered due to unavailability of customer
+;LateDelivery;Product not delivered on time
+;LostInTransit;Extra quantity ordered
+;PriceMatch;Product received with price variance
+;SiteError;Product received with Security tag
+;ReturnInTime;Product received with expired date
+;QualityDislike;Do not like the quality of the product
+
+INSERT_UPDATE StoreFrontReplacementReason;code[unique=true];name[lang=$lang]
+;GoodWill;Correct size received - but product not fitting
+;MissedLinkDeal;Wrong Size Received
+;MispickItemMissing;Wrong Color Received
+;MispickWrongItemDelivered;Wrong Style and Design received
+;WrongDescription;Received different product than ordered
+;ManufacturingFault;Product received in defect condition
+;DamagedInTransit;Product received in damage condition
+;Refused;Product could not be delivered due to unavailability of customer
+;LateDelivery;Product not delivered on time
+;LostInTransit;Extra quantity ordered
+;PriceMatch;Product received with price variance
+;SiteError;Product received with Security tag
+;ReturnInTime;Product received with expired date
+;QualityDislike;Do not like the quality of the product
+

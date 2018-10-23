@@ -1,0 +1,146 @@
+## messageSource=classpath:/sslcore/messages/email-abandonedCart_$lang.properties
+#macro( genHtmlBoldFont $text )
+<font color="#414a4f" size="2" face="Arial, Helvetica, sans-serif"><b>$text</b></font>
+#end
+#macro(genHtmlLinkStartTag $url)
+<a href="$url"><font color="#666666">
+#end
+#macro(genHtmlLinkEndTag)
+</font></a>
+#end
+#macro(genHtmlLink $url $textColor $bodyContent)
+<a href="$url"><font color="$textColor">$bodyContent</font></a>
+#end
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<title>All in one Place - shoppersstop.com</title>
+</head>
+<body topmargin="0">
+	<table align="center" bgcolor="#FFFFFF" border="0" cellpadding="0" cellspacing="0" width="600">
+		<tbody>
+			<tr>
+				<td bgcolor="#FFFFFF" style="font-family:Arial, Helvetica, sans-serif, Tahoma; font-size:9px; color:#000000; text-align:center"></td>
+			</tr>
+			<tr>
+				<td bgcolor="#FFFFFF"></td>
+			</tr>
+			<tr>
+				<td align="center" bgcolor="#231F20" style="padding: 5px 0px 5px 0px; text-align:center"><a href="$ctx.secureBaseUrl?utm_source=abandoned&utm_medium=eml&utm_campaign=ss_abandoned&utm_content=logo" target="_blank" title="Shoppers Stop"><img alt="Shoppers Stop" border="0" height="65" src="${ctx.secureBaseUrl}/_ui/responsive/theme-ssl/images/ssl_logo.gif" width="318"></a></td>
+			</tr>
+			<tr>
+			  <td align="center" bgcolor="#FFFFFF" style="padding-top:0px; padding-left:0px; padding-bottom:0px; padding-right:0px;" valign="top">&nbsp;</td>
+		  </tr>
+			<tr>
+			  <td align="center" bgcolor="#FFFFFF" style="padding-top:0px; padding-left:0px; padding-bottom:0px; padding-right:0px;" valign="top"><a href="$ctx.secureBaseUrl/login/checkout?utm_source=abandoned&utm_medium=eml&utm_campaign=ss_abandoned&utm_content=main" target="_blank" title="Hi There Your Shopping Cart Misses You - Complete Your Order"><img alt="Hi There Your Shopping Cart Misses You - Complete Your Order" border="0" height="480" src="${ctx.secureBaseUrl}/_ui/responsive/common/Emailer/images/abandoned_cart_main.jpg" width="600"></a></td>
+		  </tr>
+			<tr>
+			  <td align="center" bgcolor="#FFFFFF" style="padding-top:0px; padding-left:0px; padding-bottom:0px; padding-right:0px;" valign="top">&nbsp;</td>
+		  </tr>
+			<tr>
+			  <td align="center" bgcolor="#FFFFFF" style="font-family:Arial, 'Hoefler Text', 'Liberation Serif', Times, 'Times New Roman', serif; font-size:22px; text-align:center; font-weight:bold; padding-top:20px; padding-bottom:30px; color:#333333;" valign="top">YOUR SHOPPING BAG</td>
+		  </tr>
+		  #foreach($entry in ${ctx.carts.entries})
+		    <tr>
+			  <td align="center" bgcolor="#FFFFFF" style="padding-top:0px; padding-left:0px; padding-bottom:0px; padding-right:0px;" valign="top">
+			    <table width="600" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                    #set($product = ${entry.product})
+                      <td valign="top" width="150"><img alt="$entry.product.name" title="$entry.product.name" height="224" src="$entry.product.images[0].url" width="150"></td>
+                      <td valign="top" style="padding-left:20px;">
+                          <span style="font-family:Arial, 'Hoefler Text', 'Liberation Serif', Times, 'Times New Roman', serif; font-size:18px; text-align:left; font-weight:bold;">
+                            ${entry.product.brandCode}
+                          </span>
+                          <br>
+                          <span style="font-family:Arial, 'Hoefler Text', 'Liberation Serif', Times, 'Times New Roman', serif; font-size:14px; text-align:left;">
+                            ${entry.product.name}
+                          </span>
+                          <br>
+                          <span style="font-family:Arial, 'Hoefler Text', 'Liberation Serif', Times, 'Times New Roman', serif; font-size:12px; text-align:left;">
+                          Color: ${entry.product.selectedColor} | Size: ${entry.product.selectedSize} | Quantity: ${entry.quantity}</span></td>
+                          <td align="right" valign="top" style="font-family:Arial, 'Hoefler Text', 'Liberation Serif', Times, 'Times New Roman', serif; font-size:18px; text-align:left; font-weight:bold;text-align:right; padding-right:10px;">${entry.totalPrice.value}</td>
+                    </tr>
+		        </table>
+		      </td>
+		    </tr>
+			<tr>
+			  <td align="center" bgcolor="#FFFFFF" style="padding-top:0px; padding-left:0px; padding-bottom:0px; padding-right:0px;" valign="top">&nbsp;</td>
+		    </tr>
+		  #end
+		  #############################
+		  <tr>
+			  <td align="right" height="30" bgcolor="#dbd7d7" style="font-family:Arial, 'Hoefler Text', 'Liberation Serif', Times, 'Times New Roman', serif; font-size:18px; text-align:right; font-weight:bold; padding-right:10px;">Payable Amount Rs.${ctx.carts.totalPrice.value}</td>
+		  </tr>
+	      <tr>
+			  <td align="center" bgcolor="#FFFFFF" style="padding-top:0px; padding-left:0px; padding-bottom:0px; padding-right:0px;" valign="top">&nbsp;</td>
+		  </tr>
+          <tr>
+              <td align="center" bgcolor="#FFFFFF" style="padding-top:0px; padding-left:0px; padding-bottom:0px; padding-right:0px;" valign="top">
+              <table width="600" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td width="350" align="left"><a href="$ctx.secureBaseUrl?utm_source=abandoned&utm_medium=eml&utm_campaign=ss_abandoned&utm_content=continueshopping" title="Continue Shopping" target="_blank"><img alt="Continue Shopping" height="60" src="${ctx.secureBaseUrl}/_ui/responsive/theme-ssl/images/continue-shopping.gif" width="252" style="text-align:left; display:block;"></a></td>
+                  <td width="250" align="right"><a href="$ctx.secureBaseUrl/login/checkout?utm_source=abandoned&utm_medium=eml&utm_campaign=ss_abandoned&utm_content=completeyourorder" title="Complete Your Order" target="_blank"><img alt="Complete Your Order" height="60" src="${ctx.secureBaseUrl}/_ui/responsive/theme-ssl/images/checking-out.gif" width="250" style="text-align:right; display:block;"></a></td>
+                </tr>
+              </table>
+              </td>
+		  </tr>
+		  <tr>
+			  <td align="center" bgcolor="#FFFFFF" style="padding-top:0px; padding-left:0px; padding-bottom:0px; padding-right:0px;" valign="top">&nbsp;</td>
+		  </tr>
+	      <tr>
+			  <td bgcolor="#FFFFFF" style="font-family:Arial, 'Hoefler Text', 'Liberation Serif', Times, 'Times New Roman', serif; font-size:12px; text-align:center; color:#333333; padding-bottom:10px;" valign="top">&nbsp;</td>
+		  </tr>
+		  <tr>
+			 <td bgcolor="#FFFFFF" align="center" style="font-family:Arial, 'Hoefler Text', 'Liberation Serif', Times, 'Times New Roman', serif; font-size:12px; text-align:center; color:#333333; padding-bottom:10px;" valign="top">*<a href="$ctx.secureBaseUrl/term-condition" target="_blank" style="text-decoration:none; color:#333333;">T&amp;C Apply</a> | Coupon SS8 is valid on order of Rs.2000 &amp; above</td>
+		  </tr>
+	      <tr>
+			  <td align="center" bgcolor="#FFFFFF" style="padding-top:0px; padding-left:0px; padding-bottom:0px; padding-right:0px;" valign="top">&nbsp;</td>
+		  </tr>
+		  <tr>
+			  <td bgcolor="#FFFFFF" style="font-family:Arial, 'Hoefler Text', 'Liberation Serif', Times, 'Times New Roman', serif; font-size:12px; text-align:center; color:#333333; padding-bottom:10px; font-style:italic;" valign="top" align="center">P.S. This is an automated email. For any assistance, kindly contact our Customer Support.</td>
+		  </tr>
+			<tr>
+				<td bgcolor="#FFFFFF" style="font-family:Arial, 'Hoefler Text', 'Liberation Serif', Times, 'Times New Roman', serif; font-size:18px; text-align:center;padding-top:20px; padding-bottom:10px; color:#333333;" valign="top">Follow us on</td>
+			</tr>
+			<tr>
+				<td align="center" bgcolor="#FFFFFF" style="padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:0px;" valign="top">
+					<table border="0" cellpadding="0" cellspacing="0" width="600">
+						<tr>
+							<td width="150">&nbsp;</td>
+							<td align="center" width="40"><a href="https://www.facebook.com/shoppersstopindia?utm_source=abandoned&utm_medium=eml&utm_campaign=ss_abandoned&utm_content=facebook" target="_blank" title="Facebook"><img alt="Facebook" height="33" src="${ctx.secureBaseUrl}/_ui/responsive/common/Emailer/images/fb-icon.png" width="35"></a></td>
+							<td align="center" width="40"><a href="https://www.instagram.com/shoppers_stop?utm_source=abandoned&utm_medium=eml&utm_campaign=ss_abandoned&utm_content=instagram" target="_blank" title="Instagram"><img alt="Instagram" height="33" src="${ctx.secureBaseUrl}/_ui/responsive/common/Emailer/images/insta-icon.png" width="34"></a></td>
+							<td align="center" width="40"><a href="https://www.youtube.com/user/shoppersstop1991?utm_source=abandoned&utm_medium=eml&utm_campaign=ss_abandoned&utm_content=youtube" target="_blank" title="Youtube"><img alt="Youtube" height="33" src="${ctx.secureBaseUrl}/_ui/responsive/common/Emailer/images/youtube-icon.png" width="35"></a></td>
+							<td align="center" width="40"><a href="https://twitter.com/shoppersstop?utm_source=abandoned&utm_medium=eml&utm_campaign=ss_abandoned&utm_content=logotwitter" target="_blank" title="Twitter"><img alt="Twitter" height="33" src="${ctx.secureBaseUrl}/_ui/responsive/common/Emailer/images/tweet-icon.png" width="35"></a></td>
+							<td align="center" width="40"><a href="https://in.pinterest.com/shoppersstopin?utm_source=abandoned&utm_medium=eml&utm_campaign=ss_abandoned&utm_content=pinterest" target="_blank" title="Pinterest"><img alt="Pinterest" height="33" src="${ctx.secureBaseUrl}/_ui/responsive/common/Emailer/images/pint-icon.png" width="34"></a></td>
+							<td width="150">&nbsp;</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+			  <td bgcolor="#FFFFFF" align="center" style="font-family:Arial, 'Hoefler Text', 'Liberation Serif', Times, 'Times New Roman', serif; font-size:18px; text-align:center; padding-top:20px; padding-bottom:10px; color:#333333;" valign="top">Download the Shoppers Stop Shopping App</td>
+		  </tr>
+			<tr>
+			  <td bgcolor="#FFFFFF" valign="top" align="center"><table width="600" border="0" cellspacing="0" cellpadding="0" align="center">
+			    <tr>
+
+			      <td valign="top" align="right"><a href="https://play.google.com/store/apps/details?id=shoppersstop.shoppersstop&amp;hl=en?utm_source=abandoned&utm_medium=eml&utm_campaign=ss_abandoned&utm_content=googleplay" target="_blank" title="Download the App"><img alt="Download the App" border="0" height="43" src="${ctx.secureBaseUrl}/_ui/responsive/common/Emailer/images/googleplay.gif" width="134" style="text-align:right; display:block;"></a></td>
+			      <td valign="top" width="10"></td>
+			      <td valign="top" align="left"><a href="https://itunes.apple.com/in/app/shoppers-stop/id1047171444?mt=8?utm_source=abandoned&utm_medium=eml&utm_campaign=ss_abandoned&utm_content=appstore" target="_blank" title="Download the App"><img alt="Download the App" border="0" height="43" src="${ctx.secureBaseUrl}/_ui/responsive/common/Emailer/images/appstore.gif" width="134" style="text-align:left; display:block;"></a></td>
+
+		        </tr>
+		      </table></td>
+		  </tr>
+			<tr>
+				<td bgcolor="#FFFFFF" style="font-family:Arial, 'Hoefler Text', 'Liberation Serif', Times, 'Times New Roman', serif; font-size:18px; text-align:center; padding-top:20px; padding-bottom:10px; color:#333333;" valign="top" align="center">We’re Happy to Assist You</td>
+			</tr>
+			<tr>
+			  <td bgcolor="#FFFFFF" style="font-family:Arial, 'Hoefler Text', 'Liberation Serif', Times, 'Times New Roman', serif; font-size:12px; text-align:center; color:#333333; padding-bottom:20px;" valign="top" align="center">Toll Free # 1-800-419-6648 | Email -<a href="mailto: customercare@shoppersstop.com" style="text-decoration:underline; color:#333333;"> customercare@shoppersstop.com</a> | <a href="$ctx.secureBaseUrl/faq?utm_source=abandoned&utm_medium=eml&utm_campaign=ss_abandoned&utm_content=helpfaqs" style="color:#333333; text-decoration:underline" target="_blank">Help / Faqs</a></td>
+		  </tr>
+		</tbody>
+</table>
+
+</body>
+</html>
